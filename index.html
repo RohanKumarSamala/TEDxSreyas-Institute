@@ -1,0 +1,2558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- Always start at the top on refresh — disable browser scroll restoration -->
+    <script>if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; } window.scrollTo(0, 0);</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="TEDx Sreyas Institute — Ideas Worth Spreading. Join us for an unforgettable TEDx experience featuring inspiring speakers, bold ideas, and a passionate community." />
+    <meta name="keywords" content="TEDx, Sreyas Institute, TEDx Sreyas, ideas worth spreading, speakers, event" />
+    <title>TEDx Sreyas Institute | Ideas Worth Spreading</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+    <!-- GSAP (homepage only) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- ═══ HERO STYLES — homepage only, not loaded by other pages ═══ -->
+    <style>
+        /* Selection highlight — TED red */
+        ::selection {
+            background: #E62B1E;
+            color: #fff;
+        }
+
+        /* Spacer */
+        .scroll-space {
+            height: 150vh;
+            width: 100%;
+        }
+
+        /* Stars canvas — fixed so it covers the full viewport at every scroll position */
+        #stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Hero overlay */
+        .hero {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            will-change: transform, opacity;
+        }
+
+        .hero h1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* "Reimagining" */
+        .hero .line-1 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 2.25rem;
+            letter-spacing: 1.08rem;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.9);
+            margin-left: 1.08rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            transform: translateX(5.4rem);
+            transition: all 0.2s ease;
+            contain: layout style;
+            will-change: transform, opacity;
+        }
+
+        .hero .line-1::before,
+        .hero .line-1::after {
+            content: 'Reimagining';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+        .hero .line-1:hover {
+            animation: glitch-skew-line-1 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 2px 2px 0 #0ff, -2px -2px 0 #f0f;
+        }
+
+        @keyframes glitch-skew-line-1 {
+
+            0%,
+            100% {
+                transform: translateX(5.4rem) skew(0deg);
+            }
+
+            20% {
+                transform: translateX(5.4rem) skew(-5deg);
+            }
+
+            40% {
+                transform: translateX(5.4rem) skew(5deg);
+            }
+
+            60% {
+                transform: translateX(5.4rem) skew(-2deg);
+            }
+
+            80% {
+                transform: translateX(5.4rem) skew(2deg);
+            }
+        }
+
+        .hero .line-1:hover::before {
+            animation: glitch-anim 2s alternate-reverse infinite;
+            opacity: 1;
+            color: #f0f;
+            z-index: -1;
+            left: 2px;
+            text-shadow: -2px 0 #0ff;
+        }
+
+        .hero .line-1:hover::after {
+            animation: glitch-anim2 3s alternate-reverse infinite;
+            opacity: 1;
+            color: #0ff;
+            z-index: -2;
+            left: -2px;
+            text-shadow: -2px 0 #f0f;
+        }
+
+        /* "TOMORROW" */
+        .hero .line-2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 7.2rem;
+            line-height: 0.9;
+            font-style: italic;
+            transform: translateX(5.4rem);
+            display: inline-block;
+            color: #e62b1e;
+            filter: drop-shadow(0 15px 45px rgba(230, 43, 30, 0.8));
+            z-index: 1;
+            transition: all 0.2s ease;
+            contain: layout style;
+            will-change: transform, opacity;
+        }
+
+        .hero .line-2::before,
+        .hero .line-2::after {
+            content: 'TOMORROW';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fff 0%, #e62b1e 45%, #6a0000 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+        }
+
+        .hero .line-2:hover {
+            animation: glitch-skew .4s cubic-bezier(.25, .46, .45, .94) both infinite reverse;
+        }
+
+        .hero .line-2:hover::before {
+            animation: glitch-anim3 2.5s alternate-reverse infinite;
+            opacity: .8;
+            left: 4px;
+            background: #fff;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: -2px 0 rgba(255, 255, 255, .8);
+        }
+
+        .hero .line-2:hover::after {
+            animation: glitch-anim4 1.5s alternate-reverse infinite;
+            opacity: .8;
+            left: -4px;
+            background: #fff;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 0 rgba(255, 255, 255, .8);
+        }
+
+        /* Subtitle */
+        .hero .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: #86868b;
+            margin-top: 3.15rem;
+            text-align: center;
+            letter-spacing: 4.5px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .hero .subtitle::before {
+            content: '';
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e62b1e, transparent);
+            box-shadow: 0 0 10px #e62b1e;
+        }
+
+
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.6;
+            gap: 15px;
+        }
+
+        .indicator-text {
+            font-size: .75rem;
+            letter-spacing: 8px;
+            color: #f5f5f7;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        .indicator-line {
+            width: 2px;
+            height: 0;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, .1));
+            box-shadow: 0 0 10px rgba(255, 255, 255, .8), 0 0 20px rgba(255, 255, 255, .5);
+        }
+
+        /* Neural web */
+        .neural-web-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            will-change: transform, opacity;
+            opacity: 0.8;
+            /* Was 1, reduced by 20% per user request */
+        }
+
+        .neural-web {
+            width: 1080px;
+            height: 1080px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1350px;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            transform-style: flat;
+            will-change: transform, opacity;
+        }
+
+        .web-layer {
+            position: absolute;
+            border-radius: 50%;
+            transform-style: flat;
+            transform-origin: center center;
+            will-change: transform, opacity;
+        }
+
+        .central-star {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #fff 0%, #ffeb3b 30%, #ff9900 70%, transparent 100%);
+            border-radius: 50%;
+            border-radius: 50%;
+            z-index: 5;
+            box-shadow: 0 0 32px #ffeb3b, 0 0 64px #ffaa00, 0 0 128px #ff8800;
+            /* Reduced shadows by 20% */
+            animation: starPulse 4s infinite alternate ease-in-out;
+        }
+
+        .node {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px #fff, 0 0 36px #e62b1e, 0 0 64px #e62b1e;
+            /* Reduced glow by 20% */
+        }
+
+        .n1 {
+            top: 15%;
+            left: 85%
+        }
+
+        .n2 {
+            top: 85%;
+            left: 15%;
+            width: 10px;
+            height: 10px
+        }
+
+        .n3 {
+            top: 50%;
+            left: 100%
+        }
+
+        .n4 {
+            top: 0%;
+            left: 50%
+        }
+
+        .n5 {
+            top: 75%;
+            left: 85%
+        }
+
+        .n6 {
+            top: 25%;
+            left: 15%;
+            width: 8px;
+            height: 8px
+        }
+
+        @keyframes starPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(.9);
+                opacity: .8
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.15);
+                /* Slightly bigger pulse */
+                opacity: 1
+            }
+        }
+
+        .layer-1 {
+            width: 100%;
+            height: 100%;
+            border: 3px dashed rgba(230, 43, 30, 0.9);
+            /* Increased alpha from 0.8 */
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(230, 43, 30, 0.7);
+            /* Increased shadow from 0.4 */
+            animation: rotateWeb1 40s linear infinite;
+        }
+
+        .layer-1::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            padding: 4px;
+            background: conic-gradient(from 0deg, transparent 60%, rgba(230, 43, 30, 1) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+        }
+
+        .layer-2 {
+            width: 85%;
+            height: 85%;
+            border: 2px solid rgba(230, 43, 30, .6);
+            /* Boosted alpha from 0.5 */
+            box-shadow: 0 0 60px rgba(230, 43, 30, .8) inset, 0 0 40px rgba(230, 43, 30, .6);
+            /* Boosted shadows */
+            animation: rotateWeb2 30s linear infinite reverse;
+        }
+
+        .layer-2::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: 50%;
+            bottom: 50%;
+            border: 2px solid #e62b1e;
+            border-bottom: none;
+            border-right: none;
+            border-radius: 100% 0 0 0;
+        }
+
+        .layer-3 {
+            width: 70%;
+            height: 70%;
+            border: 4px dashed rgba(230, 43, 30, 1);
+            box-shadow: 0 0 35px rgba(230, 43, 30, .9);
+            /* Increased shadow from 0.7 */
+            animation: rotateWeb3 25s linear infinite;
+        }
+
+        .layer-4 {
+            width: 55%;
+            height: 55%;
+            border: 3px solid rgba(255, 255, 255, .9);
+            /* Boosted alpha from 0.8 */
+            box-shadow: 0 0 30px rgba(255, 255, 255, .7);
+            /* Boosted shadows */
+            animation: rotateWeb4 15s linear infinite reverse;
+        }
+
+        .layer-4::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            padding: 3px;
+            background: conic-gradient(from 180deg, transparent 60%, rgba(255, 255, 255, 1) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+        }
+
+        .layer-5 {
+            width: 35%;
+            height: 35%;
+            border: 2px solid rgba(230, 43, 30, .9);
+            /* Increased alpha from 0.7 */
+            box-shadow: 0 0 40px rgba(230, 43, 30, .8) inset, 0 0 30px rgba(230, 43, 30, .7);
+            /* Increased shadows */
+            animation: rotateWeb5 8s linear infinite;
+        }
+
+        @keyframes rotateWeb1 {
+            0% {
+                transform: rotateX(70deg) rotateY(0deg) rotateZ(0deg)
+            }
+
+            100% {
+                transform: rotateX(70deg) rotateY(360deg) rotateZ(360deg)
+            }
+        }
+
+        @keyframes rotateWeb2 {
+            0% {
+                transform: rotateX(45deg) rotateY(45deg) rotateZ(0deg)
+            }
+
+            100% {
+                transform: rotateX(45deg) rotateY(45deg) rotateZ(360deg)
+            }
+        }
+
+        @keyframes rotateWeb3 {
+            0% {
+                transform: rotateX(60deg) rotateY(80deg) rotateZ(0deg)
+            }
+
+            100% {
+                transform: rotateX(60deg) rotateY(80deg) rotateZ(360deg)
+            }
+        }
+
+        @keyframes rotateWeb4 {
+            0% {
+                transform: rotateX(30deg) rotateY(120deg) rotateZ(0deg)
+            }
+
+            100% {
+                transform: rotateX(30deg) rotateY(120deg) rotateZ(360deg)
+            }
+        }
+
+        @keyframes rotateWeb5 {
+            0% {
+                transform: rotateX(15deg) rotateY(190deg) rotateZ(0deg)
+            }
+
+            100% {
+                transform: rotateX(15deg) rotateY(190deg) rotateZ(360deg)
+            }
+        }
+
+        /* Pause glitch animations while scrolling to prevent scroll jank */
+        html.is-scrolling .hero .line-1:hover,
+        html.is-scrolling .hero .line-2:hover {
+            animation: none !important;
+        }
+
+        html.is-scrolling .hero .line-1:hover::before,
+        html.is-scrolling .hero .line-1:hover::after,
+        html.is-scrolling .hero .line-2:hover::before,
+        html.is-scrolling .hero .line-2:hover::after {
+            animation-play-state: paused !important;
+        }
+
+        /* Pause expensive web layer rotations during GSAP scroll */
+        html.is-scrolling .layer-1,
+        html.is-scrolling .layer-2,
+        html.is-scrolling .layer-3,
+        html.is-scrolling .layer-4,
+        html.is-scrolling .layer-5 {
+            animation-play-state: paused !important;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip-path: inset(20% 0 80% 0)
+            }
+
+            20% {
+                clip-path: inset(60% 0 10% 0);
+                transform: translate(-2px, 2px)
+            }
+
+            40% {
+                clip-path: inset(40% 0 50% 0);
+                transform: translate(2px, -2px)
+            }
+
+            60% {
+                clip-path: inset(10% 0 80% 0)
+            }
+
+            80% {
+                clip-path: inset(80% 0 5% 0);
+                transform: translate(-2px, 2px)
+            }
+
+            100% {
+                clip-path: inset(30% 0 20% 0)
+            }
+        }
+
+        @keyframes glitch-anim2 {
+            0% {
+                clip-path: inset(10% 0 60% 0)
+            }
+
+            20% {
+                clip-path: inset(80% 0 5% 0);
+                transform: translate(2px, -2px)
+            }
+
+            40% {
+                clip-path: inset(30% 0 20% 0)
+            }
+
+            60% {
+                clip-path: inset(50% 0 30% 0);
+                transform: translate(-2px, 2px)
+            }
+
+            80% {
+                clip-path: inset(5% 0 80% 0)
+            }
+
+            100% {
+                clip-path: inset(40% 0 40% 0);
+                transform: translate(2px, -2px)
+            }
+        }
+
+        @keyframes glitch-anim3 {
+            0% {
+                clip-path: inset(5% 0 80% 0);
+                transform: translate(-4px, 1px)
+            }
+
+            20% {
+                clip-path: inset(70% 0 10% 0)
+            }
+
+            40% {
+                clip-path: inset(20% 0 60% 0);
+                transform: translate(4px, -1px)
+            }
+
+            60% {
+                clip-path: inset(80% 0 15% 0)
+            }
+
+            80% {
+                clip-path: inset(10% 0 70% 0);
+                transform: translate(-2px, 2px)
+            }
+
+            100% {
+                clip-path: inset(50% 0 30% 0)
+            }
+        }
+
+        @keyframes glitch-anim4 {
+            0% {
+                clip-path: inset(60% 0 10% 0);
+                transform: translate(4px, -1px)
+            }
+
+            20% {
+                clip-path: inset(10% 0 80% 0)
+            }
+
+            40% {
+                clip-path: inset(80% 0 5% 0);
+                transform: translate(-4px, 1px)
+            }
+
+            60% {
+                clip-path: inset(30% 0 50% 0)
+            }
+
+            80% {
+                clip-path: inset(15% 0 60% 0);
+                transform: translate(2px, -2px)
+            }
+
+            100% {
+                clip-path: inset(70% 0 20% 0)
+            }
+        }
+
+        @keyframes glitch-skew {
+
+            0%,
+            100% {
+                transform: skew(0deg)
+            }
+
+            20% {
+                transform: skew(-5deg)
+            }
+
+            40% {
+                transform: skew(5deg)
+            }
+
+            60% {
+                transform: skew(-2deg)
+            }
+
+            80% {
+                transform: skew(2deg)
+            }
+        }
+
+        /* ── Learn About Us animated circle-arrow button ── */
+        .about-btn-wrap button {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            outline: none;
+            border: 0;
+            vertical-align: middle;
+            text-decoration: none;
+            background: transparent;
+            padding: 0;
+            font-size: inherit;
+            font-family: inherit;
+        }
+
+        .about-btn-wrap button.learn-more {
+            width: 12rem;
+            height: auto;
+        }
+
+        .about-btn-wrap button.learn-more .circle {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            box-shadow: 0 0 8px 1px rgba(180, 20, 15, 0.55);
+            position: relative;
+            display: block;
+            margin: 0;
+            width: 3rem;
+            height: 3rem;
+            background: #c0201a;
+            border-radius: 1.625rem;
+        }
+
+        .about-btn-wrap button.learn-more .circle .icon {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            background: #fff;
+        }
+
+        .about-btn-wrap button.learn-more .circle .icon.arrow {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            left: 0.625rem;
+            width: 1.125rem;
+            height: 0.125rem;
+            background: none;
+        }
+
+        .about-btn-wrap button.learn-more .circle .icon.arrow::before {
+            position: absolute;
+            content: "";
+            top: -0.29rem;
+            right: 0.0625rem;
+            width: 0.625rem;
+            height: 0.625rem;
+            border-top: 0.125rem solid #fff;
+            border-right: 0.125rem solid #fff;
+            transform: rotate(45deg);
+        }
+
+        .about-btn-wrap button.learn-more .button-text {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 0.75rem 0;
+            margin: 0 0 0 1.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 700;
+            line-height: 1.6;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .about-btn-wrap button:hover .circle {
+            width: 100%;
+            box-shadow: 0 0 14px 3px rgba(180, 20, 15, 0.65);
+        }
+
+        .about-btn-wrap button:hover .button-text {
+            transform: translate(-1.7rem, 0);
+            color: #fff;
+        }
+
+        .about-btn-wrap button:hover .circle .icon.arrow {
+            background: #fff;
+            transform: translate(8.7rem, 0);
+        }
+
+        .about-btn-wrap button:active .circle .icon.arrow {
+            transform: translate(9.5rem, 0);
+            transition: all 0.3s;
+        }
+
+        .about-btn-wrap button:active .circle {
+            transform: scale(0.9);
+            transition: all 0.3s;
+            box-shadow: 0 0 6px 1px rgba(150, 15, 10, 0.5);
+        }
+
+        .about-btn-wrap button:active .button-text {
+            color: rgba(255, 255, 255, 0.459);
+        }
+
+        @media(max-width:768px) {
+            .hero .line-1 {
+                font-size: 1.08rem;
+                letter-spacing: .54rem;
+                margin-left: .54rem
+            }
+
+            .hero .line-2 {
+                font-size: 3.6rem;
+                transform: translateX(2.25rem)
+            }
+
+            .hero .subtitle {
+                font-size: .68rem;
+                letter-spacing: 2.7px;
+                margin-top: 2.25rem;
+                max-width: 80%
+            }
+
+            .hero .subtitle::before {
+                top: -1rem;
+                width: 36px
+            }
+        }
+    </style>
+
+    <style>
+        /* ── Section dividers — thin glowing line between panels ── */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            position: relative;
+            z-index: 4;
+            background: radial-gradient(ellipse 60% 100% at 50% 50%,
+                    rgba(230, 43, 30, 0.4) 0%,
+                    rgba(255, 255, 255, 0.06) 45%,
+                    transparent 100%);
+            box-shadow: 0 0 18px rgba(230, 43, 30, 0.1);
+        }
+
+        /* ═══ VENUE SECTION (scoped) ═══ */
+
+        #venue {
+            padding: 0;
+            margin: 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        #venue .v-page {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 72px 48px 96px;
+            zoom: 1.2;
+        }
+
+        #venue .v-header {
+            margin-bottom: 56px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: vRise 0.8s 0.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            text-align: center;
+        }
+
+        @keyframes vRise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes vImgRise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #venue .v-label {
+            display: inline-block;
+            color: var(--ted-red);
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            opacity: 0.7;
+        }
+
+        #venue .v-title {
+            font-size: clamp(2.7rem, 7.2vw, 4.95rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        #venue .v-title em {
+            font-style: normal;
+            color: var(--ted-red);
+        }
+
+        #venue .v-rule {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ted-red), transparent);
+            margin: 16px auto 0;
+            border-radius: 2px;
+        }
+
+        #venue .v-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px 52px;
+            align-items: start;
+        }
+
+        #venue .v-left {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        #venue .v-img-wrap {
+            width: 100%;
+            aspect-ratio: 16/10;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #080808;
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: vImgRise 0.9s 0.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        #venue .v-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: bottom;
+            display: block;
+            opacity: 0.82;
+            transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #venue .v-img-wrap:hover img {
+            opacity: 0.95;
+            transform: scale(1.025);
+        }
+
+        #venue .v-tagline {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid transparent;
+            border-radius: 14px;
+            padding: 22px;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: vRise 0.8s 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            transition: border-color 0.3s ease;
+            position: relative;
+        }
+
+        #venue .v-tagline::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            border: 1px solid transparent;
+            transition: border-color 0.3s ease;
+            pointer-events: none;
+        }
+
+        #venue .v-tagline:hover::after {
+            border-color: rgba(230, 43, 30, 0.5);
+        }
+
+        #venue .v-tey {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--ted-red);
+            opacity: 0.65;
+            margin-bottom: 8px;
+        }
+
+        #venue .v-ttx {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        #venue .v-tsub {
+            margin-top: 7px;
+            font-size: 0.775rem;
+            color: rgba(255, 255, 255, 0.3);
+            line-height: 1.7;
+        }
+
+        #venue .v-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            background: transparent;
+            border: none;
+            overflow: visible;
+        }
+
+        #venue .v-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 22px 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            opacity: 0;
+            transform: translateX(16px);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+        }
+
+        #venue .v-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            border: 1px solid transparent;
+            transition: border-color 0.3s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #venue .v-card.card-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        #venue .v-card.card-visible:hover {
+            background: rgba(230, 43, 30, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(230, 43, 30, 0.1);
+        }
+
+        #venue .v-card.card-visible:hover::after {
+            border-color: rgba(230, 43, 30, 0.5);
+        }
+
+        #venue .v-ci {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #venue .v-card:hover .v-ci {
+            transform: scale(1.12);
+        }
+
+        #venue .v-ci svg {
+            width: 16px;
+            height: 16px;
+            color: rgba(230, 43, 30, 0.65);
+        }
+
+        #venue .v-card:hover .v-ci svg {
+            color: var(--ted-red);
+        }
+
+        #venue .v-ct {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            flex: 1;
+        }
+
+        #venue .v-clabel {
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(230, 43, 30, 0.6);
+            font-weight: 600;
+        }
+
+        #venue .v-cval {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.85);
+            letter-spacing: -0.01em;
+            line-height: 1.35;
+        }
+
+        #venue .v-clink {
+            margin-top: 3px;
+            font-size: 0.63rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(230, 43, 30, 0.55);
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+
+        #venue .v-clink:hover {
+            color: var(--ted-red);
+        }
+
+        @media(max-width:860px) {
+            #venue .v-grid {
+                grid-template-columns: 1fr;
+                gap: 32px
+            }
+        }
+
+        @media(max-width:640px) {
+            #venue .v-page {
+                padding: 48px 20px 72px
+            }
+        }
+
+        /* 2. Venue image: smaller on mobile */
+        @media(max-width:768px) {
+            #venue .v-img-wrap {
+                aspect-ratio: 4 / 3;
+                max-height: 240px;
+            }
+        }
+
+        /* ═══ OUTREACH / SPONSORS SECTION ═══ */
+        #outreach {
+            padding: 0;
+            margin: 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        #outreach .sp-page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 56px 40px 72px;
+        }
+
+        #outreach .sp-header {
+            text-align: center;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: spRise 0.8s 0.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes spRise { to { opacity: 1; transform: translateY(0); } }
+
+        #outreach .sp-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--ted-red);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            opacity: 0.85;
+        }
+        #outreach .sp-label::before,
+        #outreach .sp-label::after {
+            content: '';
+            width: 24px; height: 1px;
+            background: var(--ted-red);
+            opacity: 0.5;
+        }
+
+        #outreach .sp-title {
+            font-size: clamp(2.7rem, 7.2vw, 4.95rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        #outreach .sp-title em { font-style: normal; color: var(--ted-red); }
+
+        #outreach .sp-rule {
+            width: 60px; height: 3px;
+            background: linear-gradient(90deg, var(--ted-red), transparent);
+            margin: 18px auto 0;
+            border-radius: 2px;
+        }
+
+        #outreach .sp-subtitle {
+            margin-top: 20px;
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.38);
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.75;
+        }
+
+        /* ── FEATURED SPONSOR BANNER ── */
+        #outreach .sp-featured {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            background: linear-gradient(120deg, rgba(230,43,30,0.08) 0%, rgba(0,0,0,0) 60%);
+            border: 1px solid rgba(230,43,30,0.25);
+            padding: 48px 52px;
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s cubic-bezier(0.25,1,0.5,1);
+        }
+        #outreach .sp-featured.visible { opacity: 1; transform: translateY(0); }
+        #outreach .sp-featured::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 80% at 0% 50%, rgba(230,43,30,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        #outreach .sp-featured::after {
+            content: 'FEATURED PARTNER';
+            position: absolute;
+            top: 20px; right: 24px;
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--ted-red);
+            opacity: 0.6;
+        }
+
+        #outreach .sp-feat-logo {
+            width: 120px; height: 120px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        #outreach .sp-feat-logo img { width: 80%; height: 80%; object-fit: contain; }
+        #outreach .sp-feat-logo-placeholder {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: rgba(230,43,30,0.6);
+            letter-spacing: -0.05em;
+        }
+        /* Shimmer on logo */
+        #outreach .sp-feat-logo::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%);
+            animation: logoShimmer 3s ease-in-out infinite;
+        }
+        @keyframes logoShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+
+        #outreach .sp-feat-body { flex: 1; }
+        #outreach .sp-feat-tier {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--ted-red);
+            margin-bottom: 10px;
+        }
+        #outreach .sp-feat-tier::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--ted-red);
+            box-shadow: 0 0 8px var(--ted-red);
+        }
+        #outreach .sp-feat-name {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            margin-bottom: 14px;
+        }
+        #outreach .sp-feat-desc {
+            font-size: 0.875rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.5);
+            max-width: 500px;
+            margin-bottom: 24px;
+        }
+
+        #outreach .sp-feat-stats {
+            display: flex;
+            gap: 36px;
+            margin-bottom: 28px;
+        }
+        #outreach .sp-stat { display: flex; flex-direction: column; gap: 2px; }
+        #outreach .sp-stat-val {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--ted-red);
+            letter-spacing: -0.03em;
+        }
+        #outreach .sp-stat-lbl {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+        }
+
+        #outreach .sp-feat-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            background: var(--ted-red);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.25s, box-shadow 0.25s, transform 0.25s;
+            box-shadow: 0 4px 20px rgba(230,43,30,0.35);
+        }
+        #outreach .sp-feat-cta:hover {
+            background: #c4241a;
+            box-shadow: 0 8px 30px rgba(230,43,30,0.5);
+            transform: translateY(-2px);
+        }
+        #outreach .sp-feat-cta svg { width: 14px; height: 14px; }
+
+        /* ── Grid: 3-column single row ── */
+        #outreach .sp-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 300px));
+            gap: 24px;
+            justify-content: center;
+        }
+
+        /* ── CARD: hover-reveal style ── */
+        #outreach .sp-card {
+            width: 100%;
+            height: 360px;
+            background: #1c1c1c;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.25,1,0.5,1),
+                        transform 0.6s cubic-bezier(0.25,1,0.5,1),
+                        box-shadow 0.25s ease;
+            cursor: pointer;
+        }
+        #outreach .sp-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(230,43,30,0.09) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        #outreach .sp-card:nth-child(1) { transition-delay: 0.06s }
+        #outreach .sp-card:nth-child(2) { transition-delay: 0.13s }
+        #outreach .sp-card:nth-child(3) { transition-delay: 0.20s }
+        #outreach .sp-card:nth-child(4) { transition-delay: 0.27s }
+        #outreach .sp-card:nth-child(5) { transition-delay: 0.34s }
+        #outreach .sp-card:nth-child(6) { transition-delay: 0.41s }
+        #outreach .sp-card:nth-child(7) { transition-delay: 0.48s }
+        #outreach .sp-card:nth-child(8) { transition-delay: 0.55s }
+        #outreach .sp-card.visible { opacity: 1; transform: translateY(0); }
+        #outreach .sp-card:hover {
+            transform: scale(1.04) rotate(-1deg);
+            box-shadow: 0 16px 48px rgba(230,43,30,0.22), 0 0 0 1px rgba(230,43,30,0.18);
+        }
+
+        /* Icon — centred, visible by default, floats & blurs on hover */
+        #outreach .sp-icon {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.25s ease-in-out;
+            z-index: 1;
+        }
+        #outreach .sp-icon svg {
+            width: 100%;
+            height: 100%;
+            color: var(--ted-red);
+            opacity: 0.75;
+            transition: 0.25s ease-in-out;
+            filter: drop-shadow(0 0 12px rgba(230,43,30,0.4));
+        }
+        /* Real logo images — no colour tint */
+        #outreach .sp-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: 0.25s ease-in-out;
+            filter: drop-shadow(0 0 10px rgba(230,43,30,0.25));
+        }
+        #outreach .sp-card:hover .sp-icon {
+            width: 100px;
+            height: 100px;
+            filter: blur(18px) brightness(0.35);
+            opacity: 0.8;
+            animation: spFloat 3s ease-in-out infinite;
+        }
+        @keyframes spFloat {
+            0%   { transform: translateY(0); }
+            50%  { transform: translateY(-18px); }
+            100% { transform: translateY(0); }
+        }
+        /* Extra dark overlay on hover for full-image cards */
+        #outreach .sp-card:hover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: rgba(0,0,0,0.45);
+            z-index: 1;
+            pointer-events: none;
+        }
+        #outreach .sp-textbox {
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-align: center;
+            padding: 0 22px;
+            transition: 0.25s ease-in-out;
+            z-index: 3;
+            position: relative;
+        }
+        #outreach .sp-card:hover .sp-textbox { opacity: 1; }
+
+        #outreach .sp-tier {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--ted-red);
+            opacity: 0.8;
+        }
+        #outreach .sp-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #fff;
+            line-height: 1.15;
+        }
+        #outreach .sp-desc {
+            font-size: 0.75rem;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.42);
+        }
+        #outreach .sp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--ted-red);
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: opacity 0.2s;
+            opacity: 0.75;
+        }
+        #outreach .sp-btn:hover { opacity: 1; }
+
+        /* ── Instagram hover button ── */
+        #outreach .sp-insta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #f58529 0%, #dd2a7b 50%, #8134af 100%);
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 14px rgba(221,42,123,0.35);
+            margin-top: 2px;
+        }
+        #outreach .sp-insta-btn svg {
+            width: 12px;
+            height: 12px;
+            flex-shrink: 0;
+        }
+        #outreach .sp-card:hover .sp-insta-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #outreach .sp-insta-btn:hover {
+            box-shadow: 0 4px 22px rgba(221,42,123,0.6);
+            filter: brightness(1.1);
+        }
+
+        @media(max-width:640px) {
+            #outreach .sp-page { padding: 40px 16px 60px; }
+            #outreach .sp-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 90%; margin-left: auto; margin-right: auto; }
+            /* 3. Fix outreach cards: use natural image aspect ratio, not a fixed height */
+            #outreach .sp-card {
+                height: auto !important;
+                aspect-ratio: 1 / 1;
+            }
+            /* Also reset .sp-icon so image fills the whole card */
+            #outreach .sp-card .sp-icon {
+                position: absolute !important;
+                inset: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+            }
+        }
+
+        /* Mobile Optimizations: Replace Hover with Click, Remove Unnecessary Animations */
+        @media (max-width: 768px) {
+            /* Fix zoom bug on mobile which destroys text crispness */
+            #venue .v-page { zoom: 1 !important; }
+
+            /* ── Hero: GPU isolation for smooth compositing ── */
+            /* drop-shadow filter on TOMORROW forces a full repaint every frame on iOS — swap for box-shadow instead */
+            .hero .line-2 {
+                filter: none !important;
+                /* Use a cheaper text-shadow as visual substitute */
+                text-shadow: 0 10px 40px rgba(230,43,30,0.55) !important;
+                /* Isolate to own GPU layer */
+                isolation: isolate;
+            }
+            /* line-1 text-shadow also causes CPU repaints — simplify */
+            .hero .line-1 {
+                text-shadow: 0 0 20px rgba(255,255,255,0.3) !important;
+            }
+            /* Glitch animations are hover-only; no hover on mobile — disable ghost pseudo-elements */
+            .hero .line-1::before, .hero .line-1::after,
+            .hero .line-2::before, .hero .line-2::after {
+                display: none !important;
+            }
+            /* Hero subtitle line — cheaper glow */
+            .hero .subtitle::before {
+                box-shadow: none !important;
+            }
+            /* Layer inset box-shadows can't be GPU-composited — strip them */
+            .layer-2, .layer-5 {
+                box-shadow: 0 0 30px rgba(230,43,30,0.4) !important;
+            }
+            /* layer-1 outer glow — simplify */
+            .layer-1 {
+                box-shadow: 0 0 18px rgba(230,43,30,0.4) !important;
+            }
+            .layer-3 {
+                box-shadow: 0 0 20px rgba(230,43,30,0.5) !important;
+            }
+            .layer-4 {
+                box-shadow: 0 0 18px rgba(255,255,255,0.3) !important;
+            }
+            /* Central star — reduce shadow spread to save GPU */
+            .central-star {
+                box-shadow: 0 0 24px #ffeb3b, 0 0 48px #ffaa00 !important;
+            }
+
+            /* ── Neural web: zoomed in on mobile ── */
+            .neural-web-container {
+                transform: scale(1.45) !important;
+                transform-origin: center center;
+            }
+            .neural-web {
+                width: 640px !important;
+                height: 520px !important;
+            }
+
+            /* 1. Remove continuous/unnecessary glitch animations on mobile, keep neutral web */
+            .hero .line-1:hover { animation: none !important; text-shadow: 0 0 30px rgba(255, 255, 255, 0.5) !important; }
+            .hero .line-1:hover::before, .hero .line-1:hover::after { display: none !important; }
+            .hero .line-2:hover { animation: none !important; }
+            .hero .line-2:hover::before, .hero .line-2:hover::after { display: none !important; }
+            
+            /* 2. Suppress default hover styles for cards — do NOT resize sp-icon (image fills card) */
+            #venue .v-img-wrap:hover img { transform: none !important; opacity: 0.82 !important; }
+            #venue .v-tagline:hover::after { border-color: transparent !important; }
+            #venue .v-card.card-visible:hover { background: rgba(255, 255, 255, 0.03) !important; transform: none !important; box-shadow: none !important; }
+            #venue .v-card:hover .v-ci { transform: scale(1) !important; }
+            #venue .v-card:hover .v-ci svg { color: rgba(230, 43, 30, 0.65) !important; }
+            #venue .v-clink:hover { color: rgba(230, 43, 30, 0.55) !important; }
+
+            #outreach .sp-card:hover { transform: none !important; box-shadow: none !important; }
+            /* Keep sp-icon filling the card on tap — only suppress the filter/animation, NOT the size */
+            #outreach .sp-card:hover .sp-icon { filter: none !important; animation: none !important; }
+            #outreach .sp-card:hover::after { content: none !important; }
+            #outreach .sp-card:hover .sp-textbox { opacity: 0 !important; }
+            #outreach .sp-card:hover .sp-insta-btn { opacity: 0 !important; transform: translateY(6px) !important; }
+            
+            /* 3. Apply styles when .mobile-active is triggered via click */
+            /* Removed transforms below to prevent blurry anti-aliasing problems on mobile devices */
+            #venue .v-img-wrap.mobile-active img { transform: scale(1.025) !important; opacity: 0.95 !important; }
+            #venue .v-tagline.mobile-active::after { border-color: rgba(230, 43, 30, 0.5) !important; }
+            #venue .v-card.card-visible.mobile-active { background: rgba(230, 43, 30, 0.05) !important; box-shadow: 0 8px 24px rgba(230, 43, 30, 0.1) !important; }
+            #venue .v-card.mobile-active .v-ci { transform: scale(1.12) !important; }
+            #venue .v-card.mobile-active .v-ci svg { color: var(--ted-red) !important; }
+
+            #outreach .sp-card.mobile-active { box-shadow: 0 16px 48px rgba(230,43,30,0.22), 0 0 0 1px rgba(230,43,30,0.18) !important; }
+            /* Darken the background image in-place — do NOT resize it */
+            #outreach .sp-card.mobile-active .sp-icon { filter: brightness(0.3) !important; }
+            #outreach .sp-card.mobile-active::after { content: '' !important; position: absolute !important; inset: 0 !important; border-radius: 20px !important; background: rgba(0,0,0,0.35) !important; z-index: 1 !important; pointer-events: none !important; }
+            #outreach .sp-card.mobile-active .sp-textbox { opacity: 1 !important; }
+            #outreach .sp-card.mobile-active .sp-insta-btn { opacity: 1 !important; transform: translateY(0) !important; }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- Global Loader -->
+    <div id="global-loader" class="global-loader" aria-hidden="true">
+        <video id="loader-video" src="assets/images/Loading.mp4" autoplay muted playsinline preload="auto"
+            disablepictureinpicture disableremoteplayback x-webkit-airplay="deny" decoding="async"></video>
+    </div>
+    <!-- Starry Background -->
+    <canvas id="stars"></canvas>
+
+    <!-- Neural Web Matrix Component -->
+    <div class="neural-web-container">
+        <div class="neural-web">
+            <div class="central-star"></div>
+            <div class="parallax-layer layer-1-p">
+                <div class="web-layer layer-1">
+                    <div class="node n1"></div>
+                    <div class="node n2"></div>
+                    <div class="node n3"></div>
+                </div>
+            </div>
+            <div class="parallax-layer layer-2-p">
+                <div class="web-layer layer-2"></div>
+            </div>
+            <div class="parallax-layer layer-3-p">
+                <div class="web-layer layer-3">
+                    <div class="node n4"></div>
+                </div>
+            </div>
+            <div class="parallax-layer layer-4-p">
+                <div class="web-layer layer-4">
+                    <div class="node n5"></div>
+                    <div class="node n6"></div>
+                </div>
+            </div>
+            <div class="parallax-layer layer-5-p">
+                <div class="web-layer layer-5"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Hero Content -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1 class="title">
+                <span class="line-1">Reimagining</span>
+                <span class="line-2 italic">TOMORROW</span>
+            </h1>
+            <p class="subtitle">An exploration of ideas that shatter boundaries.</p>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="indicator-text">DISCOVER</div>
+            <div class="indicator-line"></div>
+        </div>
+    </div>
+
+    <!-- Spacer to allow for scrolling through hero -->
+    <div class="scroll-space"></div>
+
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="navbar-inner">
+
+            <a href="index.html" class="nav-logo" aria-label="TEDx Sreyas Institute Home">
+                <img src="assets/images/tedx-logo.png" alt="TEDx Sreyas Institute" class="nav-logo-img" />
+            </a>
+
+            <div class="nav-center">
+                <div class="nav-links-container">
+                    <ul class="nav-links" role="list">
+                        <div class="nav-active-bg" aria-hidden="true"></div>
+                        <li><a href="index.html" class="active" id="nav-home">Home</a></li>
+                        <li><a href="speakers.html" id="nav-speakers">Speakers</a></li>
+                        <li><a href="schedule.html" id="nav-schedule">Schedule</a></li>
+                        <li><a href="team.html" id="nav-team">Team</a></li>
+                        <li><a href="gallery.html" id="nav-gallery">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="nav-divider"></div>
+                <a href="booking.html" class="nav-cta" id="nav-book">
+                    <span class="cta-shine"></span>
+                    <span class="cta-border"></span>
+                    <span>
+                        Book Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <div class="nav-hamburger-inner">
+                    <span></span><span></span><span></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="nav-mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile Navigation">
+        <a href="index.html">Home</a>
+        <a href="speakers.html">Speakers</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="team.html">Team</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html" style="color:var(--ted-red); font-weight:700;">Book Now</a>
+    </div>
+
+
+
+    <main>
+
+        <!-- ── About Section ── (hidden initially, revealed after hero animation) -->
+        <section class="section" id="about" aria-label="About TEDx Sreyas Institute" style="position:relative;">
+            <div class="container" style="position:relative;z-index:1;">
+
+                <!-- Heading — centred across full page width -->
+                <div style="text-align:center;margin-bottom:48px;">
+                    <span style="
+                        display: block;
+                        font-family: 'Inter', sans-serif;
+                        font-size: 0.79rem;
+                        font-weight: 600;
+                        letter-spacing: 6px;
+                        text-transform: uppercase;
+                        color: var(--ted-red);
+                        opacity: 0.85;
+                        margin-bottom: 14px;
+                    ">Our Story</span>
+                    <h2 style="
+                        font-family: 'Inter', sans-serif;
+                        font-size: clamp(3.3075rem, 7.441875vw, 5.292rem);
+                        font-weight: 900;
+                        letter-spacing: -0.02em;
+                        line-height: 1;
+                        text-transform: uppercase;
+                        color: #fff;
+                        margin: 0 0 16px;
+                    ">
+                        ABOUT <span style="color:var(--ted-red);text-transform:none;">TEDx</span>
+                    </h2>
+                    <div style="
+                        width: 60px;
+                        height: 3px;
+                        background: linear-gradient(90deg, var(--ted-red), transparent);
+                        margin: 0 auto;
+                        border-radius: 2px;
+                    "></div>
+                </div>
+
+                <!-- Two-column: video on left | paragraphs + button on right -->
+                <div class="about-grid">
+
+                    <!-- LEFT: Video -->
+                    <div class="about-media">
+                        <div class="video-decor video-decor--tl"></div>
+                        <div class="video-decor video-decor--br"></div>
+                        <div class="about-video-box" aria-label="TEDx speaker video">
+                            <video src="assets/images/tedx-speakers.mp4" autoplay muted loop playsinline
+                                preload="metadata"
+                                style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;position:relative;z-index:2;"
+                                aria-label="TEDx Sreyas Institute speaker highlights"></video>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Paragraphs + button -->
+                    <div class="about-content reveal">
+                        <p style="color:rgba(255,255,255,0.8);line-height:1.8;font-size:calc(var(--font-size-lg) * 1.05);margin-bottom:var(--space-6);text-align:left;">
+                            TEDxSreyas Institute is an independently organized TED event that brings together
+                            innovators, thinkers, and change-makers from diverse fields to share ideas worth spreading.
+                            In alignment with TED's mission, our goal is to spark meaningful discussions, inspire new
+                            perspectives, and foster strong connections within our community.
+                        </p>
+                        <p style="color:rgba(255,255,255,0.8);line-height:1.8;font-size:calc(var(--font-size-lg) * 1.05);margin-bottom:var(--space-8);text-align:left;">
+                            Organized by the students of Sreyas Institute of Engineering and Technology, TEDxSreyas
+                            Institute serves as a platform to showcase innovative ideas and inspiring stories that
+                            challenge conventional thinking and encourage impactful conversations.
+                        </p>
+                        <a href="about.html" class="nav-cta"
+                            style="display:inline-flex;text-decoration:none;padding:12px 28px;font-size:14px;width:max-content;"
+                            aria-label="Learn About Us">
+                            <span class="cta-shine"></span>
+                            <span class="cta-border"></span>
+                            <span>
+                                Learn More
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+        <!-- ── Countdown Section ── -->
+        <section class="countdown-section" id="countdown-section" aria-label="Event Countdown">
+            <div class="container">
+                <div class="countdown-section-inner">
+                    <div class="countdown-section-header reveal">
+                        <span class="section-label">Event Countdown</span>
+                        <h2 class="countdown-heading">
+                            IMPACT <span style="color: var(--ted-red);">IN</span>
+                        </h2>
+                        <div
+                            style="width:60px;height:3px;background:linear-gradient(90deg,var(--ted-red),transparent);margin:16px auto 0;border-radius:2px;">
+                        </div>
+                    </div>
+                    <div class="countdown reveal" id="countdown"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ── Venue Section (inlined) ── -->
+        <section id="venue" aria-label="Event Venue">
+            <div class="v-page">
+                <div class="v-header">
+                    <div class="v-label">Event Details</div>
+                    <h2 class="v-title">Venue <span style="color:var(--ted-red);">&amp;</span> <span
+                            style="color:#ffffff;">Date</span></h2>
+                    <div class="v-rule"></div>
+                </div>
+                <div class="v-grid">
+                    <!-- LEFT -->
+                    <div class="v-left">
+                        <div class="v-img-wrap">
+                            <img src="assets/images/new-venue.jpg" alt="TEDx Sreyas Institute event hall"
+                                class="v-img-wrap-img"
+                                style="width:100%;height:100%;object-fit:cover;object-position:bottom;display:block;opacity:0.82;transition:opacity 0.4s ease,transform 0.6s cubic-bezier(0.25,1,0.5,1);" />
+                        </div>
+
+                    </div>
+                    <!-- RIGHT -->
+                    <div class="v-right">
+                        <div class="v-card">
+                            <div class="v-ci">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="3" />
+                                    <path d="M16 2v4M8 2v4M3 10h18" />
+                                </svg>
+                            </div>
+                            <div class="v-ct">
+                                <div class="v-clabel">Date</div>
+                                <div class="v-cval">4th July 2026</div>
+                            </div>
+                        </div>
+                        <div class="v-card">
+                            <div class="v-ci">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 21S5 13.5 5 8.5a7 7 0 0114 0c0 5-7 12.5-7 12.5z" />
+                                    <circle cx="12" cy="8.5" r="2.5" />
+                                </svg>
+                            </div>
+                            <div class="v-ct">
+                                <div class="v-clabel">Venue</div>
+                                <div class="v-cval">Sreyas Institute of Engineering &amp; Technology<br>Hyderabad,
+                                    Telangana</div>
+                                <a class="v-clink"
+                                    href="https://www.google.com/maps/search/Sreyas+Institute+of+Engineering+and+Technology+Nagole+Hyderabad"
+                                    target="_blank" rel="noopener noreferrer">Get Directions ↗</a>
+                            </div>
+                        </div>
+                        <div class="v-card">
+                            <div class="v-ci">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M12 7v5l3 3" />
+                                </svg>
+                            </div>
+                            <div class="v-ct">
+                                <div class="v-clabel">Time</div>
+                                <div class="v-cval">9:00 AM – 5:00 PM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+            (function () {
+                var vcards = document.querySelectorAll('#venue .v-card');
+                var vobs = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        if (e.isIntersecting) {
+                            var c = e.target;
+                            setTimeout(function () { c.classList.add('card-visible'); }, +(c.dataset.vdelay || 0));
+                            vobs.unobserve(c);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                vcards.forEach(function (c, i) { c.dataset.vdelay = i * 90; vobs.observe(c); });
+            }());
+        </script>
+
+        <!-- ── Outreach Partners Section ── -->
+        <section id="outreach" aria-label="Outreach Partners">
+            <div class="sp-page">
+
+                <!-- Header -->
+                <div class="sp-header">
+                    <div class="sp-label">Collaboration &amp; Community</div>
+                    <h2 class="sp-title">Outreach <em>Partners</em></h2>
+                    <div class="sp-rule"></div>
+                    <p class="sp-subtitle">We are grateful to our outreach partners whose support helped make TEDxSreyas Institute a reality — bringing ideas worth spreading to our community.</p>
+                </div>
+
+                <!-- Hover hint -->
+                <p style="
+                    text-align: center;
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    letter-spacing: 3px;
+                    text-transform: uppercase;
+                    color: rgba(255,255,255,0.6);
+                    margin-bottom: 24px;
+                    animation: hintPulse 2.5s ease-in-out infinite;
+                ">
+                    <span style="margin-right:4px;"></span> Hover over a card for more info
+                </p>
+                <style>
+                    @keyframes hintPulse {
+                        0%, 100% { opacity: 0.6; }
+                        50%       { opacity: 1; }
+                    }
+                </style>
+
+                <!-- 3-column partner grid -->
+                <div class="sp-grid">
+
+                    <!-- Card 1 -->
+                    <div class="sp-card">
+                        <div class="sp-icon" style="position:absolute;inset:0;width:100%;height:100%;border-radius:20px;overflow:hidden;">
+                            <img src="assets/images/outreach/raaha.png" alt="Raaha Logo" style="width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+                        </div>
+                        <div class="sp-textbox">
+                            <div class="sp-tier">Outreach Partner</div>
+                            <div class="sp-name">Raaha</div>
+                            <div class="sp-desc">Raaha Retreat is a serene sanctuary where comfort meets community — a proud outreach partner nurturing the spirit of ideas and well-being.</div>
+                            <a href="https://www.instagram.com/raaha_retreat/" class="sp-insta-btn" target="_blank" rel="noopener" aria-label="Raaha on Instagram">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                    <circle cx="12" cy="12" r="5"/>
+                                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                                </svg>
+                                Instagram
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="sp-card">
+                        <div class="sp-icon" style="position:absolute;inset:0;width:100%;height:100%;border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0a0a0a;">
+                            <img src="assets/images/outreach/sponsernew.png" alt="CinemaIP Logo" style="width:85%;height:85%;object-fit:contain;opacity:0.92;transform:scale(1.35);" />
+                        </div>
+                        <div class="sp-textbox">
+                            <div class="sp-tier">Outreach Partner</div>
+                            <div class="sp-name">CinemaIP</div>
+                            <div class="sp-desc">A proud outreach partner supporting our vision to bring amazing ideas to life.</div>
+                            <a href="https://cinemaip.ai/" class="sp-btn" target="_blank" rel="noopener">Visit Website &#x2197;</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="sp-card">
+                        <div class="sp-icon" style="position:absolute;inset:0;width:100%;height:100%;border-radius:20px;overflow:hidden;">
+                            <img src="assets/images/outreach/WhatsApp Image 2026-04-01 at 12.32.53 PM.jpeg" alt="Babai Hotel Logo" style="width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+                        </div>
+                        <!-- Text (fades in on hover) -->
+                        <div class="sp-textbox">
+                            <div class="sp-tier">Hotel Partner</div>
+                            <div class="sp-name">Babai Hotel</div>
+                            <div class="sp-desc">Serving authentic flavours in Nagole &amp; Bandlaguda, Babai Hotel ensured our out-of-town guests and speakers were well-fed and warmly hosted throughout the event.</div>
+                            <a href="https://maps.app.goo.gl/4z2mgjeGpBmg2jaS8" class="sp-btn" target="_blank" rel="noopener">Visit &#x2197;</a>
+                            <a href="https://www.instagram.com/babaihotelnagole?igsh=NzB5Zmtqbnh4MnVy" class="sp-insta-btn" target="_blank" rel="noopener" aria-label="Babai Hotel on Instagram">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                    <circle cx="12" cy="12" r="5"/>
+                                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                                </svg>
+                                Instagram
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="sp-card">
+                        <div class="sp-icon" style="position:absolute;inset:0;width:100%;height:100%;border-radius:20px;overflow:hidden;">
+                            <img src="assets/images/outreach/Hand&Home.png" alt="Hand&Home Logo" style="width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+                        </div>
+                        <div class="sp-textbox">
+                            <div class="sp-tier">Outreach Partner</div>
+                            <div class="sp-name">Hand&amp;Home</div>
+                            <div class="sp-desc">Hand&amp;Home brings warmth and creativity into every space — a proud outreach partner helping us build a community where ideas truly feel at home.</div>
+                            <a href="https://www.instagram.com/handandhome.in?igsh=MWNzNzZyZHc5eDZvcw==" class="sp-insta-btn" target="_blank" rel="noopener" aria-label="Hand&Home on Instagram">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                    <circle cx="12" cy="12" r="5"/>
+                                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                                </svg>
+                                Instagram
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="sp-card">
+                        <div class="sp-icon" style="position:absolute;inset:0;width:100%;height:100%;border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0a0a0a;">
+                            <img src="assets/images/outreach/i20fever-logo-1.png" alt="i20fever Yathapu Consulting Logo" style="width:110%;height:110%;object-fit:contain;opacity:0.92;filter:drop-shadow(0 0 18px rgba(230,43,30,0.3));" onerror="this.style.display='none';this.parentElement.querySelector('.sp-logo-fallback').style.display='flex';" />
+                            <div class="sp-logo-fallback" style="display:none;flex-direction:column;align-items:center;gap:6px;">
+                                <span style="font-size:2rem;font-weight:900;letter-spacing:-0.04em;color:rgba(230,43,30,0.75);">i20</span>
+                                <span style="font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);">fever</span>
+                            </div>
+                        </div>
+                        <div class="sp-textbox">
+                            <div class="sp-tier">Outreach Partner</div>
+                            <div class="sp-name">i20fever</div>
+                            <div class="sp-desc">Yathapu Consulting's i20fever is a trusted resource for students navigating the I-20 & US immigration journey — guiding futures with expertise and care.</div>
+                            <a href="https://i20fever.com/" class="sp-btn" target="_blank" rel="noopener">Visit Website &#x2197;</a>
+                            <!-- Instagram links -->
+                            <div style="display:flex;flex-direction:column;gap:6px;align-items:center;margin-top:4px;">
+                                <a href="https://www.instagram.com/aski20fever?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="sp-insta-btn" target="_blank" rel="noopener" aria-label="i20fever Official Instagram" style="opacity:1;transform:translateY(0);font-size:0.55rem;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                        <circle cx="12" cy="12" r="5"/>
+                                        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                                    </svg>
+                                    Official Page
+                                </a>
+                                <a href="https://www.instagram.com/i20fever_lbnagar?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="sp-insta-btn" target="_blank" rel="noopener" aria-label="i20fever LB Nagar Instagram" style="opacity:1;transform:translateY(0);font-size:0.55rem;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                        <circle cx="12" cy="12" r="5"/>
+                                        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                                    </svg>
+                                    LB Nagar
+                                </a>
+                                <a href="https://www.instagram.com/swarna.i20fever?igsh=bXcwZTk0NGFhb3J3" class="sp-insta-btn" target="_blank" rel="noopener" aria-label="Swarna i20fever Instagram" style="opacity:1;transform:translateY(0);font-size:0.55rem;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                        <circle cx="12" cy="12" r="5"/>
+                                        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                                    </svg>
+                                    Swarna
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="sp-card">
+                        <div class="sp-icon" style="position:absolute;inset:0;width:100%;height:100%;border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0a0a0a;">
+                            <img src="assets/images/outreach/maac.png" alt="MAAC Logo" style="width:120%;height:120%;object-fit:contain;opacity:0.92;" />
+                        </div>
+                        <div class="sp-textbox">
+                            <div class="sp-tier">Outreach Partner</div>
+                            <div class="sp-name">MAAC</div>
+                            <div class="sp-desc">A proud outreach partner empowering creative minds and helping bring amazing ideas to life.</div>
+                            <a href="https://maacnallagandla.com" class="sp-btn" target="_blank" rel="noopener">Visit Website &#x2197;</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 7 -->
+                    <div class="sp-card">
+                        <div class="sp-icon" style="position:absolute;inset:0;width:100%;height:100%;border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0a0a0a;">
+                            <img src="assets/images/outreach/Captain-Kunafa-07.png" alt="Captain Kunafa Logo" style="width:85%;height:85%;object-fit:contain;opacity:0.92;" />
+                        </div>
+                        <div class="sp-textbox">
+                            <div class="sp-tier">Outreach Partner</div>
+                            <div class="sp-name">Captain Kunafa</div>
+                            <div class="sp-desc">Serving authentic indulgence, Captain Kunafa proudly supports our vision to inspire and bring amazing ideas to life.</div>
+                            <a href="https://www.instagram.com/captainkunafa.in?igsh=dzdnYXI2MWw2b21x" class="sp-insta-btn" target="_blank" rel="noopener" aria-label="Captain Kunafa on Instagram">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                    <circle cx="12" cy="12" r="5"/>
+                                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                                </svg>
+                                Instagram
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 8 -->
+                    <div class="sp-card">
+                        <div class="sp-icon" style="position:absolute;inset:0;width:100%;height:100%;border-radius:20px;overflow:hidden;">
+                            <img src="assets/images/outreach/campa.jpeg" alt="Campa Drink" style="width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+                        </div>
+                        <div class="sp-textbox">
+                            <div class="sp-tier">Beverage Partner</div>
+                            <div class="sp-name">Campa</div>
+                            <div class="sp-desc">India's iconic homegrown cool drink, Campa kept every attendee refreshed and energised &mdash; because the best ideas spark when you're at your freshest.</div>
+                            <a href="https://www.instagram.com/officialcampa/" class="sp-insta-btn" target="_blank" rel="noopener" aria-label="Campa on Instagram">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                    <circle cx="12" cy="12" r="5"/>
+                                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                                </svg>
+                                Instagram
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Card 9 -->
+                    <div class="sp-card">
+                        <div class="sp-icon" style="position:absolute;inset:0;width:100%;height:100%;border-radius:20px;overflow:hidden;">
+                            <img src="assets/images/outreach/image.png" alt="Aurveil Jewellery Logo" style="width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+                        </div>
+                        <div class="sp-textbox">
+                            <div class="sp-tier">Outreach Partner</div>
+                            <div class="sp-name">Aurveil Jewellery</div>
+                            <div class="sp-desc">A proud outreach partner supporting our vision to inspire and bring amazing ideas to life.</div>
+                            <a href="https://www.instagram.com/aurveil.jewellery?igsh=YXI0bmw5YWZxam9u" class="sp-insta-btn" target="_blank" rel="noopener" aria-label="Aurveil Jewellery on Instagram">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                    <circle cx="12" cy="12" r="5"/>
+                                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                                </svg>
+                                Instagram
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        
+            </div>
+        </section>
+        <script>
+            (function () {
+                var spcards = document.querySelectorAll('#outreach .sp-card');
+                var spio = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        if (e.isIntersecting) { e.target.classList.add('visible'); spio.unobserve(e.target); }
+                    });
+                }, { threshold: 0.1 });
+                spcards.forEach(function (c) { spio.observe(c); });
+
+                // Also animate featured banner and CTA
+                var extras = document.querySelectorAll('#outreach .sp-featured, #outreach .sp-cta-wrap');
+                var extObs = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        if (e.isIntersecting) { e.target.classList.add('visible'); extObs.unobserve(e.target); }
+                    });
+                }, { threshold: 0.12 });
+                extras.forEach(function (el) { extObs.observe(el); });
+            }());
+        </script>
+
+
+    </main>
+
+
+    <script src="main.js"></script>
+    <script>
+        /* ── Hero Section Logic (inline, no separate file) ── */
+        (function () {
+            gsap.registerPlugin(ScrollTrigger);
+
+            /* ── Instant state fix on refresh-while-scrolled ── */
+            (function () {
+                var scrollSpace = document.querySelector('.scroll-space');
+                if (!scrollSpace) return;
+                var spaceBottom = scrollSpace.offsetTop + scrollSpace.offsetHeight;
+                if (window.scrollY >= spaceBottom) {
+                    // Already past the hero zone — only hide the neural web rings
+                    var nw = document.querySelector('.neural-web-container');
+                    if (nw) { nw.style.opacity = '0'; nw.style.pointerEvents = 'none'; }
+                }
+            }());
+
+            /* ── Starfield ── */
+            var canvas = document.getElementById('stars');
+            var ctx = canvas.getContext('2d');
+            var W, H, particles = [];
+            var TWO_PI = Math.PI * 2;
+            var savedX = sessionStorage.getItem('cursorX');
+            var savedY = sessionStorage.getItem('cursorY');
+            var mouseX = savedX !== null ? parseFloat(savedX) : window.innerWidth / 2;
+            var mouseY = savedY !== null ? parseFloat(savedY) : window.innerHeight / 2;
+
+            function initStars() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+                particles = [];
+                var n = Math.floor(Math.min(1200, (W * H) / 1500));
+                for (var i = 0; i < n; i++) {
+                    particles.push({
+                        x: Math.random() * W, y: Math.random() * H,
+                        bx: Math.random() * W, by: Math.random() * H,
+                        r: Math.random() * 1.4 + 0.2,
+                        op: Math.random(), spd: Math.random() * 0.012 + 0.004,
+                        wt: Math.random() * TWO_PI, ws: Math.random() * 0.4 + 0.1
+                    });
+                }
+            }
+
+            function drawStars() {
+                ctx.clearRect(0, 0, W, H);
+                var mr = 220, mrSq = mr * mr;
+                for (var i = 0; i < particles.length; i++) {
+                    var p = particles[i];
+                    p.op += p.spd;
+                    if (p.op > 1 || p.op < 0.1) p.spd = -p.spd;
+                    p.wt += 0.015 * p.ws;
+                    p.bx += Math.cos(p.wt) * p.ws * 0.3;
+                    p.by += Math.sin(p.wt) * p.ws * 0.3;
+                    if (p.bx > W + 30) p.bx = -30;
+                    if (p.bx < -30) p.bx = W + 30;
+                    if (p.by > H + 30) p.by = -30;
+                    if (p.by < -30) p.by = H + 30;
+                    var tx = p.bx, ty = p.by;
+                    var dx = p.x - mouseX, dy = p.y - mouseY;
+                    var dSq = dx * dx + dy * dy;
+                    if (dSq < mrSq) {
+                        var d = Math.sqrt(dSq);
+                        var f = (mr - d) / mr;
+                        tx = p.bx + (dx / d) * f * 120;
+                        ty = p.by + (dy / d) * f * 120;
+                    }
+                    p.x += (tx - p.x) * 0.06;
+                    p.y += (ty - p.y) * 0.06;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, TWO_PI);
+                    ctx.fillStyle = 'rgba(255,255,255,' + (p.op * 0.75) + ')';
+                    ctx.fill();
+                }
+            }
+
+            document.addEventListener('mousemove', function (e) {
+                if (window.__loaderActive) return;
+                mouseX = e.clientX; mouseY = e.clientY;
+            });
+            window.addEventListener('resize', initStars);
+            initStars();
+
+            var gx = mouseX, gy = mouseY;
+            var neuralWeb = document.querySelector('.neural-web');
+
+            /* ── RAF loop — pauses automatically once hero is off-screen ── */
+            var heroActive = true; // set to false by ScrollTrigger onLeave
+
+            function loop() {
+                requestAnimationFrame(loop);
+                if (window.__loaderActive) return;
+                // Always draw stars — heroActive only controls neural web parallax
+                drawStars();
+
+                if (!heroActive) return; // skip neural web parallax when hero is gone
+
+                // Skip mouse parallax on touch devices — no cursor, saves battery
+                if (window.innerWidth <= 768) return;
+
+                // Smooth Lerp for Parallax
+                gx += (mouseX - gx) * 0.05;
+                gy += (mouseY - gy) * 0.05;
+
+                // Neural Web Parallax
+                if (neuralWeb) {
+                    var cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+                    var mx = ((gx - cx) / cx) * 35;
+                    var my = ((gy - cy) / cy) * 35;
+                    var tiltX = ((gy - cy) / cy) * -20;
+                    var tiltY = ((gx - cx) / cx) * 20;
+                    gsap.set(neuralWeb, { x: mx, y: my, rotationX: tiltX, rotationY: tiltY });
+                    gsap.set('.layer-1-p', { x: mx * 0.3, y: my * 0.3 });
+                    gsap.set('.layer-2-p', { x: mx * 0.5, y: my * 0.5 });
+                    gsap.set('.layer-3-p', { x: mx * 0.8, y: my * 0.8 });
+                    gsap.set('.layer-4-p', { x: mx * 1.1, y: my * 1.1 });
+                    gsap.set('.layer-5-p', { x: mx * 1.5, y: my * 1.5 });
+                }
+            }
+            loop();
+
+            /* ── Hero Intro Animation (only plays if user is near the top) ── */
+            var introTl = gsap.timeline();
+            var _spaceEl = document.querySelector('.scroll-space');
+            var _spaceBottom = _spaceEl ? _spaceEl.offsetTop + _spaceEl.offsetHeight : 0;
+            if (window.scrollY < _spaceBottom) {
+            introTl
+                .fromTo('.hero .line-1',
+                    { opacity: 0, y: 30, filter: 'blur(10px)' },
+                    { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power4.out', clearProps: 'filter' }, 0)
+                .fromTo('.hero .line-2',
+                    { opacity: 0, x: -30, filter: 'blur(10px)' },
+                    { opacity: 1, x: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power4.out', clearProps: 'filter' }, 0.15)
+                .fromTo('.hero .subtitle',
+                    { opacity: 0, y: 20 },
+                    { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' }, 0.3)
+                .fromTo('.neural-web-container',
+                    { opacity: 0, scale: 0.85 },
+                    { opacity: 0.75, scale: 1, duration: 1.2, ease: 'power3.out' }, 0)
+                .fromTo('.indicator-text',
+                    { opacity: 0, y: -15 },
+                    { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 0.6)
+                .fromTo('.indicator-line',
+                    { height: 0 },
+                    { height: 80, duration: 0.9, ease: 'expo.inOut' }, 0.8);
+            } // end: only play intro when near top
+
+            /* ── Scroll-Driven Hero Exit + About Reveal ── */
+            var aboutSection = document.getElementById('about');
+            var aboutRevealed = false;
+
+            // Start about section hidden
+            if (aboutSection) gsap.set(aboutSection, { opacity: 0, y: 50 });
+
+            // The scroll animation is scoped to ONLY the .scroll-space div (150vh).
+            // This means the full hero exit plays over exactly that scroll distance.
+            /* ── Disable hover glitch animations while scrolling to avoid jank ── */
+            var isScrolling = false;
+            var scrollEndTimer;
+            window.addEventListener('scroll', function () {
+                if (!isScrolling) {
+                    isScrolling = true;
+                    document.documentElement.classList.add('is-scrolling');
+                }
+                clearTimeout(scrollEndTimer);
+                scrollEndTimer = setTimeout(function () {
+                    isScrolling = false;
+                    document.documentElement.classList.remove('is-scrolling');
+                }, 150);
+            }, { passive: true });
+
+            var scrollTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.scroll-space',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 1,
+                    onLeave: function () {
+                        // heroActive = false; // keep background animating
+                        var heroEl = document.querySelector('.hero');
+                        var spaceEl = document.querySelector('.scroll-space');
+                        if (heroEl) heroEl.style.pointerEvents = 'none';
+                        if (spaceEl) spaceEl.style.pointerEvents = 'none';
+                        if (!aboutRevealed) {
+                            aboutRevealed = true;
+                            gsap.to(aboutSection, {
+                                opacity: 1, y: 0, duration: 1.2, ease: 'power3.out',
+                                onComplete: function () {
+                                    if (aboutSection) {
+                                        aboutSection.querySelectorAll('.reveal').forEach(function (el) {
+                                            el.classList.add('visible');
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    },
+                    onEnterBack: function () {
+                        heroActive = true; // resume RAF when scrolling back up
+                        var heroEl = document.querySelector('.hero');
+                        var spaceEl = document.querySelector('.scroll-space');
+                        if (heroEl) heroEl.style.pointerEvents = '';
+                        if (spaceEl) spaceEl.style.pointerEvents = '';
+                        aboutRevealed = false;
+                        if (aboutSection) gsap.to(aboutSection, { opacity: 0, y: 50, duration: 0.35, ease: 'power2.in' });
+                    }
+                }
+            });
+
+            var isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                // Mobile: neural web stays static (no scale/rotate scroll jank).
+                // Just fade it out smoothly as the user scrolls away.
+                scrollTl
+                    .fromTo('.neural-web-container',
+                        { opacity: 0.75 },
+                        { opacity: 0, ease: 'none', immediateRender: false }, 0)
+                    .to('.hero-content', { y: -80, opacity: 0, force3D: true, ease: 'none' }, 0)
+                    .to('.scroll-indicator', { opacity: 0, ease: 'none' }, 0);
+            } else {
+                // Desktop: full cinematic zoom + ring rotation scroll animation.
+                scrollTl
+                    .fromTo('.neural-web-container',
+                        { scale: 1, opacity: 0.75 },
+                        { scale: 2.2, opacity: 0, ease: 'none', immediateRender: false }, 0)
+                    .to('.layer-1-p', { rotation: 45, ease: 'none', force3D: true }, 0)
+                    .to('.layer-2-p', { rotation: -60, ease: 'none', force3D: true }, 0)
+                    .to('.layer-3-p', { rotation: 90, ease: 'none', force3D: true }, 0)
+                    .to('.layer-4-p', { rotation: -120, ease: 'none', force3D: true }, 0)
+                    .to('.layer-5-p', { rotation: 180, ease: 'none', force3D: true }, 0)
+                    .to('.hero-content', { y: -120, opacity: 0, scale: 3.5, force3D: true, ease: 'none' }, 0)
+                    .to('.scroll-indicator', { opacity: 0, ease: 'none' }, 0);
+            }
+
+            /* ── Stars: bright in hero, consistent softer level everywhere below ── */
+            var starsCanvas = document.getElementById('stars');
+            // By putting this in the scrub timeline with fromTo, it works perfectly going up OR down
+            scrollTl.fromTo(starsCanvas,
+                { opacity: 1 },
+                { opacity: 0.35, ease: 'none' }, 0
+            );
+
+
+        }());
+    </script>
+        <!-- FOOTER -->
+    <style>
+    .sfs{position:relative;z-index:1;background:#080808;overflow:hidden;}
+    .sfs::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(230,43,30,0) 15%,rgba(230,43,30,.7) 40%,#E62B1E 50%,rgba(230,43,30,.7) 60%,rgba(230,43,30,0) 85%,transparent 100%);box-shadow:0 0 22px rgba(230,43,30,.35);}
+    .sfs-watermark{position:absolute;right:-2vw;bottom:-8%;pointer-events:none;user-select:none;opacity:0.06;font-family:'Inter','Arial Black',sans-serif;font-size:clamp(7rem,20vw,18rem);font-weight:900;color:#ffffff;line-height:1;letter-spacing:-0.04em;white-space:nowrap;}
+    .sfs-inner{max-width:1280px;margin:0 auto;padding:64px 5vw 0;display:flex;gap:72px;align-items:flex-start;position:relative;z-index:2;}
+    .sfs-brand{flex:0 0 280px;}
+    .sfs-logo{margin-bottom:20px;}
+    .sfs-logo-img{height:48px;width:auto;display:block;}
+    .sfs-desc{font-family:'Inter',sans-serif;font-size:0.93rem;color:rgba(255,255,255,0.32);line-height:1.75;margin-bottom:24px;}
+    .sfs-socials{display:flex;gap:10px;margin-bottom:32px;}
+    .sfs-social-btn{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .25s,border-color .25s,transform .22s;}
+    .sfs-social-btn:hover{background:rgba(230,43,30,.12);border-color:rgba(230,43,30,.35);transform:translateY(-3px);}
+    .sfs-social-btn svg{width:16px;height:16px;fill:rgba(255,255,255,0.45);transition:fill .25s;}
+    .sfs-social-btn:hover svg{fill:#E62B1E;}
+    .sfs-copy{font-family:'Inter',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.18);margin-bottom:5px;}
+    .sfs-disclaimer{font-family:'Inter',sans-serif;font-size:0.74rem;color:rgba(255,255,255,0.1);}
+    .sfs-cols{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;}
+    .sfs-col-h{display:block;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:16px;position:relative;padding-bottom:10px;}
+    .sfs-col-h::after{content:'';position:absolute;bottom:0;left:0;width:18px;height:1px;background:rgba(230,43,30,0.55);}
+    .sfs-col a{display:flex;align-items:center;gap:5px;font-family:'Inter',sans-serif;font-size:0.93rem;color:rgba(255,255,255,0.42);text-decoration:none;margin-bottom:11px;transition:color .2s,gap .2s;}
+    .sfs-col a::before{content:'';width:3px;height:3px;border-radius:50%;background:#E62B1E;opacity:0;transition:opacity .2s;flex-shrink:0;}
+    .sfs-col a:hover{color:#fff;gap:9px;}
+    .sfs-col a:hover::before{opacity:1;}
+    .sfs-bottom{position:relative;z-index:2;margin-top:48px;border-top:1px solid rgba(255,255,255,0.05);padding:20px 5vw;display:flex;align-items:center;justify-content:space-between;}
+    .sfs-bottom-left{font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(255,255,255,0.18);}
+    .sfs-bottom-right{font-family:'Inter',sans-serif;font-size:0.72rem;color:rgba(255,255,255,0.12);display:flex;align-items:center;gap:5px;}
+    .sfs-bottom-right span{color:#E62B1E;}
+    @media(max-width:920px){.sfs-inner{flex-direction:column;gap:40px;}.sfs-brand{flex:none;width:100%;}.sfs-bottom{flex-direction:column;gap:8px;text-align:center;}}
+    @media(max-width:600px){.sfs-cols{grid-template-columns:1fr 1fr;gap:24px;}}
+    </style>
+    <footer class="sfs" aria-label="Site Footer">
+      <div class="sfs-watermark" aria-hidden="true">TEDx</div>
+      <div class="sfs-inner">
+        <div class="sfs-brand">
+          <div class="sfs-logo">
+            <img src="assets/images/tedx-logo.png" alt="TEDx Sreyas Institute" class="sfs-logo-img" />
+          </div>
+          <p class="sfs-desc">Ideas Worth Spreading — An independently organized TEDx event at Sreyas Institute of Engineering &amp; Technology, Hyderabad.</p>
+          <div class="sfs-socials">
+            <a href="https://www.instagram.com/tedxsreyas_institute/" target="_blank" rel="noopener" class="sfs-social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/results?search_query=TEDx+Sreyas+Institute" target="_blank" rel="noopener" class="sfs-social-btn" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="https://x.com/TEDxSreyas" target="_blank" rel="noopener" class="sfs-social-btn" aria-label="X (Twitter)">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+          <p class="sfs-copy">All rights reserved &copy; 2026 TEDxSreyas.</p>
+          <p class="sfs-disclaimer">This independent TEDx event is operated under license from TED.</p>
+        </div>
+        <div class="sfs-cols">
+          <div class="sfs-col"><span class="sfs-col-h">Event</span><a href="about.html">About</a><a href="speakers.html">Speakers</a><a href="team.html">Team</a><a href="schedule.html">Schedule</a><a href="gallery.html">Gallery</a></div>
+          <div class="sfs-col"><span class="sfs-col-h">Socials</span><a href="https://www.instagram.com/tedxsreyas_institute/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/results?search_query=TEDx+Sreyas+Institute" target="_blank" rel="noopener">YouTube</a><a href="https://x.com/TEDxSreyas" target="_blank" rel="noopener">X (Twitter)</a></div>
+          <div class="sfs-col"><span class="sfs-col-h">Legal</span><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></div>
+          <div class="sfs-col"><span class="sfs-col-h">Get Involved</span><a href="booking.html">Register</a></div>
+        </div>
+      </div>
+      <div class="sfs-bottom">
+        <div class="sfs-bottom-left">All rights reserved &copy; 2026 TEDxSreyas &nbsp;&middot;&nbsp; Hyderabad, India</div>
+
+      </div>
+    </footer>
+    <script src="page-transition.js"></script>
+    <script>
+        // Mobile tap-to-show logic for cards
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.innerWidth <= 768) {
+                const interactables = document.querySelectorAll('#outreach .sp-card, #venue .v-card, #venue .v-img-wrap, #venue .v-tagline');
+                
+                interactables.forEach(el => {
+                    el.addEventListener('click', (e) => {
+                        if (e.target.closest('a') && e.target.closest('a').href) {
+                            return; // let the link work naturally
+                        }
+                        
+                        const currentlyActive = el.classList.contains('mobile-active');
+                        interactables.forEach(other => other.classList.remove('mobile-active'));
+                        
+                        if (!currentlyActive) {
+                            el.classList.add('mobile-active');
+                        }
+                    });
+                });
+
+                document.addEventListener('click', (e) => {
+                    const isInteractable = e.target.closest('#outreach .sp-card, #venue .v-card, #venue .v-img-wrap, #venue .v-tagline');
+                    if (!isInteractable) {
+                        interactables.forEach(el => el.classList.remove('mobile-active'));
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

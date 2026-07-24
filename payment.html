@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Complete Payment — TEDx Sreyas Institute</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--red:#E62B1E;--bg:#07090e;--surface:rgba(255,255,255,.03);--border:rgba(255,255,255,.08);--muted:rgba(255,255,255,.45);--font:'Inter',sans-serif;}
+::selection{background:var(--red);color:#fff;}
+html,body{min-height:100vh;background:var(--bg);color:#fff;font-family:var(--font);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 45% at 50% 0%,rgba(100,10,22,.28) 0%,transparent 70%),linear-gradient(160deg,#07090e 0%,#050709 60%,#07090e 100%);}
+canvas#sc{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;}
+.page{position:relative;z-index:2;min-height:100vh;padding:90px 1rem 5rem;display:flex;flex-direction:column;align-items:center;}
+
+/* ── Warning Banner ── */
+.warn-bar{width:min(700px,96vw);margin-bottom:1.4rem;padding:.85rem 1.2rem;
+  background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-left:4px solid var(--red);border-radius:8px;
+  display:flex;align-items:flex-start;gap:.8rem;animation:fadeUp .6s ease both;}
+.warn-icon{color:var(--red);flex-shrink:0;display:flex;margin-top:3px;}
+.warn-text{font-size:.8rem;color:#ffcc00;line-height:1.6;}
+.warn-text strong{color:#ffe600;text-shadow: 0 0 8px rgba(255, 204, 0, 0.2);}
+.warn-list {margin-top: .4rem; padding-left: 1.2rem; list-style-type: disc;}
+.warn-list li {margin-bottom: .2rem;}
+.warn-highlight {font-weight: 700; text-shadow: 0 0 8px rgba(255, 204, 0, 0.4);}
+
+/* ── Timer ── */
+.timer-block{width:min(700px,96vw);background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:1.2rem 1.5rem;margin-bottom:1.2rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  animation:fadeUp .65s .05s ease both;}
+.timer-label{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.timer-display{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:.08em;color:#fff;line-height:1;transition:color .3s;}
+.timer-display.urgent{color:var(--red);text-shadow:0 0 20px rgba(230,43,30,.6);animation:timerPulse 1s infinite;}
+@keyframes timerPulse{0%,100%{opacity:1;}50%{opacity:.6;}}
+.timer-bar-wrap{flex:1;min-width:120px;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;}
+.timer-bar{height:100%;background:linear-gradient(90deg,var(--red),#ff6b6b);border-radius:2px;transition:width 1s linear;}
+
+/* ── Main Grid ── */
+.main-grid{width:min(700px,96vw);display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;animation:fadeUp .7s .1s ease both;}
+@media(max-width:560px){.main-grid{grid-template-columns:1fr;}}
+
+/* ── Cards ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.4rem;}
+.card-title{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+.card-title::before{content:'';width:3px;height:.9rem;background:var(--red);border-radius:2px;}
+
+/* ── Booking Summary ── */
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.summary-row:last-child{border-bottom:none;}
+.sr-label{font-size:.78rem;color:var(--muted);}
+.sr-val{font-size:.85rem;font-weight:500;color:rgba(255,255,255,.9);text-align:right;max-width:60%;}
+.amount-big{font-size:1.7rem;font-weight:800;color:#fff;letter-spacing:-.03em;}
+
+/* ── QR Card ── */
+.qr-wrap{display:flex;flex-direction:column;align-items:center;gap:.8rem;}
+#qr-code{width:180px;height:180px;background:rgba(255,255,255,.06);border-radius:14px;display:flex;align-items:center;justify-content:center;padding:6px;border:2px solid rgba(255,255,255,.12);}
+#qr-code img{width:100%;height:100%;border-radius:10px;object-fit:contain;}
+.qr-badge{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:-.3rem;}
+.upi-id-box{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;text-align:center;}
+.upi-id-box .lbl{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.upi-id-box .val{font-size:.72rem;font-weight:700;color:#fff;word-break:break-all;letter-spacing:.01em;margin-top:.2rem;}
+.copy-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;padding:.65rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-family:var(--font);font-size:.72rem;cursor:pointer;transition:all .2s;letter-spacing:.05em;text-transform:uppercase;font-weight:600;}
+.copy-btn:hover{background:rgba(255,255,255,.08);color:#fff;}
+
+.pay-steps{font-size:.72rem;color:var(--muted);line-height:1.8;list-style:none;margin-top:.4rem;}
+.pay-steps li::before{content:"→ ";color:var(--red);}
+
+/* ── Payment Form ── */
+.pay-form-card{width:min(700px,96vw);background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.4rem;margin-top:1.2rem;animation:fadeUp .75s .15s ease both;}
+.field{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;}
+.field label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+.field input{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;font-family:var(--font);font-size:.9rem;color:#fff;outline:none;transition:border-color .25s,box-shadow .25s;width:100%;}
+.field input::placeholder{color:rgba(255,255,255,.2);}
+.field input:focus{border-color:rgba(230,43,30,.6);box-shadow:0 0 0 3px rgba(230,43,30,.12);}
+.field input.error{border-color:#ff4444;}
+.field-error{font-size:.7rem;color:#ff6b6b;display:none;}
+.field-error.show{display:block;}
+
+/* ── File Upload ── */
+.upload-zone{border:1.5px dashed rgba(255,255,255,.2);border-radius:12px;padding:2rem 1.5rem;text-align:center;cursor:pointer;transition:all .25s;position:relative;background:rgba(255,255,255,.015);}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--red);background:rgba(230,43,30,.03);}
+.upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.upload-icon{color:var(--muted);margin-bottom:.8rem;display:flex;justify-content:center;transition:color .25s;}
+.upload-zone:hover .upload-icon{color:var(--red);}
+.upload-text{font-size:.78rem;color:var(--muted);}
+.upload-text strong{color:#fff;}
+.upload-preview{width:100%;max-height:120px;object-fit:contain;border-radius:8px;margin-top:.8rem;display:none;}
+.file-name{font-size:.72rem;color:var(--muted);margin-top:.4rem;display:none;}
+
+.btn-submit{width:100%;margin-top:.4rem;padding:1rem;background:linear-gradient(135deg,#c41230,var(--red));border:none;border-radius:12px;color:#fff;font-family:var(--font);font-size:.9rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;box-shadow:0 6px 28px rgba(230,43,30,.4);}
+.btn-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 36px rgba(230,43,30,.55);}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed;}
+.btn-inner{display:flex;align-items:center;justify-content:center;gap:.7rem;position:relative;z-index:1;}
+.spin{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.btn-cancel{width:100%;margin-top:.8rem;padding:.9rem;background:transparent;border:1px solid var(--border);border-radius:12px;color:var(--muted);font-family:var(--font);font-size:.85rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;}
+.btn-cancel:hover{background:rgba(255,255,255,.05);color:#fff;}
+
+/* ── Expired / Success Overlays ── */
+.overlay{position:fixed;inset:0;z-index:900;background:rgba(7,9,14,.97);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.2rem;padding:2rem;text-align:center;opacity:0;pointer-events:none;transition:opacity .4s;}
+.overlay.show{opacity:1;pointer-events:all;}
+.overlay-icon{display:flex;justify-content:center;margin-bottom:.5rem;}
+.overlay h2{font-size:1.6rem;font-weight:800;}
+.overlay p{font-size:.9rem;color:var(--muted);max-width:420px;line-height:1.7;}
+.overlay .btn-home{margin-top:.5rem;padding:.75rem 2rem;background:var(--red);border:none;border-radius:10px;color:#fff;font-family:var(--font);font-size:.85rem;font-weight:700;cursor:pointer;letter-spacing:.1em;text-transform:uppercase;}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(120%);background:#1a1a1a;border:1px solid var(--border);border-radius:12px;padding:.8rem 1.4rem;font-size:.85rem;color:#fff;z-index:999;transition:transform .35s cubic-bezier(.22,.68,0,1.1),opacity .3s,visibility .3s;white-space:normal;max-width:min(90vw,400px);text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.5);opacity:0;visibility:hidden;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible;}
+.toast.error{border-color:rgba(255,68,68,.4);}
+.toast.success{border-color:rgba(34,197,94,.4);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<canvas id="sc"></canvas>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/images/tedx-logo.png" alt="TEDx Sreyas Institute" class="nav-logo-img"/></a>
+    <div class="nav-center">
+      <div class="nav-links-container"><ul class="nav-links" role="list"><div class="nav-active-bg"></div>
+        <li><a href="index.html">Home</a></li><li><a href="speakers.html">Speakers</a></li>
+        <li><a href="schedule.html">Schedule</a></li><li><a href="team.html">Team</a></li>
+        <li><a href="gallery.html">Gallery</a></li></ul></div>
+      <div class="nav-divider"></div>
+      <a href="booking.html" class="nav-cta"><span class="cta-shine"></span><span class="cta-border"></span><span>Register</span></a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false"><div class="nav-hamburger-inner"><span></span><span></span><span></span></div></button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="mobile-menu"><a href="index.html">Home</a><a href="booking.html" style="color:var(--ted-red);font-weight:700;">Register</a></div>
+
+<main class="page" id="main-page">
+  <!-- Warning -->
+  <div class="warn-bar">
+    <div class="warn-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+    </div>
+    <div class="warn-text">
+      <strong>Important Instructions:</strong>
+      <ul class="warn-list">
+        <li>Your seat is temporarily reserved. Complete payment within <strong>7 minutes</strong>.</li>
+        <li><strong>Do not refresh or leave this page</strong> or your spot will be released.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Timer -->
+  <div class="timer-block">
+    <div>
+      <div class="timer-label">Reservation Expires In</div>
+      <div class="timer-display" id="timer-display">07:00</div>
+    </div>
+    <div class="timer-bar-wrap"><div class="timer-bar" id="timer-bar" style="width:100%"></div></div>
+  </div>
+
+  <!-- Summary + QR Grid -->
+  <div class="main-grid">
+    <!-- Booking Summary -->
+    <div class="card">
+      <div class="card-title">Booking Summary</div>
+      <div class="summary-row"><span class="sr-label">Name</span><span class="sr-val" id="s-name">–</span></div>
+      <div class="summary-row"><span class="sr-label">Email</span><span class="sr-val" id="s-email">–</span></div>
+      <div class="summary-row"><span class="sr-label">Ticket Type</span><span class="sr-val" id="s-slab">–</span></div>
+      <div class="summary-row"><span class="sr-label">Event Date</span><span class="sr-val">4 July 2026</span></div>
+      <div class="summary-row"><span class="sr-label">Venue</span><span class="sr-val">Sreyas Institute, Hyd</span></div>
+      <div class="summary-row" style="margin-top:.4rem;padding-top:.8rem;border-top:1px dashed rgba(255,255,255,.15);">
+        <span class="sr-label" style="font-weight:600;color:var(--muted);">Total Amount</span>
+        <span class="amount-big" id="s-amount">₹–</span>
+      </div>
+    </div>
+
+    <!-- UPI Payment -->
+    <div class="card">
+      <div class="card-title">Pay via UPI</div>
+      <div class="qr-wrap">
+        <!-- Static bank-issued QR (most reliable) -->
+        <div id="qr-code">
+          <img id="qr-img" src="assets/images/upi-qr.png" alt="Scan to Pay"
+               onerror="this.parentElement.innerHTML='<span style=\'font-size:.6rem;color:rgba(255,255,255,.4);text-align:center;padding:.8rem;line-height:1.6;\'>QR image not found.<br>Use UPI ID below.</span>'" />
+        </div>
+        <div class="qr-badge">Official ICICI Bank QR — Scan with any UPI app</div>
+        <div class="upi-id-box">
+          <div class="lbl">UPI ID</div>
+          <div class="val" id="upi-id-display">–</div>
+        </div>
+        <!-- Download QR -->
+        <a class="copy-btn" id="btn-download-qr" href="assets/images/upi-qr.png" download="TEDx-Sreyas-Payment-QR.png" style="text-decoration: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download QR
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Proof Form -->
+  <div class="pay-form-card">
+    <div class="card-title">Submit Payment Proof</div>
+    <form id="pay-form" novalidate>
+      <div class="field">
+        <label for="f-utr">UTR / Transaction Reference Number *</label>
+        <input type="text" id="f-utr" placeholder="e.g. 427812345678" maxlength="22" required/>
+        <div class="field-error" id="err-utr">Please enter a valid UTR number (at least 6 digits).</div>
+      </div>
+      <div class="field">
+        <label>Payment Screenshot *</label>
+        <div class="upload-zone" id="upload-zone">
+          <input type="file" id="f-screenshot" accept="image/*" required/>
+          <div class="upload-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          </div>
+          <div class="upload-text"><strong>Click or drag</strong> your payment screenshot here<br><span style="font-size:.65rem;font-weight:400;">JPG, PNG, WEBP — max 5 MB</span></div>
+          <img id="preview-img" class="upload-preview" alt="Preview"/>
+          <div class="file-name" id="file-name"></div>
+        </div>
+        <div class="field-error" id="err-ss">Please upload your payment screenshot.</div>
+      </div>
+      <button type="submit" class="btn-submit" id="btn-submit">
+        <span class="btn-inner"><span id="submit-text">Confirm & Submit</span><span class="spin" id="submit-spin"></span></span>
+      </button>
+      <button type="button" class="btn-cancel" id="btn-cancel">Cancel & Go Back</button>
+    </form>
+  </div>
+</main>
+
+<!-- Expired Overlay -->
+<div class="overlay" id="overlay-expired">
+  <div class="overlay-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+  </div>
+  <h2 style="color:var(--red)">Reservation Expired</h2>
+  <p>Your 7-minute reservation window has ended and your seat has been released. Please register again to secure a new spot.</p>
+  <button class="btn-home" onclick="window.location.href='booking.html'">Register Again</button>
+</div>
+
+<!-- Success Overlay -->
+<div class="overlay" id="overlay-success">
+  <div class="overlay-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+  </div>
+  <h2 style="color:#22c55e">Submission Received!</h2>
+  <p>Your payment details have been submitted successfully. Our team will verify your payment and send your confirmation email with your unique ticket ID within <strong>24 hours</strong>.</p>
+  <div style="background: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.4); padding: 0.8rem; border-radius: 8px; margin-top: 0.2rem; width: 100%; max-width: 420px; text-align: center;">
+    <strong style="color: #ffc107; font-size: 0.85rem;">Note: Check your spam folder for the mail if not found in your inbox.</strong>
+  </div>
+  <button class="btn-home" style="margin-top:1.2rem;" onclick="window.location.href='index.html'">Back to Homepage</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Firebase + QR Code lib -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="firebase-config.js?v=3"></script>
+<script src="main.js"></script>
+<script>
+'use strict';
+(function(){
+
+  // ── Star field ──
+  const cv=document.getElementById('sc'),cx=cv.getContext('2d');
+  function rsz(){cv.width=innerWidth;cv.height=innerHeight;}rsz();window.addEventListener('resize',rsz);
+  const st=Array.from({length:120},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.8+.2,a:.05+Math.random()*.35}));
+  (function ds(){cx.clearRect(0,0,cv.width,cv.height);st.forEach(s=>{cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);cx.fillStyle=`rgba(255,255,255,${s.a})`;cx.fill();});requestAnimationFrame(ds);})();
+
+  // ── Toast ──
+  const toastEl=document.getElementById('toast');let toastT;
+  function showToast(m,t='info',d=4000){toastEl.textContent=m;toastEl.className=`toast show ${t}`;clearTimeout(toastT);toastT=setTimeout(()=>toastEl.className='toast',d);}
+
+  // ── Load Reservation from sessionStorage ──
+  let reservation;
+  try { reservation=JSON.parse(sessionStorage.getItem('tedx_reservation')||'null'); } catch(e){}
+  if(!reservation||!reservation.reservationId){window.location.href='booking.html';return;}
+
+  const {reservationId,slabId,slabName,amount,expiresAt,name,email}=reservation;
+  const expireMs=new Date(expiresAt).getTime();
+
+  // ── Populate Summary ──
+  document.getElementById('s-name').textContent=name;
+  document.getElementById('s-email').textContent=email;
+  document.getElementById('s-slab').textContent=slabName;
+  document.getElementById('s-amount').textContent=`₹${amount}`;
+
+  // ── UPI Setup ──
+  const upiId   = window.TEDx.EVENT_CONFIG.upiId;
+  document.getElementById('upi-id-display').textContent = upiId;
+
+  // ── Download QR ──
+  // No JS required, handled via native HTML download attribute.
+
+
+
+  // ── File Upload Preview ──
+  const fileInput=document.getElementById('f-screenshot');
+  const previewImg=document.getElementById('preview-img');
+  const fileNameEl=document.getElementById('file-name');
+  const uploadZone=document.getElementById('upload-zone');
+
+  fileInput.addEventListener('change',()=>{
+    const file=fileInput.files[0];
+    if(!file)return;
+    if(file.size>5*1024*1024){showToast('File too large. Max 5 MB.','error');fileInput.value='';return;}
+    fileNameEl.textContent=file.name;fileNameEl.style.display='block';
+    const reader=new FileReader();
+    reader.onload=e=>{previewImg.src=e.target.result;previewImg.style.display='block';};
+    reader.readAsDataURL(file);
+  });
+
+  // Drag and drop
+  uploadZone.addEventListener('dragover',e=>{e.preventDefault();uploadZone.classList.add('drag');});
+  uploadZone.addEventListener('dragleave',()=>uploadZone.classList.remove('drag'));
+  uploadZone.addEventListener('drop',e=>{e.preventDefault();uploadZone.classList.remove('drag');fileInput.files=e.dataTransfer.files;fileInput.dispatchEvent(new Event('change'));});
+
+  // ── Countdown Timer ──
+  const timerDisplay=document.getElementById('timer-display');
+  const timerBar=document.getElementById('timer-bar');
+  const totalMs=7*60*1000;
+  let expired=false;
+  let isSubmitting = false; // declared here so handleExpiry can check it
+
+  async function handleExpiry(){
+    if(expired)return;
+    // Do NOT expire while a payment upload is in progress — the ticket is being secured
+    if(isSubmitting)return;
+    expired=true;
+    try{await window.TEDx.expireReservation(reservationId,slabId);}catch(e){console.warn('[TEDx] Expiry error:',e.message);}
+    sessionStorage.removeItem('tedx_reservation');
+    document.getElementById('overlay-expired').classList.add('show');
+  }
+
+  function tick(){
+    const remaining=expireMs-Date.now();
+    if(remaining<=0){
+      timerDisplay.textContent='00:00';timerBar.style.width='0%';
+      // Only trigger expiry overlay if NOT submitting; if submitting, let it complete
+      if(!isSubmitting) handleExpiry();
+      return;
+    }
+    const mins=Math.floor(remaining/60000);
+    const secs=Math.floor((remaining%60000)/1000);
+    timerDisplay.textContent=`${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+    const pct=Math.max(0,(remaining/totalMs)*100);
+    timerBar.style.width=pct+'%';
+    if(remaining<120000){timerDisplay.classList.add('urgent');timerBar.style.background='#E62B1E';}
+    setTimeout(tick,500);
+  }
+  tick();
+
+  // ── Cancel / Go Back Logic ──
+  // (isSubmitting declared above)
+  let isCancelling = false;
+
+  async function cancelReservationAndGoBack() {
+    if(expired || isSubmitting || isCancelling) return;
+    isCancelling = true;
+    document.getElementById('btn-cancel').textContent = 'Cancelling...';
+    try {
+      await window.TEDx.expireReservation(reservationId, slabId);
+    } catch(e){} // Ignore if it fails
+    sessionStorage.removeItem('tedx_reservation');
+    window.location.href = 'booking.html';
+  }
+
+  // Explicit cancel button
+  document.getElementById('btn-cancel').addEventListener('click', () => {
+    if(confirm('Are you sure you want to cancel? This will instantly release your ticket to others.')) {
+      cancelReservationAndGoBack();
+    }
+  });
+
+  // Intercept native browser Back button
+  window.history.pushState({ page: "payment" }, "", "");
+  window.addEventListener('popstate', (e) => {
+    cancelReservationAndGoBack();
+  });
+
+  // Expire on page close/hide (Only if 7 mins passed. Do NOT cancel on hide, because users hide to open UPI apps)
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden&&Date.now()>=expireMs)handleExpiry();
+  });
+
+  // Expire if the user completely closes the tab without cancelling
+  // Use a guard flag to prevent triple-fire: beforeunload + pagehide can both fire
+  // on the same page close, causing 2-3x redundant Firestore reads
+  let _unloadExpireFired = false;
+  function _handleUnloadExpiry() {
+    if (_unloadExpireFired || expired || isSubmitting || isCancelling) return;
+    _unloadExpireFired = true;
+    try { window.TEDx.expireReservation(reservationId, slabId); } catch(e){}
+  }
+  window.addEventListener('beforeunload', _handleUnloadExpiry);
+  window.addEventListener('pagehide', _handleUnloadExpiry);
+
+  // ── Payment Form Submit ──
+  document.getElementById('pay-form').addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    if(expired){showToast('Reservation has expired. Please register again.','error');return;}
+
+    const utr=document.getElementById('f-utr').value.trim();
+    const file=fileInput.files[0];
+    let ok=true;
+
+    if(!utr||utr.length<6){document.getElementById('f-utr').classList.add('error');document.getElementById('err-utr').classList.add('show');ok=false;}
+    else{document.getElementById('f-utr').classList.remove('error');document.getElementById('err-utr').classList.remove('show');}
+
+    if(!file){document.getElementById('err-ss').classList.add('show');ok=false;}
+    else{document.getElementById('err-ss').classList.remove('show');}
+
+    if(!ok){showToast('Please fill all required fields.','error');return;}
+
+    if(Date.now()>=expireMs){handleExpiry();return;}
+
+    isSubmitting = true;
+    const btn=document.getElementById('btn-submit');
+    btn.disabled=true;
+    document.getElementById('btn-cancel').style.display='none'; // Hide cancel during upload
+    document.getElementById('submit-text').textContent='Uploading…';
+    document.getElementById('submit-spin').style.display='block';
+
+    try{
+      await window.TEDx.submitPayment(reservationId,utr,file);
+      sessionStorage.removeItem('tedx_reservation');
+      document.getElementById('overlay-success').classList.add('show');
+    }catch(err){
+      console.error('[TEDx] Submit error:',err);
+      if(err.message==='DUPLICATE_UTR'){
+        showToast('This UTR/transaction number has already been used. Please check and enter the correct UTR.','error',8000);
+      }else{
+        showToast('Upload failed. Please check your connection and try again.','error',6000);
+      }
+      btn.disabled=false;
+      isSubmitting = false;
+      document.getElementById('btn-cancel').style.display='block';
+      document.getElementById('submit-text').textContent='Confirm & Submit';
+      document.getElementById('submit-spin').style.display='none';
+    }
+  });
+
+}());
+</script>
+</body>
+</html>

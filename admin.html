@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin Dashboard — TEDx Sreyas Institute</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--red:#E62B1E;--bg:#07090e;--s1:rgba(255,255,255,.03);--b:rgba(255,255,255,.08);--m:rgba(255,255,255,.45);--f:'Inter',sans-serif;}
+html,body{min-height:100vh;background:var(--bg);color:#fff;font-family:var(--f);-webkit-font-smoothing:antialiased;}
+::selection{background:var(--red);color:#fff;}
+button{font-family:var(--f);}
+
+.shell{display:flex;min-height:100vh;}
+.sidebar{width:220px;flex-shrink:0;background:rgba(255,255,255,.02);border-right:1px solid var(--b);padding:1.5rem 1rem;display:flex;flex-direction:column;gap:.3rem;position:sticky;top:0;height:100vh;}
+.sb-logo{display:flex;align-items:center;gap:.6rem;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid var(--b);}
+.sb-logo img{height:28px;}
+.sb-logo span{font-size:.78rem;font-weight:700;color:#fff;}
+.sb-link{display:flex;align-items:center;gap:.6rem;padding:.55rem .8rem;border-radius:8px;font-size:.82rem;color:var(--m);cursor:pointer;transition:all .2s;border:none;background:none;width:100%;text-align:left;}
+.sb-link:hover,.sb-link.act{background:rgba(230,43,30,.1);color:#fff;}
+.sb-link.act{color:var(--red);}
+.sb-sep{height:1px;background:var(--b);margin:.5rem 0;}
+.sb-logout{margin-top:auto;display:flex;align-items:center;gap:.6rem;padding:.55rem .8rem;border-radius:8px;font-size:.82rem;color:var(--m);cursor:pointer;transition:all .2s;border:none;background:none;width:100%;}
+.sb-logout:hover{color:#ff6b6b;background:rgba(255,68,68,.08);}
+
+.main{flex:1;padding:1.5rem 2rem;overflow:auto;}
+.top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.8rem;flex-wrap:wrap;gap:1rem;}
+.page-title{font-size:1.3rem;font-weight:800;}
+.admin-chip{font-size:.72rem;color:var(--m);background:var(--s1);border:1px solid var(--b);border-radius:20px;padding:.3rem .8rem;}
+
+/* Stat Cards */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-bottom:1.5rem;}
+.stat-card{background:var(--s1);border:1px solid var(--b);border-radius:12px;padding:1rem 1.2rem;}
+.stat-card .lbl{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--m);margin-bottom:.4rem;}
+.stat-card .num{font-size:1.8rem;font-weight:800;line-height:1;}
+.stat-card .sub{font-size:.7rem;color:var(--m);margin-top:.25rem;}
+.stat-card.red .num{color:var(--red);}
+.stat-card.green .num{color:#22c55e;}
+.stat-card.yellow .num{color:#f59e0b;}
+
+/* Controls */
+.controls{display:flex;gap:.8rem;margin-bottom:1.2rem;flex-wrap:wrap;align-items:center;}
+.search-box{flex:1;min-width:220px;position:relative;}
+.search-box input{width:100%;background:var(--s1);border:1px solid var(--b);border-radius:10px;padding:.6rem 1rem .6rem 2.4rem;font-family:var(--f);font-size:.85rem;color:#fff;outline:none;transition:border-color .2s;}
+.search-box input:focus{border-color:rgba(230,43,30,.6);}
+.search-icon{position:absolute;left:.8rem;top:50%;transform:translateY(-50%);font-size:.8rem;pointer-events:none;}
+.filter-select{background:var(--s1);border:1px solid var(--b);border-radius:10px;padding:.6rem 1rem;font-family:var(--f);font-size:.8rem;color:#fff;outline:none;cursor:pointer;}
+.filter-select option{background:var(--bg);color:#fff;}
+.btn-refresh{background:rgba(255,255,255,.05);border:1px solid var(--b);border-radius:10px;padding:.6rem 1rem;color:#fff;cursor:pointer;font-size:.8rem;transition:all .2s;}
+.btn-refresh:hover{background:rgba(255,255,255,.1);}
+.btn-export{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);border-radius:10px;padding:.6rem 1rem;color:#22c55e;cursor:pointer;font-size:.8rem;transition:all .2s;font-weight:600;}
+.btn-export:hover{background:rgba(34,197,94,.2);}
+
+/* Table */
+.table-wrap{background:var(--s1);border:1px solid var(--b);border-radius:12px;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;text-align:left;min-width:880px;}
+
+/* Attendance Toggle */
+.att-toggle-wrap{text-align:center;}
+.att-toggle{appearance:none;-webkit-appearance:none;width:36px;height:20px;border-radius:10px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);cursor:pointer;position:relative;transition:all .25s;flex-shrink:0;}
+.att-toggle:checked{background:#22c55e;border-color:#22c55e;}
+.att-toggle::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.4);}
+.att-toggle:checked::after{transform:translateX(16px);}
+.att-toggle:disabled{opacity:.4;cursor:not-allowed;}
+th,td{padding:.8rem 1.2rem;border-bottom:1px solid var(--b);font-size:.82rem;}
+th{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m);background:rgba(255,255,255,.02);font-weight:600;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(255,255,255,.02);}
+
+.badge{padding:.25rem .6rem;border-radius:20px;font-size:.65rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
+.bg-yellow{background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.3);}
+.bg-green{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3);}
+.bg-red{background:rgba(230,43,30,.15);color:#ff6b6b;border:1px solid rgba(230,43,30,.3);}
+
+.btn-view{padding:.4rem .8rem;background:rgba(255,255,255,.05);border:1px solid var(--b);border-radius:6px;color:#fff;font-size:.7rem;cursor:pointer;transition:all .2s;}
+.btn-view:hover{background:rgba(230,43,30,.8);border-color:var(--red);}
+
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(4px);z-index:900;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+.modal-bg.open{opacity:1;pointer-events:all;}
+.modal{width:min(500px,94vw);background:#0d0f16;border:1px solid var(--b);border-radius:16px;padding:2rem;position:relative;transform:translateY(20px);transition:transform .3s;max-height:90vh;overflow-y:auto;}
+.modal.wide{width:min(660px,96vw);}
+.modal-bg.open .modal{transform:none;}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;background:none;border:none;color:var(--m);font-size:1.4rem;cursor:pointer;}
+.modal-close:hover{color:#fff;}
+.modal-title{font-size:1.1rem;font-weight:800;margin-bottom:1.5rem;padding-bottom:.8rem;border-bottom:1px solid var(--b);}
+
+.kv{display:flex;justify-content:space-between;margin-bottom:.8rem;font-size:.85rem;}
+.kv .k{color:var(--m);}
+.kv .v{font-weight:600;text-align:right;}
+.ss-box{width:100%;height:220px;background:rgba(255,255,255,.03);border:1px solid var(--b);border-radius:8px;margin:1rem 0;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.ss-box img{width:100%;height:100%;object-fit:contain;cursor:pointer;}
+
+.m-actions{display:flex;gap:.8rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--b);}
+.btn-appr{flex:1;padding:.8rem;background:#22c55e;border:none;border-radius:8px;color:#fff;font-weight:700;cursor:pointer;transition:background .2s;}
+.btn-appr:hover{background:#16a34a;}
+.btn-rej{flex:1;padding:.8rem;background:rgba(255,255,255,.05);border:1px solid var(--b);border-radius:8px;color:#ff6b6b;font-weight:600;cursor:pointer;transition:background .2s;}
+.btn-rej:hover{background:rgba(230,43,30,.1);border-color:rgba(230,43,30,.4);}
+
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:#1a1a1a;border:1px solid var(--b);border-radius:8px;padding:.8rem 1.4rem;font-size:.85rem;color:#fff;z-index:999;transition:all .3s;opacity:0;visibility:hidden;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible;}
+.toast.ok{border-color:rgba(34,197,94,.4);}
+.toast.err{border-color:rgba(239,68,68,.4);}
+
+@media(max-width:900px){.stats{grid-template-columns:1fr 1fr;}.sidebar{display:none;}.main{padding:1rem;}}
+
+/* Spot Registration — Payment Interface Styles */
+.spot-modal{width:min(640px,96vw);}
+.spot-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+@media(max-width:480px){.spot-grid{grid-template-columns:1fr;}}
+.spot-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.1rem;}
+.spot-card-title{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:700;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem;}
+.spot-card-title::before{content:'';width:3px;height:.8rem;background:var(--red);border-radius:2px;}
+.spot-summary-row{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.8rem;}
+.spot-summary-row:last-child{border-bottom:none;}
+.spot-sr-label{color:rgba(255,255,255,.45);}
+.spot-sr-val{font-weight:600;color:rgba(255,255,255,.9);text-align:right;}
+.spot-amount-big{font-size:1.5rem;font-weight:800;color:#fff;}
+.spot-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:.7rem;}
+.spot-qr-box{width:150px;height:150px;background:rgba(255,255,255,.06);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:5px;border:2px solid rgba(255,255,255,.12);}
+.spot-qr-box img{width:100%;height:100%;border-radius:8px;object-fit:contain;}
+.spot-upi-box{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:.5rem .8rem;text-align:center;}
+.spot-upi-box .lbl{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);}
+.spot-upi-box .val{font-size:.7rem;font-weight:700;color:#fff;word-break:break-all;margin-top:.15rem;}
+.spot-copy-btn{display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;padding:.5rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:7px;color:rgba(255,255,255,.45);font-family:var(--f);font-size:.68rem;cursor:pointer;transition:all .2s;letter-spacing:.05em;text-transform:uppercase;font-weight:600;}
+.spot-copy-btn:hover{background:rgba(255,255,255,.08);color:#fff;}
+.spot-field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem;}
+.spot-field label{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:600;}
+.spot-field input{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:9px;padding:.65rem .9rem;font-family:var(--f);font-size:.88rem;color:#fff;outline:none;transition:border-color .25s;width:100%;}
+.spot-field input::placeholder{color:rgba(255,255,255,.2);}
+.spot-field input:focus{border-color:rgba(230,43,30,.6);box-shadow:0 0 0 3px rgba(230,43,30,.1);}
+.spot-upload{border:1.5px dashed rgba(255,255,255,.18);border-radius:10px;padding:1.2rem 1rem;text-align:center;cursor:pointer;transition:all .25s;position:relative;background:rgba(255,255,255,.01);}
+.spot-upload:hover{border-color:var(--red);background:rgba(230,43,30,.03);}
+.spot-upload input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.spot-upload-text{font-size:.74rem;color:rgba(255,255,255,.45);}
+.spot-upload-text strong{color:#fff;}
+.spot-preview{width:100%;max-height:100px;object-fit:contain;border-radius:7px;margin-top:.6rem;display:none;}
+.spot-file-name{font-size:.68rem;color:rgba(255,255,255,.4);margin-top:.3rem;display:none;}
+.spot-form-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.1rem;margin-top:1rem;}
+.spot-step-indicator{display:flex;align-items:center;gap:.6rem;margin-bottom:1.2rem;font-size:.72rem;color:rgba(255,255,255,.4);}
+.spot-step{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:.68rem;font-weight:700;border:1.5px solid rgba(255,255,255,.15);}
+.spot-step.active{background:var(--red);border-color:var(--red);color:#fff;}
+.spot-step.done{background:#22c55e;border-color:#22c55e;color:#fff;}
+.spot-step-line{flex:1;height:1px;background:rgba(255,255,255,.1);}
+.spot-info-fields{display:flex;flex-direction:column;gap:.8rem;}
+.spot-info-fields input,.spot-info-fields select{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:9px;padding:.65rem .9rem;font-family:var(--f);font-size:.88rem;color:#fff;outline:none;transition:border-color .25s;width:100%;}
+.spot-info-fields select option{background:#0d0f16;}
+.spot-info-fields input:focus,.spot-info-fields select:focus{border-color:rgba(230,43,30,.6);}
+.spot-next-btn{width:100%;padding:.85rem;background:linear-gradient(135deg,#c41230,#E62B1E);border:none;border-radius:10px;color:#fff;font-family:var(--f);font-size:.88rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:.4rem;transition:transform .2s,box-shadow .2s;box-shadow:0 5px 20px rgba(230,43,30,.35);}
+.spot-next-btn:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(230,43,30,.5);}
+.spot-next-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.spot-submit-btn{width:100%;padding:.85rem;background:linear-gradient(135deg,#c41230,#E62B1E);border:none;border-radius:10px;color:#fff;font-family:var(--f);font-size:.88rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:.4rem;transition:transform .2s,box-shadow .2s;box-shadow:0 5px 20px rgba(230,43,30,.35);}
+.spot-submit-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 8px 28px rgba(230,43,30,.5);}
+.spot-submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+</style>
+</head>
+<body>
+<div class="shell">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <img src="assets/images/tedx-logo.png" alt="TEDx"/>
+      <span>Admin Panel</span>
+    </div>
+    <button class="sb-link act">Registrations</button>
+    <div class="sb-sep"></div>
+    <button class="sb-link" onclick="window.open('booking.html','_blank')">View Booking Page</button>
+    <button class="sb-link" onclick="window.open('index.html','_blank')">View Website</button>
+    <button class="sb-logout" id="btn-logout">Sign Out</button>
+    <div class="sb-sep"></div>
+    <button class="sb-logout" id="btn-reset" style="color:#ff6b6b;font-weight:700;">Factory Reset</button>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="top-bar">
+      <div>
+        <div class="page-title">Registrations</div>
+        <div style="font-size:.75rem;color:var(--m);margin-top:.2rem;">TEDx Sreyas Institute · 4 July 2026</div>
+      </div>
+      <div class="admin-chip" id="admin-email-chip">Loading…</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card"><div class="lbl">Total</div><div class="num" id="st-total">–</div><div class="sub">Pending + Approved</div></div>
+      <div class="stat-card yellow"><div class="lbl">Pending</div><div class="num" id="st-pending">–</div><div class="sub">Awaiting verification</div></div>
+      <div class="stat-card green"><div class="lbl">Approved</div><div class="num" id="st-approved">–</div><div class="sub">Confirmed tickets</div></div>
+      <div class="stat-card red"><div class="lbl">Reserved</div><div class="num" id="st-reserved">–</div><div class="sub">Active holds</div></div>
+      <div class="stat-card" style="border-color:rgba(139,92,246,.3);"><div class="lbl">Attended</div><div class="num" id="st-attended" style="color:#a78bfa;">–</div><div class="sub">Checked in</div></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="search-box">
+        <span class="search-icon"></span>
+        <input type="text" id="search-input" placeholder="Search by name, email, phone, UTR, or Unique ID…"/>
+      </div>
+      <select class="filter-select" id="filter-status">
+        <option value="">All Statuses</option>
+        <option value="reserved">Reserved</option>
+        <option value="pending_verification">Pending Verification</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+      </select>
+      <select class="filter-select" id="filter-slab">
+        <option value="">All Ticket Types</option>
+        <option value="S1">Slab 1</option>
+        <option value="S2">Slab 2</option>
+        <option value="S3">Slab 3</option>
+      </select>
+      <button class="btn-refresh" id="btn-refresh">Refresh</button>
+      <button class="btn-export" id="btn-export">Export Excel</button>
+      <button class="btn-export" id="btn-add-offline" style="background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.3);color:#3b82f6;">+ Spot Registration</button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table id="data-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>UTR</th>
+            <th style="text-align:center;">Attended</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <tr><td colspan="8" style="text-align:center;color:var(--m);">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">&times;</button>
+    <div class="modal-title">Registration Details</div>
+    <div id="modal-content"></div>
+    <div class="m-actions" id="modal-actions"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="firebase-config.js?v=3"></script>
+<script>
+'use strict';
+(function(){
+
+let adminUser = null;
+firebase.auth().onAuthStateChanged(user => {
+  if(!user){ window.location.href = 'admin-login.html'; return; }
+  adminUser = user;
+  document.getElementById('admin-email-chip').textContent = user.email;
+  init();
+});
+
+document.getElementById('btn-logout').addEventListener('click', () => {
+  firebase.auth().signOut();
+});
+
+const toastEl = document.getElementById('toast');
+let toastT;
+function toast(msg, type='info') {
+  toastEl.textContent = msg;
+  toastEl.className = `toast show ${type}`;
+  clearTimeout(toastT);
+  toastT = setTimeout(()=> toastEl.className='toast', 3000);
+}
+
+let allData = [];
+let utrCounts = {};
+
+async function loadData() {
+  document.getElementById('table-body').innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--m);">Loading data...</td></tr>';
+  try {
+    const snap = await db.collection('registrations').orderBy('reservedAt', 'desc').get();
+    let fetchedData = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    
+    // Auto-delete reserved entries older than 8 mins
+    const now = new Date();
+    const toKeep = [];
+    let deletedAny = false;
+    
+    for (const d of fetchedData) {
+      if (d.status === 'reserved' && d.reservedAt) {
+        const diffMins = (now - d.reservedAt.toDate()) / (1000 * 60);
+        if (diffMins >= 8) {
+          try {
+            await window.TEDx.deleteRegistration(d.id, d.slabId, d.status);
+            deletedAny = true;
+            continue; // Do not display this registration
+          } catch(e) {
+            console.error('Auto-delete failed for ID:', d.id, e);
+          }
+        }
+      }
+      toKeep.push(d);
+    }
+    
+    allData = toKeep;
+    if (deletedAny) {
+      console.log('Cleaned up stale reserved registrations (>8 mins).');
+    }
+
+    utrCounts = {};
+    allData.forEach(d => {
+      if (d.utrNumber && d.utrNumber.trim() !== '') {
+        const utr = d.utrNumber.trim();
+        utrCounts[utr] = (utrCounts[utr] || 0) + 1;
+      }
+    });
+
+    updateStats();
+    renderTable();
+    
+    // Auto-heal activeCounts in DB based on loaded registrations
+    if (window.TEDx && window.TEDx.getActiveSlabInfoFull) {
+      window.TEDx.getActiveSlabInfoFull().catch(e => console.warn('Auto-heal failed:', e));
+    }
+  } catch(e) {
+    console.error(e);
+    toast('Failed to load data: ' + e.message, 'err');
+    document.getElementById('table-body').innerHTML = '<tr><td colspan="8" style="text-align:center;color:#ff6b6b;">Error loading data. Check console.</td></tr>';
+  }
+}
+
+function updateStats() {
+  const pendingCount = allData.filter(d=>d.status==='pending_verification').length;
+  const approvedCount = allData.filter(d=>d.status==='approved').length;
+  const attendedCount = allData.filter(d=>d.attended===true).length;
+
+  document.getElementById('st-total').textContent = pendingCount + approvedCount;
+  document.getElementById('st-pending').textContent = pendingCount;
+  document.getElementById('st-approved').textContent = approvedCount;
+  document.getElementById('st-reserved').textContent = allData.filter(d=>d.status==='reserved').length;
+  document.getElementById('st-attended').textContent = attendedCount;
+}
+
+function renderTable() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const fStat = document.getElementById('filter-status').value;
+  const fSlab = document.getElementById('filter-slab').value;
+
+  const filtered = allData.filter(d => {
+    if(fStat && d.status !== fStat) return false;
+    if(fSlab && d.slabId !== fSlab) return false;
+    if(q) {
+      const txt = `${d.name} ${d.email} ${d.phone} ${d.utrNumber||''} ${d.uniqueId||''}`.toLowerCase();
+      if(!txt.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const tb = document.getElementById('table-body');
+  if(filtered.length === 0){
+    tb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--m);">No records found.</td></tr>';
+    return;
+  }
+
+  const sMap = {
+    'reserved': '<span class="badge bg-yellow">Reserved (Timer)</span>',
+    'pending_verification': '<span class="badge bg-yellow" style="color:#60a5fa;border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.15);">Pending UTR</span>',
+    'approved': '<span class="badge bg-green">Approved</span>',
+    'rejected': '<span class="badge bg-red">Rejected</span>',
+    'expired': '<span class="badge bg-red" style="color:var(--m);border-color:var(--b);background:transparent;">Expired</span>'
+  };
+
+  tb.innerHTML = filtered.map(d => {
+    const dt = d.reservedAt ? d.reservedAt.toDate().toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '–';
+    
+    let utrDisplay = '–';
+    if (d.utrNumber) {
+      const isDuplicate = utrCounts[d.utrNumber.trim()] > 1;
+      utrDisplay = isDuplicate 
+        ? `<span style="color:#ff6b6b;font-weight:bold;background:rgba(255,68,68,.1);padding:.2rem .4rem;border-radius:4px;border:1px solid rgba(255,68,68,.3);" title="Duplicate UTR found!">! ${d.utrNumber}</span>` 
+        : d.utrNumber;
+    }
+    const isAttended = d.attended === true;
+    return `<tr>
+      <td style="color:var(--m);">${dt}</td>
+      <td style="font-weight:600;">${d.name}<br><span style="font-size:.7rem;color:var(--m);font-weight:400;">${d.uniqueId||''}</span></td>
+      <td>${d.phone}<br><span style="font-size:.7rem;color:var(--m);">${d.email}</span></td>
+      <td>
+        <div style="font-size:.7rem;font-weight:700;color:#fff;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);display:inline-block;padding:.15rem .4rem;border-radius:4px;margin-bottom:.2rem;">${d.slabId || 'N/A'}</div>
+        <br>
+        <span style="font-size:.75rem;">${d.slabName} <span style="color:var(--m);">(₹${d.amount || '0'})</span></span>
+      </td>
+      <td>${sMap[d.status]||d.status}</td>
+      <td style="font-family:monospace;letter-spacing:1px;color:var(--m);">${utrDisplay}</td>
+      <td class="att-toggle-wrap"><input type="checkbox" class="att-toggle" id="att-${d.id}" ${isAttended ? 'checked' : ''} onchange="toggleAttendance('${d.id}', this)" title="${isAttended ? 'Mark as Not Attended' : 'Mark as Attended'}"/></td>
+      <td><button class="btn-view" onclick="openModal('${d.id}')">View & Action</button></td>
+    </tr>`;
+  }).join('');
+}
+
+window.toggleAttendance = async function(id, checkbox) {
+  const attended = checkbox.checked;
+  checkbox.disabled = true;
+  try {
+    await db.collection('registrations').doc(id).update({ attended });
+    // Update local cache
+    const rec = allData.find(x => x.id === id);
+    if (rec) rec.attended = attended;
+    updateStats();
+    checkbox.title = attended ? 'Mark as Not Attended' : 'Mark as Attended';
+    toast(attended ? 'Marked as Attended ✓' : 'Marked as Not Attended', 'ok');
+  } catch(e) {
+    toast('Failed to update: ' + e.message, 'err');
+    checkbox.checked = !attended; // revert
+  } finally {
+    checkbox.disabled = false;
+  }
+};
+
+window.openModal = function(id) {
+  const d = allData.find(x => x.id === id);
+  if(!d) return;
+
+  const c = document.getElementById('modal-content');
+  const acts = document.getElementById('modal-actions');
+
+  const dt = d.reservedAt ? d.reservedAt.toDate().toLocaleString() : '–';
+  
+  const isDuplicate = d.utrNumber && utrCounts[d.utrNumber.trim()] > 1;
+  const utrWarning = isDuplicate 
+    ? `<div style="color:#ff6b6b; background:rgba(255,68,68,.1); border:1px solid rgba(255,68,68,.3); padding:.8rem; border-radius:8px; margin-top:.5rem; font-size:.85rem; font-weight:700; display:flex; align-items:center; gap:.5rem;">
+         <span>!</span> Warning: This UTR has been submitted multiple times! Please verify before approving.
+       </div>` 
+    : '';
+
+  let html = `
+    <div class="kv"><span class="k">Name</span><span class="v">${d.name}</span></div>
+    <div class="kv"><span class="k">Email</span><span class="v">${d.email}</span></div>
+    <div class="kv"><span class="k">Phone</span><span class="v">${d.phone}</span></div>
+    <div class="kv"><span class="k">Ticket Type</span><span class="v"><span style="color:var(--m);margin-right:4px;">[${d.slabId}]</span> ${d.slabName} (₹${d.amount})</span></div>
+    <div class="kv"><span class="k">Date Reserved</span><span class="v">${dt}</span></div>
+    <div class="kv" style="margin-top:1.5rem;">
+      <span class="k">UTR Number</span>
+      <span class="v" style="font-family:monospace;color:${isDuplicate ? '#ff6b6b' : '#fff'}; font-weight:${isDuplicate ? '800' : 'normal'}; font-size:1.1rem;">${d.utrNumber||'Not submitted yet'}</span>
+    </div>
+    ${utrWarning}
+  `;
+
+  if(d.screenshotUrl){
+    html += `
+      <div style="font-size:.75rem;color:var(--m);margin-top:1rem;">Payment Screenshot:</div>
+      <div class="ss-box"><img src="${d.screenshotUrl}" onclick="window.open(this.src,'_blank')" title="Click to open full size"/></div>
+    `;
+  }
+
+  c.innerHTML = html;
+
+  if(d.status === 'pending_verification') {
+    acts.innerHTML = `
+      <button class="btn-rej" id="m-btn-rej">Reject</button>
+      <button class="btn-appr" id="m-btn-appr">Approve & Send Ticket</button>
+    `;
+    document.getElementById('m-btn-appr').onclick = async () => {
+      if(!confirm('Are you sure you want to approve this ticket? An email will be sent automatically.')) return;
+      document.getElementById('m-btn-appr').textContent = 'Approving...';
+      try{
+        await window.TEDx.approveRegistration(d.id, d);
+        toast('Approved successfully! Email sent.', 'ok');
+        closeModal(); loadData();
+      }catch(e){ toast('Error: '+e.message, 'err'); document.getElementById('m-btn-appr').textContent = 'Approve & Send Ticket'; }
+    };
+    document.getElementById('m-btn-rej').onclick = async () => {
+      const r = prompt('Reason for rejection (sent to user):');
+      if(r===null) return;
+      document.getElementById('m-btn-rej').textContent = 'Rejecting...';
+      try{
+        await window.TEDx.rejectRegistration(d.id, d.slabId, r);
+        toast('Rejected successfully.', 'ok');
+        closeModal(); loadData();
+      }catch(e){ toast('Error: '+e.message, 'err'); document.getElementById('m-btn-rej').textContent = 'Reject'; }
+    };
+  } else if(d.status === 'approved') {
+    acts.innerHTML = `<div style="font-size:.85rem;color:#22c55e;padding:.5rem 0;flex:1;text-align:center;">Ticket Approved — ID: <strong>${d.uniqueId||'–'}</strong></div>`;
+  } else {
+    acts.innerHTML = `<div style="flex:1;"></div>`;
+  }
+
+  const delBtn = document.createElement('button');
+  delBtn.className = 'btn-rej';
+  delBtn.id = 'm-btn-del';
+  delBtn.style.cssText = 'flex: 0 0 auto; margin-left: 10px; background:rgba(230,43,30,.1); border-color:rgba(230,43,30,.4); color:var(--red);';
+  delBtn.textContent = 'Delete';
+  acts.appendChild(delBtn);
+
+  document.getElementById('m-btn-del').onclick = async () => {
+    if(!confirm('WARNING: Are you sure you want to permanently delete this entry? This action cannot be undone.')) return;
+    const btn = document.getElementById('m-btn-del');
+    btn.textContent = 'Deleting...';
+    try {
+      await window.TEDx.deleteRegistration(d.id, d.slabId, d.status);
+      toast('Entry deleted successfully.', 'ok');
+      closeModal(); 
+      loadData();
+    } catch(e) {
+      toast('Error: ' + e.message, 'err');
+      btn.textContent = '🗑 Delete';
+    }
+  };
+
+  document.getElementById('modal-bg').classList.add('open');
+};
+
+function closeModal(){document.getElementById('modal-bg').classList.remove('open');}
+document.getElementById('modal-close').addEventListener('click',closeModal);
+document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target===document.getElementById('modal-bg'))closeModal();});
+
+let filterTimer;
+['search-input','filter-status','filter-slab'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',()=>{clearTimeout(filterTimer);filterTimer=setTimeout(renderTable,250);});
+});
+document.getElementById('btn-refresh').addEventListener('click',loadData);
+
+document.getElementById('btn-export').addEventListener('click', () => {
+  if (!allData || allData.length === 0) {
+    toast('No data to export!', 'err');
+    return;
+  }
+  const btn = document.getElementById('btn-export');
+  btn.textContent = 'Exporting...';
+  
+  try {
+    const rows = allData.map(d => ({
+      'Date': d.reservedAt ? d.reservedAt.toDate().toLocaleString('en-GB', {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '',
+      'Name': d.name || '',
+      'Email': d.email || '',
+      'Phone': d.phone || '',
+      'Unique ID': d.uniqueId || '',
+      'Ticket Type': d.slabName || d.slabId || '',
+      'Amount (₹)': d.amount || '',
+      'Status': d.status || '',
+      'UTR Number': d.utrNumber || '',
+      'Attended': d.attended ? 'Yes' : 'No'
+    }));
+    
+    const ws = XLSX.utils.json_to_sheet(rows);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Registrations");
+    XLSX.writeFile(wb, `TEDx_Registrations_${new Date().toISOString().split('T')[0]}.xlsx`);
+    
+    toast('Exported successfully!', 'ok');
+  } catch (e) {
+    console.error(e);
+    toast('Export failed: ' + e.message, 'err');
+  } finally {
+    btn.textContent = 'Export Excel';
+  }
+});
+
+// ── Spot Registration ──
+document.getElementById('btn-add-offline').addEventListener('click', () => {
+  const modalEl = document.querySelector('.modal');
+  const c = document.getElementById('modal-content');
+  const acts = document.getElementById('modal-actions');
+  modalEl.classList.add('wide');
+  document.querySelector('.modal-title').textContent = 'Spot Registration';
+
+  let spotUserData = {};
+
+  // —— STEP 1: Attendee Info ——
+  function showStep1() {
+    c.innerHTML = `
+      <div class="spot-step-indicator">
+        <div class="spot-step active" id="ssi-1">1</div>
+        <span>Attendee Details</span>
+        <div class="spot-step-line"></div>
+        <div class="spot-step" id="ssi-2">2</div>
+        <span>Payment</span>
+      </div>
+      <div class="spot-info-fields">
+        <input type="text" id="spot-name" placeholder="Full Name" />
+        <input type="email" id="spot-email" placeholder="Email Address" />
+        <input type="tel" id="spot-phone" placeholder="Phone Number (10 digits)" maxlength="10" />
+        <select id="spot-slab">
+          <option value="S1">Slab 1 — ₹299</option>
+          <option value="S2">Slab 2 — ₹399</option>
+          <option value="S3">Slab 3 — ₹399</option>
+        </select>
+      </div>
+    `;
+    acts.innerHTML = `
+      <button class="btn-rej" id="spot-cancel-btn">Cancel</button>
+      <button class="spot-next-btn" id="spot-next-btn" style="flex:2;">Continue to Payment →</button>
+    `;
+    document.getElementById('spot-cancel-btn').onclick = () => { modalEl.classList.remove('wide'); closeModal(); };
+    document.getElementById('spot-next-btn').onclick = () => {
+      const name  = document.getElementById('spot-name').value.trim();
+      const email = document.getElementById('spot-email').value.trim();
+      const phone = document.getElementById('spot-phone').value.trim();
+      const slab  = document.getElementById('spot-slab').value;
+      if (!name || !email || !phone) return toast('All fields are required', 'err');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast('Enter a valid email', 'err');
+      if (!/^[6-9]\d{9}$/.test(phone)) return toast('Enter a valid 10-digit phone number', 'err');
+      const slabPrices = { S1: 299, S2: 399, S3: 399 };
+      const slabNames  = { S1: 'Slab 1 (Early Bird)', S2: 'Slab 2', S3: 'Slab 3' };
+      spotUserData = { name, email, phone, slabId: slab, amount: slabPrices[slab], slabName: slabNames[slab] };
+      showStep2();
+    };
+  }
+
+  // —— STEP 2: Payment Interface ——
+  function showStep2() {
+    const upiId = (window.TEDx && window.TEDx.EVENT_CONFIG) ? window.TEDx.EVENT_CONFIG.upiId : 'mssreyasinstituteofengineeringandtechnology.eazypay@icici';
+    document.getElementById('ssi-1') && document.getElementById('ssi-1').classList.replace('active','done');
+
+    c.innerHTML = `
+      <div class="spot-step-indicator" style="margin-bottom:1rem;">
+        <div class="spot-step done">&#10003;</div>
+        <span>Attendee Details</span>
+        <div class="spot-step-line"></div>
+        <div class="spot-step active">2</div>
+        <span>Payment</span>
+      </div>
+
+      <div class="spot-grid">
+        <!-- Booking Summary -->
+        <div class="spot-card">
+          <div class="spot-card-title">Booking Summary</div>
+          <div class="spot-summary-row"><span class="spot-sr-label">Name</span><span class="spot-sr-val">${spotUserData.name}</span></div>
+          <div class="spot-summary-row"><span class="spot-sr-label">Email</span><span class="spot-sr-val" style="font-size:.72rem;">${spotUserData.email}</span></div>
+          <div class="spot-summary-row"><span class="spot-sr-label">Ticket Type</span><span class="spot-sr-val">${spotUserData.slabName}</span></div>
+          <div class="spot-summary-row"><span class="spot-sr-label">Date</span><span class="spot-sr-val">4 July 2026</span></div>
+          <div class="spot-summary-row"><span class="spot-sr-label">Venue</span><span class="spot-sr-val">Sreyas Institute, Hyd</span></div>
+          <div class="spot-summary-row" style="margin-top:.4rem;padding-top:.6rem;border-top:1px dashed rgba(255,255,255,.15);">
+            <span class="spot-sr-label" style="font-weight:600;">Total Amount</span>
+            <span class="spot-amount-big">₹${spotUserData.amount}</span>
+          </div>
+        </div>
+
+        <!-- QR / UPI -->
+        <div class="spot-card">
+          <div class="spot-card-title">Pay via UPI</div>
+          <div class="spot-qr-wrap">
+            <div class="spot-qr-box">
+              <img src="assets/images/upi-qr.png" alt="Scan to Pay"
+                onerror="this.parentElement.innerHTML='<span style=\'font-size:.6rem;color:rgba(255,255,255,.4);text-align:center;padding:.5rem;line-height:1.6;\'>QR not found.<br>Use UPI ID below.</span>'" />
+            </div>
+            <div style="font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);">ICICI Bank QR — Scan with any UPI app</div>
+            <div class="spot-upi-box">
+              <div class="lbl">UPI ID</div>
+              <div class="val" id="spot-upi-val">${upiId}</div>
+            </div>
+            <button class="spot-copy-btn" id="spot-copy-upi">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy UPI ID
+            </button>
+            <a class="spot-copy-btn" href="assets/images/upi-qr.png" download="TEDx-Payment-QR.png" style="text-decoration:none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download QR
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Proof Form -->
+      <div class="spot-form-card">
+        <div class="spot-card-title">Submit Payment Proof</div>
+        <div class="spot-field">
+          <label>UTR / Transaction Reference Number *</label>
+          <input type="text" id="spot-utr" placeholder="e.g. 427812345678" maxlength="22" />
+        </div>
+        <div class="spot-field">
+          <label>Payment Screenshot *</label>
+          <div class="spot-upload" id="spot-upload-zone">
+            <input type="file" id="spot-screenshot" accept="image/*" />
+            <div class="spot-upload-text"><strong>Click or drag</strong> your payment screenshot here<br><span style="font-size:.62rem;">JPG, PNG, WEBP — max 5 MB</span></div>
+            <img id="spot-preview" class="spot-preview" alt="Preview" />
+            <div class="spot-file-name" id="spot-file-name"></div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    acts.innerHTML = `
+      <button class="btn-rej" id="spot-back-btn">&larr; Back</button>
+      <button class="spot-submit-btn" id="spot-submit-btn" style="flex:2;">Confirm &amp; Submit Spot Ticket</button>
+    `;
+
+    // Copy UPI
+    document.getElementById('spot-copy-upi').addEventListener('click', () => {
+      navigator.clipboard.writeText(upiId).then(() => toast('UPI ID copied!', 'ok')).catch(() => toast('Copy failed', 'err'));
+    });
+
+    // File preview
+    const fileInput = document.getElementById('spot-screenshot');
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+      if (file.size > 5*1024*1024) { toast('File too large. Max 5 MB.', 'err'); fileInput.value = ''; return; }
+      document.getElementById('spot-file-name').textContent = file.name;
+      document.getElementById('spot-file-name').style.display = 'block';
+      const reader = new FileReader();
+      reader.onload = e => { const p = document.getElementById('spot-preview'); p.src = e.target.result; p.style.display = 'block'; };
+      reader.readAsDataURL(file);
+    });
+
+    // Drag & drop
+    const uz = document.getElementById('spot-upload-zone');
+    uz.addEventListener('dragover', e => { e.preventDefault(); uz.style.borderColor = 'var(--red)'; });
+    uz.addEventListener('dragleave', () => { uz.style.borderColor = ''; });
+    uz.addEventListener('drop', e => { e.preventDefault(); uz.style.borderColor = ''; fileInput.files = e.dataTransfer.files; fileInput.dispatchEvent(new Event('change')); });
+
+    // Back btn
+    document.getElementById('spot-back-btn').onclick = showStep1;
+
+    // Submit
+    document.getElementById('spot-submit-btn').onclick = async () => {
+      const utr = document.getElementById('spot-utr').value.trim();
+      const file = document.getElementById('spot-screenshot').files[0];
+      if (!utr || utr.length < 6) return toast('Enter a valid UTR number (at least 6 digits)', 'err');
+      if (!file) return toast('Please upload a payment screenshot', 'err');
+
+      const submitBtn = document.getElementById('spot-submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Creating reservation...';
+
+      try {
+        // Create a reservation first
+        const regRef = db.collection('registrations').doc();
+        await db.runTransaction(async (tx) => {
+          const slabRef = db.collection('ticket_slabs').doc(spotUserData.slabId);
+          const slabDoc = await tx.get(slabRef);
+          const slabData = slabDoc.exists ? slabDoc.data() : {};
+          const localSlab = (window.TEDx.TICKET_SLABS || {})[spotUserData.slabId] || {};
+          const cap = localSlab.capacity || slabData.capacity || 999;
+          const active = slabData.activeCount || 0;
+          if (active >= cap) throw new Error('SOLD_OUT');
+          tx.set(regRef, {
+            name: spotUserData.name,
+            email: spotUserData.email.toLowerCase().trim(),
+            phone: spotUserData.phone,
+            slabId: spotUserData.slabId,
+            slabName: spotUserData.slabName,
+            amount: spotUserData.amount,
+            status: 'reserved',
+            reservedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            utrNumber: null, screenshotUrl: null, uniqueId: null
+          });
+          tx.update(slabRef, { activeCount: firebase.firestore.FieldValue.increment(1) });
+        });
+
+        submitBtn.textContent = 'Uploading screenshot...';
+
+        // Upload screenshot via ImgBB
+        const formData = new FormData();
+        formData.append('image', file);
+        const imgbbKey = '48e1e2b510202964328a2e216aab0ed1';
+        const imgbbRes = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, { method: 'POST', body: formData });
+        const imgbbData = await imgbbRes.json();
+        if (!imgbbData.success) throw new Error('Image upload failed');
+        const screenshotUrl = imgbbData.data.url;
+
+        submitBtn.textContent = 'Approving ticket...';
+
+        // Approve directly (generate unique ID, update to approved)
+        const counterRef = db.collection('counters').doc(spotUserData.slabId);
+        let uniqueId;
+        await db.runTransaction(async (tx) => {
+          const counterDoc = await tx.get(counterRef);
+          const serial = counterDoc.exists ? counterDoc.data().nextSerial : 1;
+          const paddedSerial = String(serial).padStart(3, '0');
+          uniqueId = `TEDX-SIET-${spotUserData.slabId}-${paddedSerial}`;
+          tx.set(counterRef, { nextSerial: serial + 1 }, { merge: true });
+          tx.update(regRef, {
+            utrNumber: utr,
+            screenshotUrl,
+            status: 'approved',
+            uniqueId,
+            serialNumber: serial,
+            approvedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            submittedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          tx.update(db.collection('ticket_slabs').doc(spotUserData.slabId), {
+            approvedCount: firebase.firestore.FieldValue.increment(1)
+          });
+        });
+
+        toast('Spot ticket confirmed! ID: ' + uniqueId, 'ok');
+        modalEl.classList.remove('wide');
+        closeModal();
+        loadData();
+
+      } catch(err) {
+        console.error(err);
+        toast('Error: ' + (err.message === 'SOLD_OUT' ? 'This slab is sold out.' : err.message), 'err');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Confirm & Submit Spot Ticket';
+      }
+    };
+  }
+
+  showStep1();
+  document.getElementById('modal-bg').classList.add('open');
+});
+
+// ── Factory Reset ──
+document.getElementById('btn-reset').addEventListener('click', async () => {
+  const code = prompt('WARNING: This will delete ALL registrations and reset all ticket counts to zero. Type "CONFIRM" to proceed:');
+  if (code !== 'CONFIRM') return;
+
+  const btn = document.getElementById('btn-reset');
+  const original = btn.innerHTML;
+  btn.textContent = 'Resetting...';
+  try {
+    // Delete all registrations (in batches of 500 — Firestore limit)
+    const regs = await db.collection('registrations').get();
+    if (!regs.empty) {
+      const chunks = [];
+      for (let i = 0; i < regs.docs.length; i += 500) {
+        chunks.push(regs.docs.slice(i, i + 500));
+      }
+      for (const chunk of chunks) {
+        const b = db.batch();
+        chunk.forEach(d => b.delete(d.ref));
+        await b.commit();
+      }
+    }
+
+    // Reset ticket slabs
+    const slabs = await db.collection('ticket_slabs').get();
+    if (!slabs.empty) {
+      const b2 = db.batch();
+      slabs.docs.forEach(d => b2.update(d.ref, { activeCount: 0, approvedCount: 0, rejectedCount: 0 }));
+      await b2.commit();
+    }
+
+    // Delete counters
+    const counters = await db.collection('counters').get();
+    if (!counters.empty) {
+      const b3 = db.batch();
+      counters.docs.forEach(d => b3.delete(d.ref));
+      await b3.commit();
+    }
+
+    toast('Database Reset Successfully!', 'ok');
+    setTimeout(() => window.location.reload(), 1500);
+  } catch(e) {
+    console.error(e);
+    toast('Reset failed: ' + e.message, 'err');
+    btn.innerHTML = original;
+  }
+});
+
+function init(){loadData();}
+
+}());
+</script>
+</body>
+</html>

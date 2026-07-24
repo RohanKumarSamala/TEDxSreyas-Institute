@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "assets.zip",
+      "reference.html",
+      "test.js",
+      "test-brevo.html",
+      "recent.txt"
+    ],
+    "cleanUrls": true
+  }
+}

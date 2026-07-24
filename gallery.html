@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Gallery — TEDx Sreyas Institute. Relive the moments that sparked ideas worth spreading." />
+    <title>Gallery | TEDx Sreyas Institute</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- GSAP & Lenis for ultra smooth scroll -->
+    <!-- GSAP for scroll animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* ── CLEAN ERGONOMIC THEME (Based on ACEEC Reference) ── */
+        :root {
+            --bg-color: #050505;
+            /* Black/Dark theme */
+            --text-dark: #ffffff;
+            /* White text for contrast */
+            --ted-red: #E62B1E;
+            --border-light: rgba(255, 255, 255, 0.1);
+            /* Subtle white borders */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s;
+        }
+
+        /* Base resets & utilities */
+        ::selection {
+            background: var(--ted-red);
+            color: #fff;
+        }
+
+        /* Noise overlay for texture */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.04;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAP///8DxwTMAAAABXRSTlMAB0u/P8AAAA1SURBVDjLvZQxEQAACAMyk7y/ywyOggf3A5Q0gMymZ2bTM7Pp2f+y6ZnZ9MxsBsgMMDPIbB67GAnS5oFSAAAAAElFTkSuQmCC');
+        }
+
+
+
+        /* ── Hero Section ── */
+        .gal-hero-wrapper {
+            position: relative;
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 2;
+            padding-top: 80px;
+        }
+
+        .gal-hero-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--text-dark);
+            opacity: 0.6;
+            margin-bottom: 2rem;
+            display: inline-block;
+            position: relative;
+        }
+
+        .gal-hero-title {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 800;
+            line-height: 1;
+            margin: 0;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            color: var(--text-dark);
+        }
+
+        .word {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+            padding-bottom: 20px;
+            padding-right: 15px;
+            margin-bottom: -20px;
+            margin-right: -15px;
+        }
+
+        .char {
+            display: inline-block;
+            transform: translateY(110%);
+        }
+
+        .gal-hero-title em {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            text-transform: none;
+            color: var(--ted-red);
+            display: block;
+            margin-top: 10px;
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.4);
+            max-width: 520px;
+            line-height: 1.7;
+            margin: 1.5rem auto 0;
+            font-weight: 400;
+        }
+
+        /* ── Advanced Masonry Grid ── */
+        .gallery-container {
+            padding: 0 4vw 100px;
+            max-width: var(--container-max);
+            margin: 0 auto;
+        }
+
+        /* ── Top filter tabs (matches team page pill style) ── */
+        .gal-filters {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .gal-tabs {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.055);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 18px;
+            padding: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            max-width: 100%;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .gal-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gal-filter-btn {
+            position: relative;
+            background: transparent;
+            border: none;
+            border-radius: 11px;
+            padding: 12px 26px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.42);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.20em;
+            white-space: nowrap;
+            transition:
+                color 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            line-height: 1;
+            transform: scale(1);
+        }
+
+        .gal-filter-btn:hover {
+            color: rgba(255, 255, 255, 0.82);
+            background: rgba(255, 255, 255, 0.07);
+            transform: scale(1.02);
+        }
+
+        .gal-filter-btn.active {
+            background: var(--ted-red);
+            color: #ffffff;
+            font-weight: 800;
+            transform: scale(1.05);
+            box-shadow:
+                0 0 0 1px rgba(230, 43, 30, 0.5),
+                0 4px 20px rgba(230, 43, 30, 0.55),
+                0 0 40px rgba(230, 43, 30, 0.20);
+        }
+
+        /* Masonry Layout */
+        .masonry-grid {
+            column-count: 3;
+            column-gap: 16px;
+        }
+
+        @media (max-width: 1024px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .masonry-grid {
+                column-count: 1;
+            }
+            /* TEDx 2025 only: 2-column layout on mobile */
+            .masonry-grid--tedx {
+                column-count: 2;
+                column-gap: 10px;
+            }
+            .masonry-grid--tedx .masonry-item {
+                margin-bottom: 10px;
+                border-radius: 10px;
+            }
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 16px;
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            font-size: 0;
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: box-shadow 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
+                        border-color 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
+                        transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .masonry-item:hover {
+            border-color: rgba(230, 43, 30, 0.35);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.7), 0 0 36px rgba(230, 43, 30, 0.18);
+            transform: translateY(-4px);
+            z-index: 10;
+        }
+
+        /* Image */
+        .m-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .masonry-item:hover .m-img {
+            transform: scale(1.06);
+        }
+
+        /* ── Overlay — TEDx default: hidden, slides up on hover ── */
+        .m-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            pointer-events: none;
+        }
+
+        .masonry-item:hover .m-overlay {
+            opacity: 1;
+        }
+
+        .m-year {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+            transform: translateY(15px);
+            transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .m-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            transform: translateY(15px);
+            transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.05s;
+        }
+
+        .masonry-item:hover .m-year,
+        .masonry-item:hover .m-title {
+            transform: translateY(0);
+        }
+
+        /* ── College gallery override: always-visible centered overlay ── */
+        .masonry-item--college .m-overlay {
+            background: rgba(10, 5, 20, 0.50);
+            opacity: 1;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.4s;
+        }
+
+        .masonry-item--college:hover .m-overlay {
+            background: rgba(10, 5, 20, 0.30);
+        }
+
+        .masonry-item--college .m-year {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            transform: none;
+            transition: color 0.3s;
+        }
+
+        .masonry-item--college:hover .m-year {
+            color: rgba(230,43,30,0.9);
+        }
+
+        .masonry-item--college .m-title {
+            font-size: 1.4rem;
+            font-family: 'Playfair Display', serif;
+            text-transform: capitalize;
+            letter-spacing: 0;
+            text-align: center;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.8);
+            transform: none;
+            transition: color 0.35s ease;
+        }
+
+        .masonry-item--college:hover .m-title {
+            color: #fff;
+        }
+
+        /* ── Flipped image fix ── */
+        .m-img-flipped {
+            transform: rotate(180deg);
+        }
+        .masonry-item:hover .m-img-flipped {
+            transform: rotate(180deg) scale(1.06);
+        }
+
+        /* ── Large card variant ── */
+        .masonry-item-large .m-img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+        }
+        .masonry-item-large .m-img-flipped {
+            height: 380px;
+            object-fit: cover;
+        }
+
+        /* ── Lightbox ── */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(3, 3, 3, 0.97);
+            backdrop-filter: blur(28px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1);
+            /* NO cursor:default — body.has-custom-cursor keeps system cursor hidden */
+        }
+        #lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        /* Lift custom cursor dot and glow ABOVE the lightbox */
+        .cursor-dot, #custom-cursor { z-index: 10002 !important; }
+        .ambient-glow { z-index: 10001 !important; }
+
+        /* Close button */
+        .lb-close {
+            position: absolute;
+            top: 28px; right: 32px;
+            width: 44px; height: 44px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.25s, border-color 0.25s, transform 0.25s;
+            z-index: 10003;
+        }
+        .lb-close:hover {
+            background: rgba(230,43,30,0.18);
+            border-color: rgba(230,43,30,0.5);
+            transform: rotate(90deg) scale(1.1);
+        }
+        .lb-close::before, .lb-close::after {
+            content: '';
+            position: absolute;
+            width: 16px; height: 1.5px;
+            background: rgba(255,255,255,0.75);
+            border-radius: 2px;
+            transition: background 0.25s;
+        }
+        .lb-close::before { transform: rotate(45deg); }
+        .lb-close::after  { transform: rotate(-45deg); }
+        .lb-close:hover::before,
+        .lb-close:hover::after { background: #E62B1E; }
+
+        /* Image card wrapper — image + description together */
+        .lb-card {
+            position: relative;
+            max-width: min(80vw, 900px);
+            max-height: 80vh;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.06),
+                0 40px 100px rgba(0,0,0,0.8),
+                0 0 60px rgba(230,43,30,0.06);
+            transform: scale(0.9) translateY(40px);
+            opacity: 0;
+            transition:
+                transform 0.55s cubic-bezier(0.23, 1, 0.32, 1),
+                opacity 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        #lightbox.active .lb-card {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        .lb-img {
+            width: 100%;
+            min-height: 320px;
+            max-height: 80vh;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Description — gradient overlay at image bottom */
+        .lb-desc-panel {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 48px 28px 24px;
+            background: linear-gradient(
+                to top,
+                rgba(0,0,0,0.92) 0%,
+                rgba(0,0,0,0.6)  45%,
+                transparent      100%
+            );
+            transform: translateY(12px);
+            opacity: 0;
+            transition:
+                transform 0.5s cubic-bezier(0.23,1,0.32,1) 0.15s,
+                opacity 0.45s 0.15s;
+        }
+        #lightbox.active .lb-desc-panel {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .lb-desc-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #E62B1E;
+            margin-bottom: 6px;
+        }
+        .lb-desc-tag::before {
+            content: '';
+            display: inline-block;
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: #E62B1E;
+            box-shadow: 0 0 6px #E62B1E;
+        }
+        .lb-desc-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+        }
+        .lb-desc-text {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.65;
+            margin: 0;
+            max-width: 600px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="noise-overlay"></div>
+    <canvas id="stars"></canvas>
+
+    <!-- ══ NAVBAR ══ -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="navbar-inner">
+
+            <a href="index.html" class="nav-logo" aria-label="TEDx Sreyas Institute Home">
+                <img src="assets/images/tedx-logo.png" alt="TEDx Sreyas Institute" class="nav-logo-img" />
+            </a>
+
+            <div class="nav-center">
+                <div class="nav-links-container">
+                    <ul class="nav-links" role="list">
+                        <div class="nav-active-bg" aria-hidden="true"></div>
+                        <li><a href="index.html" class="active" id="nav-home">Home</a></li>
+                        <li><a href="speakers.html" id="nav-speakers">Speakers</a></li>
+                        <li><a href="schedule.html" id="nav-schedule">Schedule</a></li>
+                        <li><a href="team.html" id="nav-team">Team</a></li>
+                        <li><a href="gallery.html" id="nav-gallery">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="nav-divider"></div>
+                <a href="booking.html" class="nav-cta" id="nav-book">
+                    <span class="cta-shine"></span>
+                    <span class="cta-border"></span>
+                    <span>
+                        Book Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <div class="nav-hamburger-inner">
+                    <span></span><span></span><span></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="nav-mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile Navigation">
+        <a href="index.html">Home</a>
+        <a href="speakers.html">Speakers</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="team.html">Team</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html" style="color:var(--ted-red); font-weight:700;">Book Now</a>
+    </div>
+
+    <!-- ══ HERO ══ -->
+    <section class="gal-hero-wrapper">
+        <span class="gal-hero-tag">A Look Back</span>
+        <h1 class="gal-hero-title">
+            <span class="word"><span class="char">M</span><span class="char">o</span><span class="char">m</span><span
+                    class="char">e</span><span class="char">n</span><span class="char">t</span><span
+                    class="char">s</span></span><br>
+            <em><span class="word">
+                    <span class="char">C</span><span class="char">a</span><span class="char">p</span><span
+                        class="char">t</span><span class="char">u</span><span class="char">r</span><span
+                        class="char">e</span><span class="char">d</span><span class="char">.</span>
+                </span></em>
+        </h1>
+        <p class="hero-subtitle">Relive the highlights of our journey. From stage-shattering moments to quiet
+            conversations, explore the visuals that defined our quest for ideas worth spreading.</p>
+    </section>
+
+    <!-- ══ GALLERY MASONRY ══ -->
+    <section class="gallery-container">
+
+        <div class="gal-filters">
+            <div class="gal-tabs">
+                <button class="gal-filter-btn active" id="filter-college">COLLEGE GALLERY</button>
+                <button class="gal-filter-btn" id="filter-tedx">TEDx 2025</button>
+            </div>
+        </div>
+
+        <div class="masonry-grid" id="masonry-grid">
+            <!-- Items injected by JS -->
+        </div>
+
+    </section>
+
+    <!-- ══ LIGHTBOX ══ -->
+    <div id="lightbox">
+        <button class="lb-close" id="lb-close" aria-label="Close preview"></button>
+        <!-- .lb-card holds both image and overlay description -->
+        <div class="lb-card" id="lb-card">
+            <img src="" alt="" class="lb-img" id="lb-img">
+            <div class="lb-desc-panel" id="lb-desc-panel">
+                <span class="lb-desc-tag" id="lb-desc-tag">TEDx 2025</span>
+                <div class="lb-desc-title" id="lb-desc-title"></div>
+                <p class="lb-desc-text" id="lb-desc-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const grid = document.getElementById('masonry-grid');
+
+            // ── Real TEDx 2025 images ──
+            const tedx2025Images = [
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 095333.png',         title: 'The Finale',        desc: 'As the lights dimmed for the last time, the room collectively exhaled — energized, transformed, inspired.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 095304.png',         title: 'Candid Shot',       desc: 'The unguarded moments between sessions — when real conversations and genuine connections happen.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 095248.png',         title: 'On Stage',          desc: 'Every speaker on this stage carried years of experience distilled into a single powerful idea.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 095221.png',         title: 'Celebration',       desc: 'Joy, pride, and accomplishment fill the room as the day\'s milestones are celebrated together.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 095158.png',         title: 'Inspiration',       desc: 'Quiet inspiration — a delegate captures a note, a thought, or perhaps the beginning of something great.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 095141.png',         title: 'Applause',          desc: 'A standing ovation. The kind of moment that reminds everyone why ideas worth spreading truly matter.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 095124.png',         title: 'Close Up',          desc: 'Expression, passion, conviction — a close-up that captured the essence of authentic storytelling.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 095105.png',         title: 'Grand Stage',       desc: 'The grand stage stood as a symbol of ambition — every speaker who stepped on it carried a world-changing idea.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 095050.png',         title: 'Guest Speaker',     desc: 'An invited voice from beyond the campus brought fresh perspective to our theme of reimagining tomorrow.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 095035.png',         title: 'Networking Hour',   desc: 'Connections forged over conversations — delegates meet mentors, peers, and future collaborators.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 095019.png',         title: 'Behind the Scenes', desc: 'The unsung magic behind TEDx — the team, the setup, and the countless details that made it extraordinary.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 095000.png',         title: 'Spotlight Moment',  desc: 'A single spotlight, a single voice — and a story that left the entire hall in silence.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 094943.png',         title: 'Crowd Energy',      desc: 'The collective energy of a room united by curiosity, creativity, and an appetite for change.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 094927.png',         title: 'Live Performance',  desc: 'Art meets ideas — a live performance that bridged emotion and intellect in a single breathtaking moment.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 094909.png',         title: 'Panel Discussion',  desc: 'Visionaries from different fields share a stage, exchanging perspectives that spark new connections.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 094844.png',         title: 'Ideas Ignite',      desc: 'The room buzzes with curiosity and momentum as a powerful narrative unfolds on stage.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 094828.png',         title: 'Keynote Talk',      desc: 'The keynote moment — a talk that reframed our collective understanding of what is truly possible.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 094815.png',         title: 'Audience Connect',  desc: 'Hundreds of minds lean forward — ideas shared from the stage ripple through every row of the audience.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 094753.png',         title: 'Speaker Session',   desc: 'A riveting session that explored the intersection of technology, human potential, and purposeful design.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 094715.png',         title: 'Stage Moments',     desc: 'Raw, electric energy on stage as our speakers prepare to share ideas that challenge and inspire.' },
+                { src: 'assets/images/gallery/Screenshot 2026-04-01 094608.png',         title: 'Opening Ceremony',  desc: 'The curtains rise on TEDx Sreyas Institute — the stage lights up as the event officially begins with an unforgettable opening address.' },
+            ];
+
+            // ── Open lightbox with description ──
+            function openLightbox(img, yearLabel) {
+                const lbImg = document.getElementById('lb-img');
+                lbImg.src = img.src;
+                lbImg.alt = img.title;
+                // Fix flipped images in lightbox
+                lbImg.style.transform = img.flip ? 'rotate(180deg)' : '';
+                document.getElementById('lb-desc-tag').textContent   = yearLabel;
+                document.getElementById('lb-desc-title').textContent = img.title;
+                document.getElementById('lb-desc-text').textContent  = img.desc || 'A moment captured at Sreyas Institute.';
+                document.getElementById('lightbox').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // ── Populate grid with real images ──
+            function populateGridReal(images, yearLabel, isCollege) {
+                grid.innerHTML = '';
+                images.forEach((img) => {
+                    const item = document.createElement('div');
+                    const classes = ['masonry-item'];
+                    if (isCollege) classes.push('masonry-item--college');
+                    if (img.large) classes.push('masonry-item-large');
+                    item.className = classes.join(' ');
+                    const imgClass = img.flip ? 'm-img m-img-flipped' : 'm-img';
+                    item.innerHTML = `
+                        <img src="${img.src}" alt="${img.title}" class="${imgClass}">
+                        <div class="m-overlay">
+                            <span class="m-year">${yearLabel}</span>
+                            <span class="m-title">${img.title}</span>
+                        </div>
+                    `;
+                    item.addEventListener('click', () => openLightbox(img, yearLabel));
+                    grid.appendChild(item);
+                });
+                applyScrollAnimations();
+            }
+
+            // ── Real College Gallery images ──
+            const collegeImages = [
+                { src: 'assets/images/College/auditorium.jpg',        title: 'Auditorium',         desc: 'The Sreyas Institute auditorium — a premier venue that has hosted countless landmark events, conferences, and cultural programmes.', flip: true, large: true },
+                { src: 'assets/images/College/campus.jpg',            title: 'Campus',             desc: 'Sprawling across a lush green expanse, the Sreyas campus blends modern infrastructure with a nurturing academic environment.' },
+                { src: 'assets/images/College/library.jpg',           title: 'Library',            desc: 'A sanctuary of knowledge — the college library offers thousands of titles, digital resources, and quiet study spaces.' },
+                { src: 'assets/images/College/seminar.jpeg',          title: 'Seminar Hall',       desc: 'A state-of-the-art seminar hall where industry leaders, researchers, and educators come together to shape young minds.' },
+                { src: 'assets/images/College/Sports.jpeg',           title: 'Sports',             desc: 'Beyond academics, Sreyas nurtures champions — the sports facilities encourage every student to excel in their chosen field.' },
+                { src: 'assets/images/College/Student Event.jpeg',    title: 'Student Events',     desc: 'Student-led events and fests that celebrate creativity, collaboration, and the vibrant spirit of campus life.' },
+                { src: 'assets/images/College/faculty_.jpg',          title: 'Faculty',            desc: 'Distinguished educators and mentors who bring decades of expertise, guiding students toward their highest potential.' },
+                { src: 'assets/images/College/student_activites.jpeg',title: 'Student Activities', desc: 'From cultural clubs to technical teams, student activities at Sreyas build leadership, teamwork, and lifelong memories.' },
+            ];
+
+            function applyScrollAnimations() {
+                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+                // Kill old triggers so switching filters starts fresh
+                ScrollTrigger.getAll().forEach(t => t.kill());
+
+                const items = gsap.utils.toArray(grid.querySelectorAll('.masonry-item'));
+
+                // Pre-hide all items so they don't flash
+                gsap.set(items, { y: 40, opacity: 0 });
+
+                // Refresh layout THEN set up triggers — no arbitrary timer needed
+                requestAnimationFrame(() => {
+                    ScrollTrigger.refresh();
+
+                    const vH = window.innerHeight;
+
+                    items.forEach((item, i) => {
+                        const rect = item.getBoundingClientRect();
+
+                        if (rect.top < vH) {
+                            // ── Already visible on load → animate in immediately with small stagger ──
+                            gsap.to(item, {
+                                y: 0,
+                                opacity: 1,
+                                duration: 0.55,
+                                delay: i * 0.055,
+                                ease: 'power3.out',
+                            });
+                        } else {
+                            // ── Below the fold → trigger as soon as top hits 92% down the viewport ──
+                            gsap.to(item, {
+                                scrollTrigger: {
+                                    trigger: item,
+                                    start: 'top 92%',   // fires well before the item is fully visible
+                                    once: true,
+                                },
+                                y: 0,
+                                opacity: 1,
+                                duration: 0.6,
+                                delay: (i % 3) * 0.055,
+                                ease: 'power3.out',
+                            });
+                        }
+                    });
+                });
+            }
+
+            // ── Default: show College Gallery images ──
+            populateGridReal(collegeImages, 'SREYAS INSTITUTE', true);
+
+            // ── Filter Buttons ──
+            document.getElementById('filter-tedx').addEventListener('click', () => {
+                document.querySelectorAll('.gal-filter-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById('filter-tedx').classList.add('active');
+                grid.classList.add('masonry-grid--tedx');
+                populateGridReal(tedx2025Images, 'TEDx 2025', false);
+            });
+
+            document.getElementById('filter-college').addEventListener('click', () => {
+                document.querySelectorAll('.gal-filter-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById('filter-college').classList.add('active');
+                grid.classList.remove('masonry-grid--tedx');
+                populateGridReal(collegeImages, 'SREYAS INSTITUTE', true);
+            });
+
+            // ── Lightbox Close ──
+            function closeLightbox() {
+                document.getElementById('lightbox').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            document.getElementById('lb-close').addEventListener('click', closeLightbox);
+            document.getElementById('lightbox').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('lightbox')) closeLightbox();
+            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+            // ── Entrance Animations ──
+            if (typeof gsap !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+                gsap.from(".gal-hero-tag",  { y: 20, opacity: 0, duration: 1, delay: 0.1, ease: "power3.out" });
+                gsap.to(".char",            { y: 0, duration: 1.2, stagger: 0.04, delay: 0.2, ease: "expo.out" });
+                gsap.from(".gal-filters",   { y: 20, opacity: 0, duration: 1, delay: 0.8, ease: "power3.out" });
+            }
+        });
+    </script>
+        <!-- FOOTER -->
+    <style>
+    .sfs{position:relative;z-index:1;background:#080808;overflow:hidden;}
+    .sfs::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(230,43,30,0) 15%,rgba(230,43,30,.7) 40%,#E62B1E 50%,rgba(230,43,30,.7) 60%,rgba(230,43,30,0) 85%,transparent 100%);box-shadow:0 0 22px rgba(230,43,30,.35);}
+    .sfs-watermark{position:absolute;right:-2vw;bottom:-8%;pointer-events:none;user-select:none;opacity:0.06;font-family:'Inter','Arial Black',sans-serif;font-size:clamp(7rem,20vw,18rem);font-weight:900;color:#ffffff;line-height:1;letter-spacing:-0.04em;white-space:nowrap;}
+    .sfs-inner{max-width:1280px;margin:0 auto;padding:64px 5vw 0;display:flex;gap:72px;align-items:flex-start;position:relative;z-index:2;}
+    .sfs-brand{flex:0 0 280px;}
+    .sfs-logo{margin-bottom:20px;}
+    .sfs-logo-img{height:48px;width:auto;display:block;}
+    .sfs-desc{font-family:'Inter',sans-serif;font-size:0.93rem;color:rgba(255,255,255,0.32);line-height:1.75;margin-bottom:24px;}
+    .sfs-socials{display:flex;gap:10px;margin-bottom:32px;}
+    .sfs-social-btn{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .25s,border-color .25s,transform .22s;}
+    .sfs-social-btn:hover{background:rgba(230,43,30,.12);border-color:rgba(230,43,30,.35);transform:translateY(-3px);}
+    .sfs-social-btn svg{width:16px;height:16px;fill:rgba(255,255,255,0.45);transition:fill .25s;}
+    .sfs-social-btn:hover svg{fill:#E62B1E;}
+    .sfs-copy{font-family:'Inter',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.18);margin-bottom:5px;}
+    .sfs-disclaimer{font-family:'Inter',sans-serif;font-size:0.74rem;color:rgba(255,255,255,0.1);}
+    .sfs-cols{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;}
+    .sfs-col-h{display:block;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:16px;position:relative;padding-bottom:10px;}
+    .sfs-col-h::after{content:'';position:absolute;bottom:0;left:0;width:18px;height:1px;background:rgba(230,43,30,0.55);}
+    .sfs-col a{display:flex;align-items:center;gap:5px;font-family:'Inter',sans-serif;font-size:0.93rem;color:rgba(255,255,255,0.42);text-decoration:none;margin-bottom:11px;transition:color .2s,gap .2s;}
+    .sfs-col a::before{content:'';width:3px;height:3px;border-radius:50%;background:#E62B1E;opacity:0;transition:opacity .2s;flex-shrink:0;}
+    .sfs-col a:hover{color:#fff;gap:9px;}
+    .sfs-col a:hover::before{opacity:1;}
+    .sfs-bottom{position:relative;z-index:2;margin-top:48px;border-top:1px solid rgba(255,255,255,0.05);padding:20px 5vw;display:flex;align-items:center;justify-content:space-between;}
+    .sfs-bottom-left{font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(255,255,255,0.18);}
+    .sfs-bottom-right{font-family:'Inter',sans-serif;font-size:0.72rem;color:rgba(255,255,255,0.12);display:flex;align-items:center;gap:5px;}
+    .sfs-bottom-right span{color:#E62B1E;}
+    @media(max-width:920px){.sfs-inner{flex-direction:column;gap:40px;}.sfs-brand{flex:none;width:100%;}.sfs-bottom{flex-direction:column;gap:8px;text-align:center;}}
+    @media(max-width:600px){.sfs-cols{grid-template-columns:1fr 1fr;gap:24px;}}
+    </style>
+    <footer class="sfs" aria-label="Site Footer">
+      <div class="sfs-watermark" aria-hidden="true">TEDx</div>
+      <div class="sfs-inner">
+        <div class="sfs-brand">
+          <div class="sfs-logo">
+            <img src="assets/images/tedx-logo.png" alt="TEDx Sreyas Institute" class="sfs-logo-img" />
+          </div>
+          <p class="sfs-desc">Ideas Worth Spreading — An independently organized TEDx event at Sreyas Institute of Engineering &amp; Technology, Hyderabad.</p>
+          <div class="sfs-socials">
+            <a href="https://www.instagram.com/tedxsreyas_institute/" target="_blank" rel="noopener" class="sfs-social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/results?search_query=TEDx+Sreyas+Institute" target="_blank" rel="noopener" class="sfs-social-btn" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="https://x.com/TEDxSreyas" target="_blank" rel="noopener" class="sfs-social-btn" aria-label="X (Twitter)">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+          <p class="sfs-copy">All rights reserved &copy; 2026 TEDxSreyas.</p>
+          <p class="sfs-disclaimer">This independent TEDx event is operated under license from TED.</p>
+        </div>
+        <div class="sfs-cols">
+          <div class="sfs-col"><span class="sfs-col-h">Event</span><a href="about.html">About</a><a href="speakers.html">Speakers</a><a href="team.html">Team</a><a href="schedule.html">Schedule</a><a href="gallery.html">Gallery</a></div>
+          <div class="sfs-col"><span class="sfs-col-h">Socials</span><a href="https://www.instagram.com/tedxsreyas_institute/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/results?search_query=TEDx+Sreyas+Institute" target="_blank" rel="noopener">YouTube</a><a href="https://x.com/TEDxSreyas" target="_blank" rel="noopener">X (Twitter)</a></div>
+          <div class="sfs-col"><span class="sfs-col-h">Legal</span><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></div>
+          <div class="sfs-col"><span class="sfs-col-h">Get Involved</span><a href="booking.html">Register</a><a href="#">Sponsor Us</a><a href="#">Contact</a></div>
+        </div>
+      </div>
+      <div class="sfs-bottom">
+        <div class="sfs-bottom-left">All rights reserved &copy; 2026 TEDxSreyas &nbsp;&middot;&nbsp; Hyderabad, India</div>
+
+      </div>
+    </footer>
+    <script src="page-transition.js"></script>
+</body>
+
+</html>

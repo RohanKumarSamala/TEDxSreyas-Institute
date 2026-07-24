@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About — TEDx Sreyas Institute | Ideas Worth Spreading</title>
+    <meta name="description" content="Learn about TEDx Sreyas Institute — Reimagining Tomorrow. Independently organized, community driven, spreading ideas worth sharing." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+        \n *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red: #E62B1E;
+            --red-dark: #A51A14;
+            --red-dim: rgba(230, 43, 30, 0.1);
+            --black: #000000;
+            --surface: #0a0a0a;
+            --surface-2: #141414;
+            --border: rgba(255, 255, 255, 0.1);
+            --white: #ffffff;
+            --muted: #a3a3a3;
+            --font-main: 'Inter', sans-serif;
+            --font-display: 'Inter', sans-serif;
+            --font-alt: 'Space Grotesk', sans-serif;
+            --font-brand: 'Inter', sans-serif;
+            --font-serif: 'Bodoni Moda', serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100vh;
+            background: var(--black);
+            color: var(--white);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── Ambient Lighting ── */
+        .bg-ambient {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 80% 60% at 75% 20%, rgba(230, 43, 30, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 25% 70%, rgba(230, 43, 30, 0.06) 0%, transparent 55%),
+                radial-gradient(ellipse 40% 30% at 50% 50%, rgba(180, 20, 15, 0.04) 0%, transparent 70%);
+            animation: ambientDrift 14s ease-in-out infinite alternate;
+        }
+
+        @keyframes ambientDrift {
+            0%   { background-position: 0% 0%, 100% 100%, 50% 50%; opacity: 0.85; }
+            50%  { opacity: 1; }
+            100% { background-position: 8% 5%, 92% 95%, 52% 48%; opacity: 0.9; }
+        }
+
+        /* ── Floating orb lights (decorative) ── */
+        .light-orb {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(80px);
+            opacity: 0;
+            animation: orbFloat 18s ease-in-out infinite;
+        }
+        .light-orb-1 {
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, rgba(230,43,30,0.18) 0%, transparent 70%);
+            top: -10%; left: -8%;
+            animation-delay: 0s;
+            animation-duration: 20s;
+        }
+        .light-orb-2 {
+            width: 320px; height: 320px;
+            background: radial-gradient(circle, rgba(230,43,30,0.12) 0%, transparent 70%);
+            bottom: 10%; right: -5%;
+            animation-delay: -7s;
+            animation-duration: 24s;
+        }
+        .light-orb-3 {
+            width: 260px; height: 260px;
+            background: radial-gradient(circle, rgba(255,80,60,0.09) 0%, transparent 70%);
+            top: 40%; left: 50%;
+            animation-delay: -13s;
+            animation-duration: 17s;
+        }
+        @keyframes orbFloat {
+            0%   { opacity: 0;    transform: translate(0, 0) scale(1); }
+            15%  { opacity: 1; }
+            50%  { transform: translate(30px, -40px) scale(1.1); opacity: 0.85; }
+            85%  { opacity: 1; }
+            100% { opacity: 0;    transform: translate(-20px, 30px) scale(0.95); }
+        }
+
+        /* ── Top edge glow line ── */
+        .top-light-line {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(230,43,30,0) 15%,
+                rgba(230,43,30,0.7) 40%,
+                #E62B1E 50%,
+                rgba(230,43,30,0.7) 60%,
+                rgba(230,43,30,0) 85%,
+                transparent 100%);
+            box-shadow: 0 0 18px rgba(230,43,30,0.5);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        /* ── Header spotlight beam ── */
+        .header-spotlight {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 500px;
+            background: conic-gradient(
+                from 270deg at 50% 0%,
+                transparent 60deg,
+                rgba(230,43,30,0.06) 90deg,
+                rgba(230,43,30,0.13) 120deg,
+                rgba(230,43,30,0.06) 150deg,
+                transparent 210deg
+            );
+            pointer-events: none;
+            z-index: 0;
+            animation: spotlightPulse 6s ease-in-out infinite alternate;
+        }
+        @keyframes spotlightPulse {
+            from { opacity: 0.7; transform: translateX(-50%) scaleX(0.95); }
+            to   { opacity: 1;   transform: translateX(-50%) scaleX(1.05); }
+        }
+
+        /* ── Section glow accents ── */
+        .section-glow {
+            position: relative;
+        }
+        .section-glow::before {
+            content: '';
+            position: absolute;
+            inset: -40px -60px;
+            background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(230,43,30,0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 50%;
+            animation: sectionGlowPulse 8s ease-in-out infinite alternate;
+        }
+        @keyframes sectionGlowPulse {
+            from { opacity: 0.6; transform: scale(0.98); }
+            to   { opacity: 1;   transform: scale(1.02); }
+        }
+
+        .noise-overlay {
+            display: none;
+        }
+
+        /* ══ PAGE LAYOUT ══ */
+        .page-wrap {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 1rem 6rem;
+        }
+
+        /* ══ HEADER ══ */
+        header {
+            text-align: center;
+            padding: 10rem 5vw 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeDown 0.7s ease both;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4.5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            color: var(--white);
+        }
+
+        .hero-title span.red-grad {
+            color: var(--red);
+        }
+
+        .hero-dot {
+            display: block;
+            width: 12px;
+            height: 12px;
+            background: var(--red);
+            border-radius: 50%;
+            margin: 1.5rem auto 0;
+        }
+
+        .hero-desc {
+            max-width: 650px;
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--muted);
+            font-weight: 400;
+            margin-top: 2.5rem;
+        }
+
+        .section-label {
+            margin: 2rem 0 3rem;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            animation: fadeDown 0.7s 0.1s ease both;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes riseUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ══ ABOUT LAYOUTS ══ */
+        .about-container {
+            width: min(1100px, 92vw);
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10rem;
+            padding-bottom: 5rem;
+            animation: riseUp 0.9s 0.25s cubic-bezier(.22, .68, 0, 1) both;
+        }
+
+        /* 1. Initiative (Process Flow with Circles) */
+        .initiative-flow {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            position: relative;
+        }
+
+        .initiative-flow::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 16.666%;
+            width: 66.666%;
+            height: 1px;
+            background: var(--border);
+            z-index: 0;
+        }
+
+        /* Corporate Line Drawing Animation */
+        .initiative-flow::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 16.666%;
+            width: 66.666%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            z-index: 0;
+            background-size: 50% 100%;
+            background-repeat: no-repeat;
+            animation: scanline 3s infinite linear;
+            opacity: 0.7;
+        }
+
+        @keyframes scanline {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 300% 0;
+            }
+        }
+
+        @keyframes scanlineVert {
+            0% {
+                background-position: 0 -200%;
+            }
+
+            100% {
+                background-position: 0 300%;
+            }
+        }
+
+        .flow-item {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background: transparent;
+            transition: transform 0.4s ease;
+            cursor: default;
+        }
+
+        .flow-item:hover {
+            transform: translateY(-8px);
+        }
+
+        .flow-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* Glowing drop shadow */
+        .flow-icon::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            box-shadow: 0 0 0 rgba(230, 43, 30, 0);
+            transition: box-shadow 0.4s ease;
+            z-index: -1;
+        }
+
+        /* Pulsing Ripple */
+        .flow-icon::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            border: 1px solid var(--red);
+            opacity: 0;
+            transform: scale(0.8);
+            z-index: -2;
+            transition: opacity 0.4s ease;
+        }
+
+        .flow-item:hover .flow-icon {
+            border-color: var(--red);
+            color: var(--red);
+            background: var(--black);
+        }
+
+        .flow-item:hover .flow-icon::after {
+            box-shadow: 0 0 25px rgba(230, 43, 30, 0.5);
+        }
+
+        .flow-item:hover .flow-icon::before {
+            animation: ripple 1.5s infinite ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        .flow-icon svg {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.4s ease;
+        }
+
+        .flow-item:hover .flow-icon svg {
+            transform: scale(1.1);
+        }
+
+        .flow-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            transition: color 0.3s ease;
+        }
+
+        .flow-item:hover .flow-title {
+            color: var(--red);
+        }
+
+        .flow-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        /* 2. Split section & Bento Stats */
+        .split-section {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .text-content p {
+            font-family: var(--font-main);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 2rem;
+            line-height: 1.2;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .section-title span {
+            color: var(--white);
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 6px 14px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 2px;
+            color: var(--white);
+            font-family: var(--font-alt);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .pill:hover {
+            background: var(--red);
+            border-color: var(--red);
+            transform: translateY(-2px);
+        }
+
+        .pill.red {
+            color: var(--red);
+        }
+
+        .stat-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .stat-row {
+            display: flex;
+            flex-direction: column;
+            border-left: 2px solid var(--red);
+            padding-left: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: default;
+        }
+
+        /* Subtle background sweep on hover */
+        .stat-row::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(230, 43, 30, 0.08) 0%, transparent 100%);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            transform: translateX(-10%);
+        }
+
+        .stat-row:hover {
+            transform: translateX(10px);
+            border-left: 4px solid var(--red);
+        }
+
+        .stat-row:hover::before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .stat-val {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.03em;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: left;
+        }
+
+        /* CREATIVE: Holographic Stat Numbers */
+        .stat-row:hover .stat-val {
+            background: linear-gradient(90deg, var(--white) 0%, var(--red) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: scale(1.05) translateX(5px);
+            text-shadow: 0 10px 20px rgba(230, 43, 30, 0.3);
+        }
+
+        .stat-lbl {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .stat-row:hover .stat-lbl {
+            color: var(--white);
+        }
+
+        /* 3. Theme Stack */
+        .theme-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .theme-row {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            background: transparent;
+            padding: 2rem 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: default;
+            position: relative;
+        }
+
+        /* Theme Sub-glow interaction */
+        .theme-row::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--red) 0%, transparent 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.7s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .theme-row:hover {
+            transform: translateY(-8px);
+        }
+
+        .theme-row:hover::after {
+            transform: scaleX(1);
+        }
+
+        .theme-row.reverse {
+            flex-direction: row-reverse;
+        }
+
+        /* CREATIVE: 3D Kinetic Typography Overlay for Theme Blocks */
+        .theme-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            perspective: 1000px;
+        }
+
+        .theme-big-text {
+            font-size: clamp(3.2rem, 5vw, 4.8rem);
+            font-family: var(--font-display);
+            font-weight: 900;
+            line-height: 0.85;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.05);
+            text-transform: uppercase;
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+            transform: rotateY(-8deg) rotateX(5deg);
+            user-select: none;
+        }
+
+        .theme-row.reverse .theme-big-text {
+            transform: rotateY(8deg) rotateX(5deg);
+        }
+
+        .theme-row:hover .theme-big-text {
+            transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+            -webkit-text-stroke: 2px var(--red);
+            color: rgba(230, 43, 30, 0.1);
+            text-shadow: 0 0 30px rgba(230, 43, 30, 0.3);
+        }
+
+        .theme-content-box {
+            flex: 1;
+            position: relative;
+        }
+
+        .theme-content-box h3,
+        .h3-reimagining,
+        .h3-tomorrow {
+            font-family: var(--font-display) !important;
+            font-size: 2rem !important;
+            font-weight: 800 !important;
+            letter-spacing: -0.03em !important;
+            color: var(--white) !important;
+            margin-bottom: 1.5rem !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            -webkit-text-fill-color: unset !important;
+            font-style: normal !important;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* CREATIVE: Dynamic Title Underline */
+        .theme-content-box h3::after,
+        .h3-reimagining::after,
+        .h3-tomorrow::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: var(--red);
+            transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .theme-row:hover .theme-content-box h3::after,
+        .theme-row:hover .h3-reimagining::after,
+        .theme-row:hover .h3-tomorrow::after {
+            width: 100%;
+        }
+
+        .theme-content-box.red-tint h3,
+        .h3-tomorrow {
+            color: var(--red) !important;
+        }
+
+        .theme-content-box p {
+            font-family: var(--font-main);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--muted);
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+        }
+
+        .theme-tags-list {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .theme-tag {
+            padding: 0.5rem 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            font-family: var(--font-alt);
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* CREATIVE: Floating tags */
+        .theme-row:hover .theme-tag {
+            border-color: rgba(230, 43, 30, 0.3);
+            background: rgba(230, 43, 30, 0.05);
+            color: var(--white);
+            transform: translateY(-4px);
+        }
+
+        .theme-icon-float {
+            display: none;
+        }
+
+        /* 4. Core Values Cards */
+        .cards-grid-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .value-card {
+            position: relative;
+            background: #111111;
+            border-radius: 16px;
+            padding: 3rem 2.25rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            border: 1px solid rgba(230, 43, 30, 0.15);
+            /* Tinted Red Border */
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                border-color 0.5s ease,
+                background 0.5s ease;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(230, 43, 30, 0.15), transparent 70%);
+            opacity: 0.3;
+            /* Added permanent subtle glow */
+            transition: opacity 0.6s ease;
+            z-index: 0;
+        }
+
+        /* Red glowing bottom bar */
+        .value-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--red);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 -5px 20px 2px rgba(230, 43, 30, 0.6);
+            z-index: 2;
+        }
+
+        .value-card>* {
+            z-index: 1;
+            position: relative;
+        }
+
+        .value-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: rgba(230, 43, 30, 0.4);
+            background: #050505;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), inset 0 2px 20px rgba(230, 43, 30, 0.05);
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .value-icon-box {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: rgba(230, 43, 30, 0.05);
+            /* Tinted red background */
+            border: 1px solid rgba(230, 43, 30, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            color: var(--red);
+            /* Permanent red icon color */
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+        }
+
+        /* Subtle pulse ring */
+        .value-icon-box::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 18px;
+            border: 1px solid var(--red);
+            opacity: 0;
+            transform: scale(0.7);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .value-card:hover .value-icon-box {
+            background: var(--red);
+            color: var(--white);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(230, 43, 30, 0.5);
+            border-color: var(--red);
+        }
+
+        .value-card:hover .value-icon-box::before {
+            opacity: 1;
+            transform: scale(1);
+            animation: pulse-ring 2s infinite cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .value-icon-box svg {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.4s ease;
+        }
+
+        .value-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+            transition: color 0.4s ease, transform 0.4s ease;
+        }
+
+        .value-card:hover .value-title {
+            color: var(--red);
+            transform: translateX(5px);
+        }
+
+        .value-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--muted);
+            font-weight: 400;
+            transition: color 0.4s ease;
+        }
+
+        .value-card:hover .value-text {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* FOOTER — handled by sfs styles from styles.css */
+
+        /* ══ RESPONSIVE ══ */
+        @media (max-width: 1024px) {
+
+            .initiative-flow::before,
+            .initiative-flow::after {
+                display: none;
+            }
+
+            .initiative-flow {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-list {
+                gap: 2rem;
+            }
+
+            .theme-row,
+            .theme-row.reverse {
+                flex-direction: column;
+                padding: 3rem;
+                gap: 3rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .split-section {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .initiative-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            header {
+                padding-top: 6rem;
+            }
+
+            .theme-row {
+                padding: 2.5rem;
+            }
+        }
+
+        \n
+    </style>
+</head>
+
+<body>
+    <!-- Lighting Layers -->
+    <div class="top-light-line"></div>
+    <div class="light-orb light-orb-1"></div>
+    <div class="light-orb light-orb-2"></div>
+    <div class="light-orb light-orb-3"></div>
+    <!-- Stars Background -->
+    <canvas id="stars"></canvas>
+    <canvas id="particle-canvas"></canvas>
+    <div class="bg-ambient"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="navbar-inner">
+            <a href="index.html" class="nav-logo" aria-label="TEDx Sreyas Institute Home">
+                <img src="assets/images/tedx-logo.png" alt="TEDx Sreyas Institute" class="nav-logo-img" />
+            </a>
+            <div class="nav-center">
+                <div class="nav-links-container">
+                    <ul class="nav-links" role="list">
+                        <div class="nav-active-bg" aria-hidden="true"></div>
+                        <li><a href="index.html" id="nav-home">Home</a></li>
+                        <li><a href="speakers.html" id="nav-speakers">Speakers</a></li>
+                        <li><a href="schedule.html" id="nav-schedule">Schedule</a></li>
+                        <li><a href="team.html" id="nav-team">Team</a></li>
+                        <li><a href="gallery.html" id="nav-gallery">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="nav-divider"></div>
+                <a href="booking.html" class="nav-cta" id="nav-book">
+                    <span class="cta-shine"></span>
+                    <span class="cta-border"></span>
+                    <span>
+                        Book Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+            <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <div class="nav-hamburger-inner">
+                    <span></span><span></span><span></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="nav-mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile Navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html" style="color:var(--ted-red);">About</a>
+        <a href="speakers.html">Speakers</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="team.html">Team</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html" style="color:var(--ted-red); font-weight:700;">Book Now</a>
+    </div>
+
+    <div class="page-wrap">
+
+        <header style="position:relative;">
+            <!-- Header spotlight beam -->
+            <div class="header-spotlight"></div>
+            <h1 class="hero-title">
+                Ideas <span class="red-grad">Worth</span> Spreading
+                <span class="hero-dot"></span>
+            </h1>
+            <p class="hero-desc">
+                Every idea has the power to change the world. At TEDxSreyas Institute, we believe in amplifying those
+                ideas and giving them the stage they deserve.
+            </p>
+        </header>
+
+        <div class="section-label">About the event</div>
+
+        <!-- ── ABOUT CONTENT ── -->
+        <div class="about-container section-glow">
+
+            <!-- INITIATIVE (Timeline Flow) -->
+            <div class="initiative-flow">
+                <div class="flow-item">
+                    <div class="flow-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+                            <path d="M9 18h6" />
+                            <path d="M10 22h4" />
+                        </svg>
+                    </div>
+                    <h3 class="flow-title">Independently Organized</h3>
+                    <p class="flow-text">Each TEDx event is uniquely curated and organized by local teams who are
+                        passionate about
+                        their community's ideas.</p>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                            <line x1="12" x2="12" y1="19" y2="22" />
+                        </svg>
+                    </div>
+                    <h3 class="flow-title">Local Discoveries</h3>
+                    <p class="flow-text">We focus on uncovering voices and stories that might otherwise go unheard,
+                        providing them
+                        a global platform.</p>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                        </svg>
+                    </div>
+                    <h3 class="flow-title">Community Driven</h3>
+                    <p class="flow-text">Beyond the stage, TEDx is about building a community of curious individuals who
+                        are ready
+                        to take action.</p>
+                </div>
+            </div>
+
+            <!-- ABOUT SREYAS INSTITUTE (Boxless Stats) -->
+            <div class="split-section">
+                <div class="text-content">
+                    <div class="pill">OUR CAMPUS</div>
+                    <h2 class="section-title">About <span>Sreyas</span> Institute</h2>
+                    <p>Sreyas Institute of Engineering and Technology is a premier institution of higher learning
+                        located in
+                        Bandlaguda, Nagole, Hyderabad. Established with a vision to nurture innovation and academic
+                        excellence, the
+                        college has been at the forefront of engineering education, producing world-class engineers and
+                        innovators.
+                    </p>
+                    <p>With state-of-the-art infrastructure, dedicated faculty, and a vibrant campus culture, Sreyas
+                        Institute
+                        provides a nurturing environment that encourages students to think beyond boundaries and create
+                        meaningful
+                        impact. The college aims to bridge the gap between academia and industry through excellence.</p>
+                </div>
+                <div class="stat-list">
+                    <div class="stat-row">
+                        <div class="stat-val">13+</div>
+                        <div class="stat-lbl">Years of Excellence</div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-val">3000+</div>
+                        <div class="stat-lbl">Active Students</div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-val">200+</div>
+                        <div class="stat-lbl">Faculty Members</div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-val">95%</div>
+                        <div class="stat-lbl">Placement Rate</div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                /* 3. Enhanced Theme Card */
+                .theme-card-wrapper {
+                    width: 100%;
+                    max-width: 1100px;
+                    margin: 0 auto 5rem;
+                    perspective: 1000px;
+                }
+
+                .theme-card-panel {
+                    background: linear-gradient(145deg, #0f0a0a, #050303);
+                    border: 1px solid rgba(230, 43, 30, 0.15);
+                    border-radius: 20px;
+                    padding: 5rem 4rem;
+                    position: relative;
+                    overflow: hidden;
+                    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+                    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.6s ease;
+                }
+
+                .theme-card-panel:hover {
+                    transform: translateY(-8px);
+                    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8), 0 0 50px rgba(230, 43, 30, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                    border-color: rgba(230, 43, 30, 0.3);
+                }
+
+                .theme-card-panel::before {
+                    content: '“';
+                    position: absolute;
+                    top: -3rem;
+                    right: 3rem;
+                    font-family: var(--font-display);
+                    font-size: 25rem;
+                    color: rgba(230, 43, 30, 0.03);
+                    line-height: 1;
+                    user-select: none;
+                    pointer-events: none;
+                    z-index: 0;
+                    transition: color 0.6s ease;
+                }
+
+                .theme-card-panel:hover::before {
+                    color: rgba(230, 43, 30, 0.06);
+                }
+
+                .theme-card-panel::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -20%;
+                    right: -10%;
+                    width: 400px;
+                    height: 400px;
+                    background: radial-gradient(circle, rgba(230, 43, 30, 0.05) 0%, transparent 60%);
+                    border-radius: 50%;
+                    z-index: 0;
+                    pointer-events: none;
+                    transition: opacity 0.6s ease;
+                }
+
+                .theme-card-panel:hover::after {
+                    background: radial-gradient(circle, rgba(230, 43, 30, 0.08) 0%, transparent 60%);
+                }
+
+                .theme-card-icon,
+                .theme-card-label,
+                .theme-card-title,
+                .theme-card-content {
+                    position: relative;
+                    z-index: 1;
+                }
+
+                .theme-card-icon {
+                    width: 64px;
+                    height: 64px;
+                    border-radius: 50%;
+                    background: rgba(230, 43, 30, 0.05);
+                    border: 1px solid rgba(230, 43, 30, 0.2);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: var(--red);
+                    margin-bottom: 2rem;
+                    box-shadow: 0 0 20px rgba(230, 43, 30, 0.05);
+                    transition: all 0.4s ease;
+                }
+
+                .theme-card-panel:hover .theme-card-icon {
+                    background: var(--red);
+                    color: var(--white);
+                    transform: scale(1.05);
+                    box-shadow: 0 10px 30px rgba(230, 43, 30, 0.3);
+                }
+
+                .theme-card-icon svg {
+                    width: 26px;
+                    height: 26px;
+                }
+
+                .theme-card-label {
+                    font-family: var(--font-alt);
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    color: var(--red);
+                    letter-spacing: 0.2em;
+                    text-transform: uppercase;
+                    margin-bottom: 0.75rem;
+                }
+
+                .theme-card-title {
+                    font-family: var(--font-display);
+                    font-size: 2.5rem;
+                    font-weight: 800;
+                    color: var(--white);
+                    margin-bottom: 3rem;
+                    letter-spacing: -0.01em;
+                }
+
+                .theme-card-content {
+                    border-left: 3px solid rgba(230, 43, 30, 0.15);
+                    padding-left: 2.5rem;
+                }
+
+                .theme-card-content p {
+                    font-family: var(--font-main);
+                    font-size: 1.05rem;
+                    line-height: 1.8;
+                    color: #b0b0b0;
+                    margin-bottom: 1.75rem;
+                    transition: color 0.4s ease;
+                }
+
+                .theme-card-panel:hover .theme-card-content p {
+                    color: #cccccc;
+                }
+
+                .theme-card-content p:last-child {
+                    margin-bottom: 0;
+                }
+
+                .theme-card-content p strong {
+                    color: var(--white);
+                    font-family: var(--font-display);
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    letter-spacing: 0.01em;
+                    margin-right: 0.2rem;
+                }
+
+                @media (max-width: 768px) {
+                    .theme-card-panel {
+                        padding: 3rem 2rem;
+                    }
+
+                    .theme-card-title {
+                        font-size: 2rem;
+                    }
+
+                    .theme-card-content {
+                        border-left: none;
+                        padding-left: 0;
+                    }
+                }
+            </style>
+
+            <!-- THEME SECTION -->
+            <div
+                style="text-align:center; max-width:800px; margin: 0 auto -4rem; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2;">
+                <h2 class="section-title" style="margin-bottom: 1rem; text-shadow: 0 0 20px rgba(230, 43, 30, 0.4);">The
+                    Idea
+                    That <span style="text-shadow: 0 0 30px rgba(230, 43, 30, 0.8);">Drives Us</span></h2>
+                <div
+                    style="width: 80px; height: 3px; background: linear-gradient(90deg, transparent, #E62B1E, transparent); border-radius: 2px;">
+                </div>
+            </div>
+
+            <div class="theme-card-wrapper">
+                <div class="theme-card-panel">
+                    <div class="theme-card-icon">
+                        <!-- Circular Target Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <circle cx="12" cy="12" r="6" />
+                            <circle cx="12" cy="12" r="2" />
+                        </svg>
+                    </div>
+                    <div class="theme-card-label">OUR THEME</div>
+                    <h3 class="theme-card-title">REIMAGINING TOMORROW</h3>
+                    <div class="theme-card-content">
+                        <p><strong>Reimagining</strong> is the act of dismantling the impossible. It means questioning
+                            the norm,
+                            shattering boundaries, and shifting perspectives. We challenge ourselves to view problems
+                            not as
+                            roadblocks, but as puzzles waiting for a paradigm drop.</p>
+                        <p><strong>Tomorrow</strong> is the uncharted canvas where our visions unfold. It is the call to
+                            push past
+                            comfort zones and dare to manifest a world that doesn't yet exist. Together, we sculpt the
+                            future from the
+                            bold ideas of today.</p>
+                        <p>At TEDxSreyas Institute, this theme acts as a catalyst for revolutionary ideas. We recognize
+                            that
+                            progress isn't born from complacency, but from the audacity to dream bigger. Whether through
+                            groundbreaking technology, sustainable practices, or transformative social movements, we are
+                            dedicated to
+                            providing a stage for voices unafraid to redraw the blueprints of society.</p>
+                        <p>The future isn't something that just happens to us; it is a reality we design. Every local
+                            discovery,
+                            every challenged assumption, and every independent idea shared on our stage is a stepping
+                            stone toward a
+                            more enlightened, equitable, and dynamic world. Join us as we dissect the complexities of
+                            the present and
+                            lay the foundation for a brilliant, shared future.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OUR FOUNDATION (Core Values Cards Grid) -->
+            <div>
+                <div
+                    style="text-align:center; max-width:800px; margin: 0 auto 4rem; display: flex; flex-direction: column; align-items: center;">
+                    <h2 class="section-title"
+                        style="margin-bottom: 1rem; text-shadow: 0 0 20px rgba(230, 43, 30, 0.4);">Our <span
+                            style="text-shadow: 0 0 30px rgba(230, 43, 30, 0.8);">Foundation</span></h2>
+                    <p class="flow-text" style="margin-bottom: 0;">These four pillars form the foundation of everything
+                        we do at
+                        TEDxSreyas Institute.</p>
+                    <div
+                        style="width: 80px; height: 3px; background: linear-gradient(90deg, transparent, #E62B1E, transparent); border-radius: 2px; margin-top: 2rem;">
+                    </div>
+                </div>
+
+                <div class="cards-grid-wrapper">
+                    <div class="cards-grid">
+                        <div class="value-card">
+                            <div class="value-icon-box">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor" fill-opacity="0.2" />
+                                </svg>
+                            </div>
+                            <h3 class="value-title">Innovation</h3>
+                            <p class="value-text">Pushing the boundaries of what's possible through creative thinking,
+                                technological
+                                advancement, and bold experimentation that challenges the status quo.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon-box">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                                    <line x1="12" y1="22.08" x2="12" y2="12" />
+                                </svg>
+                            </div>
+                            <h3 class="value-title">Community</h3>
+                            <p class="value-text">Building a vibrant ecosystem of thinkers, doers, and dreamers who
+                                collaborate,
+                                support, and inspire each other to create meaningful change.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon-box">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"
+                                        fill="currentColor" fill-opacity="0.3" />
+                                </svg>
+                            </div>
+                            <h3 class="value-title">Inspiration</h3>
+                            <p class="value-text">Sparking curiosity and wonder through powerful stories, breakthrough
+                                ideas, and
+                                visionary perspectives that ignite the imagination and motivate action.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon-box">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="3" fill="currentColor" />
+                                    <path
+                                        d="M12 2v4 M12 18v4 M4.93 4.93l2.83 2.83 M16.24 16.24l2.83 2.83 M2 12h4 M18 12h4 M4.93 19.07l2.83-2.83 M16.24 7.76l2.83-2.83" />
+                                </svg>
+                            </div>
+                            <h3 class="value-title">Impact</h3>
+                            <p class="value-text">Every idea shared at our stage has the potential to ripple outward —
+                                transforming
+                                communities, industries, and lives far beyond the walls of our auditorium.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div><!-- /page-wrap -->
+
+    <script>
+        const canvas = document.getElementById("particle-canvas");
+        const ctx = canvas.getContext("2d");
+
+        let width, height;
+        let particles = [];
+
+        function init() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            const numParticles = Math.floor((width * height) / 8000); // Responsive number
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * height; // Spread initially
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+
+                // 3 types of particles for depth:
+                const rand = Math.random();
+                if (rand < 0.6) {
+                    // Sharp, tiny particles (foreground)
+                    this.size = Math.random() * 1.5 + 0.5;
+                    this.speedY = (Math.random() - 0.5) * 0.3 - 0.05;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.baseOpacity = Math.random() * 0.6 + 0.2;
+                    this.blur = 0;
+                } else if (rand < 0.9) {
+                    // Medium, slightly blurry particles (midground)
+                    this.size = Math.random() * 2.5 + 1;
+                    this.speedY = (Math.random() - 0.5) * 0.2 - 0.02;
+                    this.speedX = (Math.random() - 0.5) * 0.2;
+                    this.baseOpacity = Math.random() * 0.3 + 0.1;
+                    this.blur = 4;
+                } else {
+                    // Large, very blurry glows (background)
+                    this.size = Math.random() * 4 + 2;
+                    this.speedY = (Math.random() - 0.5) * 0.1;
+                    this.speedX = (Math.random() - 0.5) * 0.1;
+                    this.baseOpacity = Math.random() * 0.15 + 0.05;
+                    this.blur = 10;
+                }
+
+                this.opacity = this.baseOpacity;
+                this.angle = Math.random() * Math.PI * 2;
+                this.spin = (Math.random() - 0.5) * 0.02; // Slow rotation
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Wrap around edges
+                if (this.x < -20) this.x = width + 20;
+                if (this.x > width + 20) this.x = -20;
+                if (this.y < -20) this.y = height + 20;
+                if (this.y > height + 20) this.y = -20;
+
+                // Subtle twinkling
+                this.opacity = this.baseOpacity + Math.sin(Date.now() * 0.0015 + this.x * 0.01) * (this.baseOpacity * 0.5);
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                this.angle += this.spin;
+                ctx.rotate(this.angle);
+
+                if (this.blur > 0) {
+                    ctx.shadowBlur = this.blur;
+                    ctx.shadowColor = '#E62B1E';
+                }
+
+                ctx.fillStyle = `rgba(230, 43, 30, ${this.opacity})`;
+
+                // Draw square/diamond
+                ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+
+                ctx.restore();
+            }
+        }
+
+        window.addEventListener('resize', init);
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for (let particle of particles) {
+                particle.update();
+                particle.draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
+
+    <!-- Footer -->
+    <style>
+    .sfs{position:relative;z-index:1;background:#080808;overflow:hidden;}
+    .sfs::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(230,43,30,0) 15%,rgba(230,43,30,.7) 40%,#E62B1E 50%,rgba(230,43,30,.7) 60%,rgba(230,43,30,0) 85%,transparent 100%);box-shadow:0 0 22px rgba(230,43,30,.35);}
+    .sfs-watermark{position:absolute;right:-2vw;bottom:-8%;pointer-events:none;user-select:none;opacity:0.06;font-family:'Inter','Arial Black',sans-serif;font-size:clamp(7rem,20vw,18rem);font-weight:900;color:#ffffff;line-height:1;letter-spacing:-0.04em;white-space:nowrap;}
+    .sfs-inner{max-width:1280px;margin:0 auto;padding:64px 5vw 0;display:flex;gap:72px;align-items:flex-start;position:relative;z-index:2;}
+    .sfs-brand{flex:0 0 280px;}
+    .sfs-logo{margin-bottom:20px;}
+    .sfs-logo-img{height:48px;width:auto;display:block;}
+    .sfs-desc{font-family:'Inter',sans-serif;font-size:0.93rem;color:rgba(255,255,255,0.32);line-height:1.75;margin-bottom:24px;}
+    .sfs-socials{display:flex;gap:10px;margin-bottom:32px;}
+    .sfs-social-btn{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .25s,border-color .25s,transform .22s;}
+    .sfs-social-btn:hover{background:rgba(230,43,30,.12);border-color:rgba(230,43,30,.35);transform:translateY(-3px);}
+    .sfs-social-btn svg{width:16px;height:16px;fill:rgba(255,255,255,0.45);transition:fill .25s;}
+    .sfs-social-btn:hover svg{fill:#E62B1E;}
+    .sfs-copy{font-family:'Inter',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.18);margin-bottom:5px;}
+    .sfs-disclaimer{font-family:'Inter',sans-serif;font-size:0.74rem;color:rgba(255,255,255,0.1);}
+    .sfs-cols{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;}
+    .sfs-col-h{display:block;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:16px;position:relative;padding-bottom:10px;}
+    .sfs-col-h::after{content:'';position:absolute;bottom:0;left:0;width:18px;height:1px;background:rgba(230,43,30,0.55);}
+    .sfs-col a{display:flex;align-items:center;gap:5px;font-family:'Inter',sans-serif;font-size:0.93rem;color:rgba(255,255,255,0.42);text-decoration:none;margin-bottom:11px;transition:color .2s,gap .2s;}
+    .sfs-col a::before{content:'';width:3px;height:3px;border-radius:50%;background:#E62B1E;opacity:0;transition:opacity .2s;flex-shrink:0;}
+    .sfs-col a:hover{color:#fff;gap:9px;}
+    .sfs-col a:hover::before{opacity:1;}
+    .sfs-bottom{position:relative;z-index:2;margin-top:48px;border-top:1px solid rgba(255,255,255,0.05);padding:20px 5vw;display:flex;align-items:center;justify-content:space-between;}
+    .sfs-bottom-left{font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(255,255,255,0.18);}
+    .sfs-bottom-right{font-family:'Inter',sans-serif;font-size:0.72rem;color:rgba(255,255,255,0.12);display:flex;align-items:center;gap:5px;}
+    .sfs-bottom-right span{color:#E62B1E;}
+    @media(max-width:920px){.sfs-inner{flex-direction:column;gap:40px;}.sfs-brand{flex:none;width:100%;}.sfs-bottom{flex-direction:column;gap:8px;text-align:center;}}
+    @media(max-width:600px){.sfs-cols{grid-template-columns:1fr 1fr;gap:24px;}}
+    </style>
+    <footer class="sfs" aria-label="Site Footer">
+      <div class="sfs-watermark" aria-hidden="true">TEDx</div>
+      <div class="sfs-inner">
+        <div class="sfs-brand">
+          <div class="sfs-logo">
+            <img src="assets/images/tedx-logo.png" alt="TEDx Sreyas Institute" class="sfs-logo-img" />
+          </div>
+          <p class="sfs-desc">Ideas Worth Spreading — An independently organized TEDx event at Sreyas Institute of Engineering &amp; Technology, Hyderabad.</p>
+          <div class="sfs-socials">
+            <a href="https://www.instagram.com/tedxsreyas_institute/" target="_blank" rel="noopener" class="sfs-social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/results?search_query=TEDx+Sreyas+Institute" target="_blank" rel="noopener" class="sfs-social-btn" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="https://x.com/TEDxSreyas" target="_blank" rel="noopener" class="sfs-social-btn" aria-label="X (Twitter)">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+          <p class="sfs-copy">All rights reserved &copy; 2026 TEDxSreyas.</p>
+          <p class="sfs-disclaimer">This independent TEDx event is operated under license from TED.</p>
+        </div>
+        <div class="sfs-cols">
+          <div class="sfs-col"><span class="sfs-col-h">Event</span><a href="about.html">About</a><a href="speakers.html">Speakers</a><a href="team.html">Team</a><a href="schedule.html">Schedule</a><a href="gallery.html">Gallery</a></div>
+          <div class="sfs-col"><span class="sfs-col-h">Socials</span><a href="https://www.instagram.com/tedxsreyas_institute/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/results?search_query=TEDx+Sreyas+Institute" target="_blank" rel="noopener">YouTube</a><a href="https://x.com/TEDxSreyas" target="_blank" rel="noopener">X (Twitter)</a></div>
+          <div class="sfs-col"><span class="sfs-col-h">Legal</span><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></div>
+          <div class="sfs-col"><span class="sfs-col-h">Get Involved</span><a href="booking.html">Register</a></div>
+        </div>
+      </div>
+      <div class="sfs-bottom">
+        <div class="sfs-bottom-left">All rights reserved &copy; 2026 TEDxSreyas &nbsp;&middot;&nbsp; Hyderabad, India</div>
+      </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="page-transition.js"></script>
+</body>
+
+</html>

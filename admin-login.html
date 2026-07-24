@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin Login — TEDx Sreyas Institute</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--red:#E62B1E;--bg:#07090e;--border:rgba(255,255,255,.08);--muted:rgba(255,255,255,.45);--font:'Inter',sans-serif;}
+html,body{height:100%;background:var(--bg);color:#fff;font-family:var(--font);display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased;}
+body{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(100,10,22,.3) 0%,transparent 65%),#07090e;}
+
+.card{width:min(420px,94vw);background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:20px;
+  padding:2.5rem 2rem;box-shadow:0 30px 80px rgba(0,0,0,.6);}
+
+.logo-row{display:flex;align-items:center;gap:.8rem;margin-bottom:2rem;}
+.logo-row img{height:36px;width:auto;}
+.logo-row .title{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.logo-row .title strong{display:block;font-size:1rem;letter-spacing:-.01em;text-transform:none;color:#fff;font-weight:700;}
+
+.card h1{font-size:1.3rem;font-weight:800;margin-bottom:.3rem;}
+.card p{font-size:.8rem;color:var(--muted);margin-bottom:1.8rem;}
+
+.field{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.1rem;}
+.field label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+.field input{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;font-family:var(--font);font-size:.95rem;color:#fff;outline:none;transition:border-color .25s,box-shadow .25s;}
+.field input:focus{border-color:rgba(230,43,30,.6);box-shadow:0 0 0 3px rgba(230,43,30,.12);}
+.field input.err{border-color:#ff4444;}
+
+.btn{width:100%;padding:.9rem;background:linear-gradient(135deg,#c41230,var(--red));border:none;border-radius:12px;color:#fff;font-family:var(--font);font-size:.9rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 6px 24px rgba(230,43,30,.4);margin-top:.4rem;}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 32px rgba(230,43,30,.55);}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.err-msg{font-size:.78rem;color:#ff6b6b;text-align:center;margin-top:.8rem;min-height:1.2rem;}
+
+.back-link{display:block;text-align:center;margin-top:1.4rem;font-size:.75rem;color:var(--muted);text-decoration:none;transition:color .2s;}
+.back-link:hover{color:#fff;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo-row">
+    <img src="assets/images/tedx-logo.png" alt="TEDx Sreyas"/>
+    <div class="title"><strong>Admin Panel</strong>TEDx Sreyas Institute</div>
+  </div>
+  <h1>Welcome back</h1>
+  <p>Sign in to access the registration management dashboard.</p>
+
+  <form id="login-form" novalidate>
+    <div class="field">
+      <label for="f-email">Admin Email</label>
+      <input type="email" id="f-email" placeholder="admin@tedxsreyas.com" required autocomplete="username"/>
+    </div>
+    <div class="field">
+      <label for="f-pass">Password</label>
+      <input type="password" id="f-pass" placeholder="••••••••" required autocomplete="current-password"/>
+    </div>
+    <button type="submit" class="btn" id="btn-login">Sign In</button>
+    <div class="err-msg" id="err-msg"></div>
+  </form>
+
+  <a href="index.html" class="back-link">← Back to website</a>
+</div>
+
+<!-- Firebase Auth -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+<script src="firebase-config.js?v=3"></script>
+<script>
+'use strict';
+(function(){
+  // If already logged in, go straight to dashboard
+  firebase.auth().onAuthStateChanged(user=>{
+    if(user) window.location.href='admin.html';
+  });
+
+  const errMsg=document.getElementById('err-msg');
+  const btn=document.getElementById('btn-login');
+
+  document.getElementById('login-form').addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    const email=document.getElementById('f-email').value.trim();
+    const pass=document.getElementById('f-pass').value;
+    if(!email||!pass){errMsg.textContent='Please fill in both fields.';return;}
+
+    btn.disabled=true;btn.textContent='Signing in…';errMsg.textContent='';
+    try{
+      await firebase.auth().signInWithEmailAndPassword(email,pass);
+      window.location.href='admin.html';
+    }catch(err){
+      const msgs={
+        'auth/user-not-found':'No admin account found with that email.',
+        'auth/wrong-password':'Incorrect password. Please try again.',
+        'auth/invalid-email':'Invalid email address.',
+        'auth/too-many-requests':'Too many failed attempts. Please try again later.',
+      };
+      errMsg.textContent=msgs[err.code]||'Login failed. Please try again.';
+      btn.disabled=false;btn.textContent='Sign In';
+    }
+  });
+}());
+</script>
+</body>
+</html>

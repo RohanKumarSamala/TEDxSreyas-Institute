@@ -1,0 +1,2121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Available Tickets — TEDxSreyas Institute</title>
+    <meta name="description" content="TEDxSreyas Institute — Reimagining Tomorrow. Claim your seat at the event." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red: #c41230;
+            --red-hot: #e63050;
+            --red-dark: #8a0c22;
+            --gold: #b8973a;
+            --gold-soft: #d4b86a;
+            --cream: #f0e8d8;
+            --dark-bg: #07090e;
+            --surface: #0d0e14;
+            --surface-2: #121420;
+            --border: rgba(255, 255, 255, 0.07);
+            --white: #ffffff;
+            --muted: #6a7a8e;
+            --font-main: 'Inter', sans-serif;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-alt: 'Space Grotesk', sans-serif;
+            --font-brand: 'Cormorant Garamond', serif;
+            --font-serif: 'Bodoni Moda', serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100vh;
+            background: var(--dark-bg);
+            color: var(--white);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background: var(--red);
+            color: #fff;
+        }
+
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 70% 45% at 50% 0%, rgba(100, 10, 22, 0.28) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 30% at 85% 85%, rgba(20, 10, 5, 0.18) 0%, transparent 55%),
+                linear-gradient(160deg, #07090e 0%, #050709 50%, #07090e 100%);
+        }
+
+        .page-wrap {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 90px 1rem 6rem;
+        }
+
+        header {
+            text-align: left;
+            padding: 2rem 5vw 1rem;
+            animation: fadeDown 0.8s ease both;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: baseline;
+            justify-content: flex-start;
+            gap: 0;
+            line-height: 1;
+        }
+
+        .brand .ted {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+            color: var(--red);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+        }
+
+        .brand .x {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.1rem, 2.6vw, 1.9rem);
+            color: var(--red);
+            font-weight: 800;
+            position: relative;
+            top: -0.55em;
+            line-height: 0;
+            letter-spacing: 0;
+        }
+
+        .brand .rest {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            text-transform: none;
+            margin-left: 0.4rem;
+        }
+
+        .brand-sub {
+            align-self: flex-start;
+            margin-left: max(5vw, calc(50% - min(350px, 46vw))); /* Aligns tightly under the 'x' in most viewports */
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.6rem, 1.5vw, 0.85rem);
+            letter-spacing: 0.02em;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            margin-top: 0.2rem;
+        }
+
+        .brand-sub .r {
+            color: var(--red);
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .section-label {
+            margin: 1.5rem 0 0.8rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-style: normal;
+            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            text-align: center;
+            animation: fadeDown 0.9s 0.2s ease both;
+        }
+
+        /* ══ TICKET WRAPPER ══ */
+        .ticket-wrap {
+            width: min(700px, 92vw);
+            perspective: 1400px;
+            animation: riseUp 0.9s 0.25s cubic-bezier(.22, .68, 0, 1.12) both;
+        }
+
+        /* ══ TICKET SHELL ══ */
+        .ticket {
+            width: 100%;
+            height: 248px;
+            display: flex;
+            border-radius: 10px;
+            overflow: visible;
+            background:
+                linear-gradient(118deg,
+                    #0c0b10 0%,
+                    #0e0c12 25%,
+                    #100d10 50%,
+                    #0f0b0d 75%,
+                    #0d0b0f 100%);
+            box-shadow:
+                0 50px 120px rgba(0, 0, 0, 0.95),
+                0 0 0 0.5px rgba(255, 255, 255, 0.08),
+                0 0 0 1px rgba(0, 0, 0, 0.9),
+                0 0 60px rgba(180, 15, 30, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s cubic-bezier(.22, .68, 0, 1.1), box-shadow 0.4s ease;
+            clip-path: inset(0 round 10px);
+            animation: ticketPulse 6s ease-in-out infinite;
+        }
+
+        @keyframes ticketPulse {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 50px 120px rgba(0, 0, 0, 0.95),
+                    0 0 0 0.5px rgba(255, 255, 255, 0.08),
+                    0 0 0 1px rgba(0, 0, 0, 0.9),
+                    0 0 60px rgba(180, 15, 30, 0.12),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            }
+
+            50% {
+                box-shadow:
+                    0 50px 120px rgba(0, 0, 0, 0.95),
+                    0 0 0 0.5px rgba(255, 255, 255, 0.11),
+                    0 0 0 1px rgba(0, 0, 0, 0.9),
+                    0 0 90px rgba(196, 18, 48, 0.18),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            }
+        }
+
+        /* Dark red accent bar at top */
+        .ticket::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(140, 10, 20, 0.0) 10%,
+                    rgba(180, 15, 30, 0.6) 35%,
+                    rgba(210, 20, 35, 0.95) 50%,
+                    rgba(180, 15, 30, 0.6) 65%,
+                    rgba(140, 10, 20, 0.0) 90%,
+                    transparent 100%);
+            z-index: 10;
+            pointer-events: none;
+            border-radius: 10px 10px 0 0;
+            animation: barShimmer 5s ease-in-out infinite;
+        }
+
+        @keyframes barShimmer {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+                filter: brightness(1.2);
+            }
+        }
+
+        /* Moving shine sweep */
+        .ticket::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -80%;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(110deg,
+                    transparent 20%, rgba(255, 245, 230, 0.025) 50%, transparent 80%);
+            animation: shineSweep 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        @keyframes shineSweep {
+            0% {
+                left: -80%;
+                opacity: 0;
+            }
+
+            8% {
+                opacity: 1;
+            }
+
+            55% {
+                left: 140%;
+                opacity: 1;
+            }
+
+            56% {
+                opacity: 0;
+            }
+
+            100% {
+                left: 140%;
+                opacity: 0;
+            }
+        }
+
+        /* ══ MAIN BODY ══ */
+        .tk-body {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1rem 1.6rem 1rem;
+        }
+
+        /* Cool-to-warm overlay */
+        .tk-body>.tk-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            background: linear-gradient(105deg,
+                    rgba(8, 7, 14, 0.92) 0%,
+                    rgba(10, 8, 12, 0.72) 25%,
+                    rgba(12, 9, 9, 0.38) 55%,
+                    rgba(13, 9, 7, 0.08) 80%,
+                    transparent 100%);
+        }
+
+        /* ══ RICH SVG ARTWORK ══ */
+        .tk-art {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        /* ══ TICKET NUMBER watermark ══ */
+        .tk-num-watermark {
+            position: absolute;
+            right: 135px;
+            bottom: -12px;
+            font-family: var(--font-display);
+            font-size: 7rem;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.018);
+            letter-spacing: -0.02em;
+            pointer-events: none;
+            z-index: 1;
+            user-select: none;
+        }
+
+        /* ══ TOP ROW ══ */
+        .tk-top {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .tk-org-badge {
+            display: flex;
+            flex-direction: column;
+            gap: 0.18rem;
+        }
+
+        .tk-org-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            text-transform: none;
+            color: #ffffff;
+            line-height: 1.1;
+        }
+
+        .tk-org-name .ted {
+            color: var(--red);
+            font-weight: 900;
+        }
+
+        .tk-org-name .x-sup {
+            color: var(--red);
+            font-weight: 900;
+            font-size: 0.5rem;
+            vertical-align: super;
+            line-height: 0;
+        }
+
+        .tk-org-sub {
+            font-size: 0.36rem;
+            letter-spacing: 0.02em;
+            text-transform: none;
+            color: rgba(255, 255, 255, 0.45);
+            font-weight: 400;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tk-org-sub .r {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        /* Decorative diamond separator */
+        .tk-diamond-seq {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.36rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.18);
+            font-family: var(--font-alt);
+        }
+
+        .tk-diamond-seq .dmnd {
+            width: 4px;
+            height: 4px;
+            background: var(--red);
+            transform: rotate(45deg);
+            opacity: 0.5;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        /* ══ MIDDLE / EVENT TITLE ══ */
+        .tk-middle {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 0.05rem;
+        }
+
+        .tk-eyebrow {
+            font-size: 0.4rem;
+            letter-spacing: 0.36em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 400;
+            font-family: var(--font-alt);
+        }
+
+        .tk-event-title {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            line-height: 0.88;
+        }
+
+        .tk-event-title .word-reimagining {
+            font-family: var(--font-display);
+            font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+            letter-spacing: 0.3em;
+            color: rgba(255, 255, 255, 0.45);
+            font-weight: 400;
+        }
+
+        .tk-event-title .word-tomorrow {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+            letter-spacing: 0.06em;
+            background: linear-gradient(130deg, #e04040 0%, #c41230 40%, #e02030 70%, #920f28 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tk-event-desc {
+            margin-top: 0.35rem;
+            font-size: 0.4rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.16);
+            font-family: var(--font-main);
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        /* ══ META ROW ══ */
+        .tk-bottom {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .tk-meta-grid {
+            display: flex;
+            gap: 1.6rem;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .tk-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.18rem;
+        }
+
+        .tk-meta-item .lbl {
+            font-size: 0.32rem;
+            font-weight: 500;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.15);
+        }
+
+        .tk-meta-item .val {
+            font-family: var(--font-alt);
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.05em;
+        }
+
+        .tk-meta-item .val .r {
+            color: var(--red);
+        }
+
+        .tk-meta-item .val .gold {
+            color: var(--gold-soft);
+        }
+
+
+
+        /* ══ PERFORATED DIVIDER ══ */
+        .perf-v {
+            width: 1px;
+            flex-shrink: 0;
+            background: repeating-linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0.08) 0px, rgba(255, 255, 255, 0.08) 4px,
+                    transparent 4px, transparent 8px);
+            position: relative;
+            z-index: 10;
+        }
+
+        .perf-v::before,
+        .perf-v::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 8px;
+            background: var(--dark-bg);
+            z-index: 10;
+            border-radius: 8px;
+        }
+
+        .perf-v::before {
+            top: -4px;
+        }
+
+        .perf-v::after {
+            bottom: -4px;
+        }
+
+        /* ══ STUB (right side) ══ */
+        .tk-stub {
+            width: 120px;
+            flex-shrink: 0;
+            background: linear-gradient(155deg, #0b0b0f 0%, #0d0d12 50%, #0c0b10 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 0.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle side-gradient texture */
+        .tk-stub::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                    rgba(184, 151, 58, 0.04) 0%,
+                    transparent 40%,
+                    rgba(184, 151, 58, 0.03) 100%);
+            pointer-events: none;
+            opacity: 1;
+        }
+
+        /* ══ STUB ══ */
+        .tk-stub {
+            width: 110px;
+            flex-shrink: 0;
+            background: linear-gradient(155deg, #0b0b0f 0%, #0d0d12 50%, #0c0b10 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-end;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle gradient texture */
+        .tk-stub::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                    rgba(184, 151, 58, 0.04) 0%,
+                    transparent 40%,
+                    rgba(184, 151, 58, 0.03) 100%);
+            pointer-events: none;
+            opacity: 1;
+        }
+
+        /* Horizontal text column — fills the stub top-to-bottom */
+        .tk-stub-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 0.7rem 0.6rem;
+            position: relative;
+            z-index: 1;
+            gap: 0.65rem;
+            text-align: center;
+        }
+
+        .stub-brand {
+            font-family: var(--font-alt);
+            font-size: 0.45rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.18);
+        }
+
+        .stub-brand .r {
+            color: var(--red);
+        }
+
+        .stub-rule {
+            width: 55%;
+            height: 0.5px;
+            flex-shrink: 0;
+            background: linear-gradient(to right, transparent, rgba(184, 151, 58, 0.55), transparent);
+        }
+
+        .stub-title {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 0.65rem;
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.3;
+        }
+
+        .stub-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .stub-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+        }
+
+        .stub-item .lbl {
+            font-size: 0.28rem;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.16);
+            font-weight: 500;
+        }
+
+        .stub-item .val {
+            font-family: var(--font-alt);
+            font-size: 0.54rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.62);
+            letter-spacing: 0.05em;
+        }
+
+        .stub-item .val .r {
+            color: var(--red);
+        }
+
+        /* Barcode strip at the bottom of stub */
+        .tk-stub-barcode {
+            flex-shrink: 0;
+            width: 100%;
+            padding: 0.5rem 0.65rem 0.55rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.22rem;
+            border-top: 0.5px solid rgba(255, 255, 255, 0.06);
+            position: relative;
+            z-index: 1;
+        }
+
+        .tk-stub-barcode svg {
+            width: 88%;
+            height: 26px;
+            display: block;
+            opacity: 0.6;
+        }
+
+        .tk-stub-barcode .bc-num {
+            font-size: 0.28rem;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.16);
+            font-family: var(--font-main);
+            font-weight: 300;
+        }
+
+        /* ══ TOP SUBTEXT ══ */
+        .cta-subtext-top {
+            font-family: var(--font-alt);
+            font-size: 0.65rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-bottom: 2.5rem;
+            animation: fadeDown 0.8s 0.3s ease both;
+        }
+
+        .cta-subtext-top .dot {
+            opacity: 0.3;
+            color: var(--red);
+        }
+
+        /* ══ MAIN CTA BUTTON ══ */
+        .main-cta {
+            margin-top: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeDown 0.8s 0.5s ease both;
+        }
+
+        .btn-main-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            padding: 1.2rem 2.5rem;
+            min-width: 280px;
+            
+            background: linear-gradient(135deg, rgba(16, 12, 14, 0.95) 0%, rgba(20, 10, 12, 0.98) 100%);
+            border: 1px solid rgba(227, 30, 36, 0.25);
+            border-radius: 4px;
+            
+            color: #ffffff;
+            font-family: var(--font-alt);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Moving shimmer effect inside button */
+        .btn-main-cta::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(227, 30, 36, 0.15), transparent);
+            transform: skewX(-20deg);
+            animation: elegantShine 4s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes elegantShine {
+            0% { left: -100%; }
+            30%, 100% { left: 200%; }
+        }
+
+        /* Ambient glow ring around the button */
+        .btn-main-cta::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--red), #ff4d4d, var(--red));
+            background-size: 200% auto;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            filter: blur(8px);
+            animation: borderPulse 3s linear infinite;
+        }
+
+        @keyframes borderPulse {
+            to { background-position: 200% center; }
+        }
+        
+        .btn-main-cta:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: rgba(18, 5, 8, 0.9);
+            border-color: rgba(227, 30, 36, 0.6);
+            letter-spacing: 0.28em;
+            box-shadow: 0 10px 30px rgba(180, 15, 30, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+        }
+
+        .btn-main-cta:hover:not(:disabled)::after {
+            opacity: 0.65;
+        }
+
+        .btn-arrow svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+            opacity: 0.7;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            color: var(--red);
+        }
+
+        .btn-main-cta:hover:not(:disabled) .btn-arrow svg {
+            transform: translateX(6px);
+            opacity: 1;
+        }
+
+        .btn-main-cta:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            background: rgba(20, 20, 20, 0.8);
+            box-shadow: none;
+        }
+
+        .btn-main-cta:disabled::before, 
+        .btn-main-cta:disabled::after {
+            display: none;
+            animation: none;
+        }
+
+        .btn-main-cta:disabled .btn-arrow svg {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ══ FOOTER ══ */
+        footer {
+            width: 100%;
+            text-align: center;
+            margin-top: 5rem;
+            padding: 1.5rem 5vw 2.5rem;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.14);
+            letter-spacing: 0.1em;
+            border-top: 0.5px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer a {
+            color: var(--red);
+            text-decoration: none;
+            opacity: 0.7;
+        }
+
+        /* ══ KEYFRAMES ══ */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes riseUp {
+            from {
+                opacity: 0;
+                transform: translateY(48px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ══ RESPONSIVE ══ */
+        @media (max-width: 600px) {
+            .ticket {
+                height: auto;
+                min-height: 100px;
+            }
+
+            .tk-stub {
+                width: 100px;
+            }
+
+            .btn-main-cta {
+                min-width: 260px;
+                font-size: 0.76rem;
+                padding: 0.95rem 2rem;
+            }
+
+            .tk-event-title .word-tomorrow {
+                font-size: 2.4rem;
+            }
+        }
+
+        /* ══ REGISTRATION MODAL STYLES ══ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .form-card {
+            width: min(560px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #0d0e14;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.2rem 2rem;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+            transform: translateY(20px) scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .modal-overlay.active .form-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        .form-title {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .7);
+            margin-bottom: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        .form-title::before {
+            content: '';
+            width: 3px;
+            height: 1.1rem;
+            background: var(--red);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ── Field Groups ── */
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .field-full {
+            margin-bottom: 1rem;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: .4rem;
+        }
+
+        .field label {
+            font-size: .68rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .field input,
+        .field select {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: .75rem 1rem;
+            font-family: var(--font-main);
+            font-size: .9rem;
+            color: #fff;
+            outline: none;
+            transition: border-color .25s, box-shadow .25s, background .25s;
+            width: 100%;
+        }
+
+        .field input::placeholder {
+            color: rgba(255, 255, 255, .2);
+        }
+
+        .field select option {
+            background: #111;
+            color: #fff;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: rgba(230, 43, 30, .6);
+            box-shadow: 0 0 0 3px rgba(230, 43, 30, .12);
+            background: rgba(255, 255, 255, .06);
+        }
+
+        .field input.error,
+        .field select.error {
+            border-color: #ff4444;
+            box-shadow: 0 0 0 3px rgba(255, 68, 68, .12);
+        }
+
+        .field-error {
+            font-size: .7rem;
+            color: #ff6b6b;
+            margin-top: .25rem;
+            display: none;
+        }
+
+        .field-error.show {
+            display: block;
+        }
+
+        /* ── Submit Button ── */
+        .btn-continue {
+            width: 100%;
+            margin-top: 1.4rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #c41230, var(--red));
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-family: var(--font-main);
+            font-size: .9rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform .25s, box-shadow .25s;
+            box-shadow: 0 6px 28px rgba(230, 43, 30, .4);
+        }
+
+        .btn-continue:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 36px rgba(230, 43, 30, .55);
+        }
+
+        .btn-continue:active:not(:disabled) {
+            transform: translateY(0);
+            transition-duration: .1s;
+        }
+
+        .btn-continue:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .btn-continue .shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .2), transparent);
+            animation: shine 3s infinite;
+            pointer-events: none;
+        }
+
+        .btn-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, .3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+
+        /* ── Notice ── */
+        .notice {
+            margin-top: 1.2rem;
+            padding: .75rem 1rem;
+            background: rgba(230, 43, 30, .07);
+            border: 1px solid rgba(230, 43, 30, .2);
+            border-radius: 10px;
+            font-size: .74rem;
+            color: rgba(255, 255, 255, .5);
+            line-height: 1.65;
+            text-align: center;
+        }
+
+        .notice strong {
+            color: rgba(230, 43, 30, .85);
+        }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(120%);
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: .8rem 1.4rem;
+            font-size: .85rem;
+            color: #fff;
+            z-index: 1100;
+            transition: transform .35s cubic-bezier(.22, .68, 0, 1.1), opacity .3s, visibility .3s;
+            white-space: normal;
+            max-width: min(90vw, 400px);
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .5);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .toast.error {
+            border-color: rgba(255, 68, 68, .4);
+            background: #1a0a0a;
+        }
+
+        .toast.success {
+            border-color: rgba(34, 197, 94, .4);
+            background: #0a1a0a;
+        }
+
+        /* ── Live Ticket Badge ── */
+        .ticket-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.2rem;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: .6rem 1.4rem;
+            margin-bottom: 2.5rem;
+            animation: fadeUp .8s .1s ease both;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .ts-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--red);
+            box-shadow: 0 0 8px var(--red);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .6; transform: scale(.85); }
+        }
+
+        .ts-label {
+            font-size: .72rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .ts-price {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -.02em;
+        }
+
+        .ts-price .amt {
+            color: var(--red);
+        }
+
+        .ts-sep {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+        }
+
+        .ts-seats {
+            font-size: .72rem;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .ts-seats strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .ts-sold {
+            font-size: .72rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--red);
+            font-weight: 700;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* ── Sold Out Banner ── */
+        .sold-out-banner {
+            width: min(560px, 94vw);
+            margin: 0 auto;
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, .025);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            animation: fadeUp .9s .15s ease both;
+            display: none;
+        }
+
+        .sold-out-banner h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--red);
+            margin-bottom: .8rem;
+        }
+
+        .sold-out-banner p {
+            font-size: .9rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        @media(max-width:480px){
+            .field-row{grid-template-columns:1fr;}
+            .form-card{padding:1.6rem 1.2rem;}
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="bg-layer"></div>
+    <canvas id="star-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;"></canvas>
+
+    <!-- ── Navbar ── -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="navbar-inner">
+
+            <a href="index.html" class="nav-logo" aria-label="TEDx Sreyas Institute Home">
+                <img src="assets/images/tedx-logo.png" alt="TEDx Sreyas Institute" class="nav-logo-img" />
+            </a>
+
+            <div class="nav-center">
+                <div class="nav-links-container">
+                    <ul class="nav-links" role="list">
+                        <div class="nav-active-bg" aria-hidden="true"></div>
+                        <li><a href="index.html" class="active" id="nav-home">Home</a></li>
+                        <li><a href="speakers.html" id="nav-speakers">Speakers</a></li>
+                        <li><a href="schedule.html" id="nav-schedule">Schedule</a></li>
+                        <li><a href="team.html" id="nav-team">Team</a></li>
+                        <li><a href="gallery.html" id="nav-gallery">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="nav-divider"></div>
+                <a href="#" class="nav-cta" id="nav-book">
+                    <span class="cta-shine"></span>
+                    <span class="cta-border"></span>
+                    <span>
+                        Book Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <div class="nav-hamburger-inner">
+                    <span></span><span></span><span></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="nav-mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile Navigation">
+        <a href="index.html">Home</a>
+        <a href="speakers.html">Speakers</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="team.html">Team</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="#" id="mobile-book" style="color:var(--ted-red); font-weight:700;">Book Now</a>
+    </div>
+
+    <div class="page-wrap">
+
+        <header>
+            <div class="brand">
+                <span class="ted">TED</span><span class="x">x</span><span class="rest">Sreyas Institute</span>
+            </div>
+        </header>
+
+        <div class="section-label">All Tickets Sold Out</div>
+
+        <!-- Live Ticket Badge removed — registrations closed -->
+
+        <div class="cta-subtext-top">
+            Limited Seats <span class="dot">·</span> 4 July 2026 <span class="dot">·</span> Hyderabad
+        </div>
+
+        <!-- Sold-Out Banner (hidden until sold out) -->
+        <div class="sold-out-banner" id="sold-out-banner">
+            <h2>All Tickets Sold Out</h2>
+            <p>We're overwhelmed by the response! All ticket slabs have been fully reserved.<br>Follow us on Instagram for updates on future events.</p>
+        </div>
+
+        <!-- ── TICKET ── -->
+        <div class="ticket-wrap" id="ticket-wrap-container">
+            <div class="ticket" id="ticket-card" role="button" tabindex="0">
+
+                <!-- MAIN BODY -->
+                <div class="tk-body">
+                    <div class="tk-overlay"></div>
+
+                    <!-- RICH ARTWORK SVG -->
+                    <svg class="tk-art" viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                            <!-- Filters -->
+                            <filter id="glow-strong" x="-80%" y="-80%" width="260%" height="260%">
+                                <feGaussianBlur stdDeviation="8" result="b" />
+                                <feMerge>
+                                    <feMergeNode in="b" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                            <filter id="glow-soft" x="-120%" y="-120%" width="340%" height="340%">
+                                <feGaussianBlur stdDeviation="18" />
+                            </filter>
+                            <filter id="glow-crisp" x="-60%" y="-60%" width="220%" height="220%">
+                                <feGaussianBlur stdDeviation="2.5" result="b" />
+                                <feMerge>
+                                    <feMergeNode in="b" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                            <filter id="glow-star" x="-200%" y="-200%" width="500%" height="500%">
+                                <feGaussianBlur stdDeviation="1.5" result="b" />
+                                <feMerge>
+                                    <feMergeNode in="b" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+
+                            <!-- Gradients -->
+                            <radialGradient id="amb-warm" cx="65%" cy="50%" r="46%">
+                                <stop offset="0%" stop-color="#dd2800" stop-opacity="0.32" />
+                                <stop offset="55%" stop-color="#aa1500" stop-opacity="0.08" />
+                                <stop offset="100%" stop-color="#aa1100" stop-opacity="0" />
+                            </radialGradient>
+                            <radialGradient id="amb-cool" cx="12%" cy="50%" r="30%">
+                                <stop offset="0%" stop-color="#1a0550" stop-opacity="0.14" />
+                                <stop offset="100%" stop-color="#1a0550" stop-opacity="0" />
+                            </radialGradient>
+
+                            <linearGradient id="rg-main" gradientUnits="userSpaceOnUse" x1="240" y1="128" x2="640"
+                                y2="128">
+                                <stop offset="0%" stop-color="#881800" stop-opacity="0.08" />
+                                <stop offset="22%" stop-color="#ff7733" stop-opacity="1" />
+                                <stop offset="52%" stop-color="#dd2200" stop-opacity="0.82" />
+                                <stop offset="100%" stop-color="#550800" stop-opacity="0.08" />
+                            </linearGradient>
+                            <linearGradient id="rg-vert" gradientUnits="userSpaceOnUse" x1="440" y1="-30" x2="440"
+                                y2="290">
+                                <stop offset="0%" stop-color="#ff4411" stop-opacity="0.9" />
+                                <stop offset="40%" stop-color="#cc1100" stop-opacity="0.28" />
+                                <stop offset="100%" stop-color="#ff6633" stop-opacity="0.72" />
+                            </linearGradient>
+                            <linearGradient id="rg-diag" gradientUnits="userSpaceOnUse" x1="300" y1="50" x2="560"
+                                y2="210">
+                                <stop offset="0%" stop-color="#ffe0c0" stop-opacity="0.62" />
+                                <stop offset="38%" stop-color="#ff8844" stop-opacity="0.9" />
+                                <stop offset="100%" stop-color="#bb1100" stop-opacity="0.12" />
+                            </linearGradient>
+                            <linearGradient id="rg-outer" gradientUnits="userSpaceOnUse" x1="440" y1="10" x2="440"
+                                y2="250">
+                                <stop offset="0%" stop-color="#cc3300" stop-opacity="0.38" />
+                                <stop offset="50%" stop-color="#991100" stop-opacity="0.12" />
+                                <stop offset="100%" stop-color="#cc2200" stop-opacity="0.35" />
+                            </linearGradient>
+                            <radialGradient id="core-halo" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#ff9944" stop-opacity="0.65" />
+                                <stop offset="50%" stop-color="#ff3300" stop-opacity="0.22" />
+                                <stop offset="100%" stop-color="#ff3300" stop-opacity="0" />
+                            </radialGradient>
+                            <linearGradient id="arc-gold" gradientUnits="userSpaceOnUse" x1="360" y1="60" x2="520"
+                                y2="200">
+                                <stop offset="0%" stop-color="#ffcc66" stop-opacity="0.5" />
+                                <stop offset="50%" stop-color="#c8923a" stop-opacity="0.7" />
+                                <stop offset="100%" stop-color="#ffaa44" stop-opacity="0.15" />
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Atmospheric ambient glows -->
+                        <ellipse cx="440" cy="128" rx="260" ry="155" fill="url(#amb-warm)" />
+                        <ellipse cx="80" cy="128" rx="120" ry="100" fill="url(#amb-cool)" />
+
+                        <!-- Outer large orbit bloom -->
+                        <ellipse cx="440" cy="128" rx="210" ry="68" fill="none" stroke="#ee3800" stroke-width="8"
+                            opacity="0.28" filter="url(#glow-soft)" transform="rotate(-10 440 128)" />
+                        <!-- Outer orbit crisp -->
+                        <ellipse cx="440" cy="128" rx="210" ry="68" fill="none" stroke="url(#rg-main)"
+                            stroke-width="1.5" opacity="0.9" filter="url(#glow-crisp)"
+                            transform="rotate(-10 440 128)" />
+
+                        <!-- Steep vertical orbit bloom -->
+                        <ellipse cx="440" cy="128" rx="58" ry="155" fill="none" stroke="#bb1600" stroke-width="5"
+                            opacity="0.38" filter="url(#glow-soft)" transform="rotate(4 440 128)" />
+                        <ellipse cx="440" cy="128" rx="58" ry="155" fill="none" stroke="url(#rg-vert)"
+                            stroke-width="1.2" opacity="0.88" filter="url(#glow-crisp)" transform="rotate(4 440 128)" />
+
+                        <!-- Diagonal ivory-gold orbit bloom -->
+                        <ellipse cx="440" cy="128" rx="136" ry="52" fill="none" stroke="#cc2800" stroke-width="4"
+                            opacity="0.32" filter="url(#glow-soft)" transform="rotate(48 440 128)" />
+                        <ellipse cx="440" cy="128" rx="136" ry="52" fill="none" stroke="url(#rg-diag)" stroke-width="1"
+                            opacity="0.85" filter="url(#glow-crisp)" transform="rotate(48 440 128)" />
+
+                        <!-- Outermost faint orbit -->
+                        <ellipse cx="440" cy="128" rx="248" ry="85" fill="none" stroke="url(#rg-outer)"
+                            stroke-width="0.8" opacity="0.45" filter="url(#glow-crisp)"
+                            transform="rotate(-22 440 128)" />
+
+                        <!-- Gold accent arc (partial) -->
+                        <path d="M 310,68 A 160,80 0 0,1 570,140" fill="none" stroke="url(#arc-gold)" stroke-width="0.9"
+                            opacity="0.55" filter="url(#glow-crisp)" />
+
+                        <!-- Inner decorative halo disk -->
+                        <circle cx="440" cy="128" r="32" fill="url(#core-halo)" />
+
+                        <!-- Satellite sparkle nodes on orbits -->
+                        <g filter="url(#glow-crisp)">
+                            <!-- On main orbit -->
+                            <circle cx="602" cy="102" r="3" fill="#ff9944" opacity="0.95" />
+                            <circle cx="602" cy="102" r="6" fill="#ff5500" opacity="0.22" filter="url(#glow-soft)" />
+                            <circle cx="282" cy="152" r="2.2" fill="#ff7733" opacity="0.85" />
+                            <circle cx="282" cy="152" r="5" fill="#ff3300" opacity="0.18" filter="url(#glow-soft)" />
+                            <!-- On vertical orbit -->
+                            <circle cx="444" cy="-22" r="2.5" fill="#ff6622" opacity="0.8" />
+                            <circle cx="436" cy="278" r="2" fill="#ff5511" opacity="0.7" />
+                            <!-- On diagonal orbit -->
+                            <circle cx="554" cy="60" r="2" fill="#ffcc88" opacity="0.9" />
+                            <circle cx="328" cy="197" r="1.8" fill="#ff8844" opacity="0.8" />
+                        </g>
+
+                        <!-- Scattered star-field particles -->
+                        <g filter="url(#glow-star)">
+                            <circle cx="298" cy="48" r="1.6" fill="#ff9966" opacity="0.88" />
+                            <circle cx="558" cy="58" r="1.3" fill="#ffcc88" opacity="0.78" />
+                            <circle cx="578" cy="172" r="1.5" fill="#ff7744" opacity="0.82" />
+                            <circle cx="322" cy="196" r="1.2" fill="#ff9966" opacity="0.70" />
+                            <circle cx="506" cy="22" r="1.1" fill="#ffffff" opacity="0.68" />
+                            <circle cx="638" cy="95" r="1" fill="#ff8855" opacity="0.60" />
+                            <circle cx="362" cy="218" r="0.9" fill="#ff7733" opacity="0.55" />
+                            <circle cx="492" cy="210" r="1.2" fill="#ffaa77" opacity="0.68" />
+                            <circle cx="598" cy="32" r="0.8" fill="#ffffff" opacity="0.50" />
+                            <circle cx="268" cy="88" r="1" fill="#ff8844" opacity="0.58" />
+                            <circle cx="452" cy="14" r="0.7" fill="#ff6633" opacity="0.42" />
+                            <circle cx="642" cy="155" r="0.7" fill="#ff5522" opacity="0.38" />
+                            <circle cx="348" cy="12" r="0.6" fill="#ffaa66" opacity="0.38" />
+                            <circle cx="530" cy="228" r="0.6" fill="#ff7744" opacity="0.32" />
+                            <circle cx="420" cy="35" r="0.8" fill="#ffddbb" opacity="0.40" />
+                            <circle cx="390" cy="220" r="0.7" fill="#ff9966" opacity="0.35" />
+                            <!-- faint background scatter -->
+                            <circle cx="480" cy="70" r="0.5" fill="#ffaa55" opacity="0.28" />
+                            <circle cx="520" cy="185" r="0.5" fill="#ff8833" opacity="0.25" />
+                            <circle cx="310" cy="135" r="0.55" fill="#ff7722" opacity="0.3" />
+                            <circle cx="650" cy="50" r="0.6" fill="#ffcc77" opacity="0.28" />
+                        </g>
+
+                        <!-- Central glowing node -->
+                        <circle cx="440" cy="128" r="22" fill="#ff4422" opacity="0.20" filter="url(#glow-soft)" />
+                        <circle cx="440" cy="128" r="7" fill="#ff9944" opacity="0.95" filter="url(#glow-crisp)" />
+                        <circle cx="440" cy="128" r="2.5" fill="#ffffff" opacity="0.96" />
+
+                        <!-- Cross/star highlight on central node -->
+                        <line x1="440" y1="118" x2="440" y2="138" stroke="#ffffff" stroke-width="0.6" opacity="0.45" />
+                        <line x1="430" y1="128" x2="450" y2="128" stroke="#ffffff" stroke-width="0.6" opacity="0.45" />
+                    </svg>
+
+                    <!-- Ticket number watermark -->
+                    <div class="tk-num-watermark">01</div>
+
+                    <!-- TOP ROW -->
+                    <div class="tk-top">
+                        <div class="tk-org-badge">
+                            <div class="tk-org-name"><span class="ted">TED</span><span class="x-sup">x</span> Sreyas
+                                Institute</div>
+                            <div class="tk-org-sub"><span class="r">x</span>= independently organized TED event</div>
+                        </div>
+                        <div class="tk-diamond-seq">
+                            <span class="dmnd"></span>
+                            4 JULY 2026
+                            <span class="dmnd"></span>
+                            SREYAS, HYD
+                            <span class="dmnd"></span>
+                        </div>
+                    </div>
+
+                    <!-- MIDDLE / EVENT TITLE -->
+                    <div class="tk-middle">
+                        <div class="tk-eyebrow">TEDx Theme 2026</div>
+                        <div class="tk-event-title">
+                            <span class="word-reimagining">Reimagining</span>
+                            <span class="word-tomorrow">TOMORROW</span>
+                        </div>
+                        <div class="tk-event-desc">An exploration of ideas that shatter boundaries</div>
+                    </div>
+
+                    <!-- BOTTOM ROW -->
+                    <div class="tk-bottom">
+                        <div class="tk-meta-grid">
+                            <div class="tk-meta-item">
+                                <span class="lbl">Date</span>
+                                <span class="val">4 · <span class="r">JULY</span> · 2026</span>
+                            </div>
+                            <div class="tk-meta-item">
+                                <span class="lbl">Venue</span>
+                                <span class="val">Sreyas Institute, Hyd.</span>
+                            </div>
+                            <div class="tk-meta-item">
+                                <span class="lbl">Ticket No.</span>
+                                <span class="val">XXXXX<span class="r">01</span></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div><!-- /tk-body -->
+
+                <!-- PERFORATED LINE -->
+                <div class="perf-v"></div>
+
+                <!-- STUB -->
+                <div class="tk-stub">
+
+                    <!-- Vertical text column -->
+                    <div class="tk-stub-col">
+                        <div class="stub-title">Reimagining Tomorrow</div>
+                        <div class="stub-rule"></div>
+                        <div class="stub-meta">
+                            <div class="stub-item">
+                                <span class="lbl">Date</span>
+                                <span class="val">4 July 2026</span>
+                            </div>
+                            <div class="stub-item">
+                                <span class="lbl">Venue</span>
+                                <span class="val">Sreyas, Hyd.</span>
+                            </div>
+                            <div class="stub-item">
+                                <span class="lbl">Ticket No.</span>
+                                <span class="val">XXXXX<span class="r">01</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Barcode -->
+                    <div class="tk-stub-barcode">
+                        <svg viewBox="0 0 100 28" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                            <!-- Generated barcode-style bars -->
+                            <rect x="0" y="0" width="2" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="3" y="0" width="1" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="5" y="0" width="3" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="9" y="0" width="1" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="11" y="0" width="2" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="14" y="0" width="1" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="16" y="0" width="4" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="21" y="0" width="1" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="23" y="0" width="2" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="26" y="0" width="3" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="30" y="0" width="1" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="32" y="0" width="2" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="35" y="0" width="1" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="37" y="0" width="3" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="41" y="0" width="1" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="43" y="0" width="2" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="46" y="0" width="4" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="51" y="0" width="1" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="53" y="0" width="3" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="57" y="0" width="1" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="59" y="0" width="2" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="62" y="0" width="1" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="64" y="0" width="3" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="68" y="0" width="2" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="71" y="0" width="1" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="73" y="0" width="4" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="78" y="0" width="1" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="80" y="0" width="2" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="83" y="0" width="3" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="87" y="0" width="1" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="89" y="0" width="2" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="92" y="0" width="1" height="28" fill="rgba(255,255,255,0.4)" />
+                            <rect x="94" y="0" width="3" height="28" fill="rgba(255,255,255,0.7)" />
+                            <rect x="98" y="0" width="2" height="28" fill="rgba(255,255,255,0.4)" />
+                        </svg>
+                        <div class="bc-num">8123 · 4578 · 9002 · 01</div>
+                    </div>
+
+                </div><!-- /tk-stub -->
+
+            </div><!-- /ticket -->
+        </div><!-- /ticket-wrap -->
+
+        <!-- GET YOUR TICKET CTA -->
+        <div class="main-cta" id="main-cta-container">
+            <button class="btn-main-cta" id="get-tickets-btn" disabled style="opacity:0.45;cursor:not-allowed;pointer-events:none;">
+                <span>REGISTRATIONS CLOSED</span>
+                <span class="btn-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </span>
+            </button>
+        </div>
+
+    </div><!-- /page-wrap -->
+
+    <!-- FOOTER -->
+    <style>
+    .sfs{position:relative;z-index:1;background:#080808;overflow:hidden;}
+    .sfs::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(230,43,30,0) 15%,rgba(230,43,30,.7) 40%,#E62B1E 50%,rgba(230,43,30,.7) 60%,rgba(230,43,30,0) 85%,transparent 100%);box-shadow:0 0 22px rgba(230,43,30,.35);}
+    .sfs-watermark{position:absolute;right:-2vw;bottom:-8%;pointer-events:none;user-select:none;opacity:0.06;font-family:'Inter','Arial Black',sans-serif;font-size:clamp(7rem,20vw,18rem);font-weight:900;color:#ffffff;line-height:1;letter-spacing:-0.04em;white-space:nowrap;}
+    .sfs-inner{max-width:1280px;margin:0 auto;padding:64px 5vw 0;display:flex;gap:72px;align-items:flex-start;position:relative;z-index:2;}
+    .sfs-brand{flex:0 0 280px;}
+    .sfs-logo{margin-bottom:20px;}
+    .sfs-logo-img{height:48px;width:auto;display:block;}
+    .sfs-desc{font-family:'Inter',sans-serif;font-size:0.93rem;color:rgba(255,255,255,0.32);line-height:1.75;margin-bottom:24px;}
+    .sfs-socials{display:flex;gap:10px;margin-bottom:32px;}
+    .sfs-social-btn{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .25s,border-color .25s,transform .22s;}
+    .sfs-social-btn:hover{background:rgba(230,43,30,.12);border-color:rgba(230,43,30,.35);transform:translateY(-3px);}
+    .sfs-social-btn svg{width:16px;height:16px;fill:rgba(255,255,255,0.45);transition:fill .25s;}
+    .sfs-social-btn:hover svg{fill:#E62B1E;}
+    .sfs-copy{font-family:'Inter',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.18);margin-bottom:5px;}
+    .sfs-disclaimer{font-family:'Inter',sans-serif;font-size:0.74rem;color:rgba(255,255,255,0.1);}
+    .sfs-cols{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;}
+    .sfs-col-h{display:block;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:16px;position:relative;padding-bottom:10px;}
+    .sfs-col-h::after{content:'';position:absolute;bottom:0;left:0;width:18px;height:1px;background:rgba(230,43,30,0.55);}
+    .sfs-col a{display:flex;align-items:center;gap:5px;font-family:'Inter',sans-serif;font-size:0.93rem;color:rgba(255,255,255,0.42);text-decoration:none;margin-bottom:11px;transition:color .2s,gap .2s;}
+    .sfs-col a::before{content:'';width:3px;height:3px;border-radius:50%;background:#E62B1E;opacity:0;transition:opacity .2s;flex-shrink:0;}
+    .sfs-col a:hover{color:#fff;gap:9px;}
+    .sfs-col a:hover::before{opacity:1;}
+    .sfs-bottom{position:relative;z-index:2;margin-top:48px;border-top:1px solid rgba(255,255,255,0.05);padding:20px 5vw;display:flex;align-items:center;justify-content:space-between;}
+    .sfs-bottom-left{font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(255,255,255,0.18);}
+    .sfs-bottom-right{font-family:'Inter',sans-serif;font-size:0.72rem;color:rgba(255,255,255,0.12);display:flex;align-items:center;gap:5px;}
+    .sfs-bottom-right span{color:#E62B1E;}
+    @media(max-width:920px){.sfs-inner{flex-direction:column;gap:40px;}.sfs-brand{flex:none;width:100%;}.sfs-bottom{flex-direction:column;gap:8px;text-align:center;}}
+    @media(max-width:600px){.sfs-cols{grid-template-columns:1fr 1fr;gap:24px;}}
+    </style>
+    <footer class="sfs" aria-label="Site Footer">
+      <div class="sfs-watermark" aria-hidden="true">TEDx</div>
+      <div class="sfs-inner">
+        <div class="sfs-brand">
+          <div class="sfs-logo">
+            <img src="assets/images/tedx-logo.png" alt="TEDx Sreyas Institute" class="sfs-logo-img" />
+          </div>
+          <p class="sfs-desc">Ideas Worth Spreading — An independently organized TEDx event at Sreyas Institute of Engineering &amp; Technology, Hyderabad.</p>
+          <div class="sfs-socials">
+            <a href="https://www.instagram.com/tedxsreyas_institute/" target="_blank" rel="noopener" class="sfs-social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/results?search_query=TEDx+Sreyas+Institute" target="_blank" rel="noopener" class="sfs-social-btn" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="https://x.com/TEDxSreyas" target="_blank" rel="noopener" class="sfs-social-btn" aria-label="X (Twitter)">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+          <p class="sfs-copy">All rights reserved &copy; 2026 TEDxSreyas.</p>
+          <p class="sfs-disclaimer">This independent TEDx event is operated under license from TED.</p>
+        </div>
+        <div class="sfs-cols">
+          <div class="sfs-col"><span class="sfs-col-h">Event</span><a href="about.html">About</a><a href="speakers.html">Speakers</a><a href="team.html">Team</a><a href="schedule.html">Schedule</a><a href="gallery.html">Gallery</a></div>
+          <div class="sfs-col"><span class="sfs-col-h">Socials</span><a href="https://www.instagram.com/tedxsreyas_institute/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/results?search_query=TEDx+Sreyas+Institute" target="_blank" rel="noopener">YouTube</a><a href="https://x.com/TEDxSreyas" target="_blank" rel="noopener">X (Twitter)</a></div>
+          <div class="sfs-col"><span class="sfs-col-h">Legal</span><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></div>
+          <div class="sfs-col"><span class="sfs-col-h">Get Involved</span><a href="booking.html">Register</a></div>
+        </div>
+      </div>
+      <div class="sfs-bottom">
+        <div class="sfs-bottom-left">All rights reserved &copy; 2026 TEDxSreyas &nbsp;&middot;&nbsp; Hyderabad, India</div>
+
+      </div>
+    </footer>
+    <!-- Registration Modal -->
+    <div class="modal-overlay" id="registration-modal">
+        <div class="form-card" id="form-card">
+            <button class="close-btn" id="close-modal">&times;</button>
+            <div class="form-title">Your Registration Details</div>
+
+            <form id="reg-form" novalidate autocomplete="off">
+                <div class="field field-full">
+                    <label for="f-name">Full Name *</label>
+                    <input type="text" id="f-name" name="name" placeholder="e.g. Rohan Kumar Samala" required autocomplete="name"/>
+                    <div class="field-error" id="err-name">Please enter your full name.</div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="f-email">Email Address *</label>
+                        <input type="email" id="f-email" name="email" placeholder="you@example.com" required autocomplete="email"/>
+                        <div class="field-error" id="err-email">Enter a valid email address.</div>
+                    </div>
+                    <div class="field">
+                        <label for="f-phone">Phone Number *</label>
+                        <input type="tel" id="f-phone" name="phone" placeholder="10-digit mobile number" maxlength="10" required/>
+                        <div class="field-error" id="err-phone">Enter a valid 10-digit mobile number.</div>
+                    </div>
+                </div>
+
+
+                <button type="submit" class="btn-continue" id="btn-continue">
+                    <span class="shine"></span>
+                    <span class="btn-inner">
+                        <span id="btn-text">Continue to Payment</span>
+                        <span class="btn-spinner" id="btn-spinner"></span>
+                        <svg id="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </span>
+                </button>
+            </form>
+
+            <div class="notice">
+                <strong>⏱ 7-Minute Hold:</strong> Your seat will be reserved for 7 minutes after clicking Continue.
+                You must complete payment within this window to confirm your ticket.
+            </div>
+        </div>
+    </div>
+
+    <!-- Disclaimer Modal -->
+    <div class="modal-overlay" id="disclaimer-modal" style="z-index: 1000;">
+        <div class="form-card" style="max-width: 450px; text-align: left; padding: 2.5rem 2rem;">
+            <button class="close-btn" id="close-disclaimer" style="top: 15px; right: 15px;">&times;</button>
+            <div class="form-title" style="margin-bottom: 1.2rem; color: var(--red); font-size: 1.3rem;">Important Disclaimer</div>
+            <div style="font-size: 0.9rem; color: rgba(255,255,255,0.85); line-height: 1.6; margin-bottom: 1.5rem;">
+                <p style="margin-bottom: 15px;">Please read the following carefully before proceeding:</p>
+                <ol style="margin-left: 18px; display: flex; flex-direction: column; gap: 10px;">
+                    <li>If the <strong>transaction ID is not visible</strong> in the screenshot, the ticket will be <strong>rejected</strong>.</li>
+                    <li>Pay the <strong>exact amount shown on the next page</strong>. Incorrect amounts will lead to rejection.</li>
+                </ol>
+            </div>
+            <button class="btn-continue" id="btn-accept-disclaimer" style="width: 100%;">
+                <span class="shine"></span>
+                <span class="btn-inner">
+                    <span>I Understand & Proceed</span>
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+    <script src="firebase-config.js?v=3"></script>
+    <script src="main.js"></script>
+
+    <script>
+        /* ── Star field ── */
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+        function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+        resize(); window.addEventListener('resize', resize);
+
+        const STARS = Array.from({ length: 230 }, () => ({
+            x: Math.random() * innerWidth, y: Math.random() * innerHeight,
+            r: Math.random() * 1.1 + 0.1, a: 0.08 + Math.random() * 0.48,
+        }));
+
+        const SHOOTS = []; const MAX_S = 9;
+        function spawnShoot() {
+            SHOOTS.push({
+                x: Math.random() * canvas.width * 1.4, y: Math.random() * canvas.height * 0.45,
+                vx: -3.5 - Math.random() * 5.5, vy: 1.5 + Math.random() * 3.8,
+                len: 80 + Math.random() * 120, alpha: 1, decay: 0.013 + Math.random() * 0.017,
+            });
+        }
+        for (let i = 0; i < 4; i++) spawnShoot();
+        setInterval(() => { if (SHOOTS.length < MAX_S) spawnShoot(); }, 650);
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            STARS.forEach(s => {
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255,255,255,${s.a})`; ctx.fill();
+            });
+            for (let i = SHOOTS.length - 1; i >= 0; i--) {
+                const s = SHOOTS[i], mag = Math.hypot(s.vx, s.vy);
+                const g = ctx.createLinearGradient(s.x, s.y, s.x - s.vx / mag * s.len, s.y - s.vy / mag * s.len);
+                g.addColorStop(0, `rgba(255,255,255,${s.alpha})`); g.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(s.x - s.vx / mag * s.len, s.y - s.vy / mag * s.len);
+                ctx.strokeStyle = g; ctx.lineWidth = 1.2; ctx.stroke();
+                s.x += s.vx; s.y += s.vy; s.alpha -= s.decay;
+                if (s.alpha <= 0 || s.x < -120 || s.y > canvas.height + 120) SHOOTS.splice(i, 1);
+            }
+            requestAnimationFrame(draw);
+        }
+        draw();
+
+        /* ── Ticket 3D tilt on hover ── */
+        const ticket = document.getElementById('ticket-card');
+        ticket.addEventListener('mousemove', e => {
+            const r = ticket.getBoundingClientRect();
+            const dx = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+            const dy = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+            ticket.style.transform = `perspective(1000px) rotateX(${-dy * 5}deg) rotateY(${dx * 8}deg) translateY(-8px) scale(1.018)`;
+            ticket.style.boxShadow = `0 36px 100px rgba(0,0,0,0.92), 0 0 0 1px rgba(255,255,255,0.09), 0 0 70px rgba(210,15,15,0.22)`;
+        });
+        ticket.addEventListener('mouseleave', () => {
+            ticket.style.transform = '';
+            ticket.style.boxShadow = '';
+        });
+
+        /* ── Toast helper ── */
+        const toastEl = document.getElementById('toast');
+        let toastTimer;
+        function showToast(msg, type='info', duration=4000) {
+            toastEl.textContent = msg;
+            toastEl.className = `toast show ${type}`;
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(()=>toastEl.className='toast', duration);
+        }
+
+        /* ── Ticket status bar & Sold out logic ── */
+        const priceEl = document.getElementById('ts-price');
+        const seatsEl = document.getElementById('ts-seats');
+        const soldOutBanner = document.getElementById('sold-out-banner');
+        const ticketWrap = document.getElementById('ticket-wrap-container');
+        const mainCta = document.getElementById('main-cta-container');
+        const getTicketsBtn = document.getElementById('get-tickets-btn');
+
+        let pauseTimerInterval;
+
+        async function loadTicketStatus() {
+            try {
+                const info = await window.TEDx.getActiveSlabInfo();
+                clearInterval(pauseTimerInterval);
+
+                if (info.soldOut) {
+                    priceEl.textContent = '₹–';
+                    seatsEl.innerHTML = '<strong style="color:var(--red)">Sold Out</strong>';
+                    soldOutBanner.style.display = 'block';
+                    ticketWrap.style.display = 'none';
+                    mainCta.style.display = 'none';
+                } else if (info.isPaused) {
+                    const updateTimerUI = () => {
+                        const remTime = Math.max(0, info.pauseExpiresAt - Date.now());
+                        if (remTime <= 0) {
+                            clearInterval(pauseTimerInterval);
+                            loadTicketStatus(); // Re-fetch status when timer ends
+                            return;
+                        }
+                        const mins = Math.floor(remTime / 60000);
+                        const secs = Math.floor((remTime % 60000) / 1000);
+                        priceEl.textContent = `₹${info.slabData.price}`;
+                        seatsEl.innerHTML = `<strong style="color:#ffcc00">Next slab opens in ${mins}:${secs.toString().padStart(2, '0')}</strong>`;
+                        
+                        soldOutBanner.style.display = 'none';
+                        ticketWrap.style.display = 'block';
+                        mainCta.style.display = 'flex';
+
+                        getTicketsBtn.disabled = true;
+                        getTicketsBtn.style.opacity = '0.5';
+                        getTicketsBtn.style.cursor = 'not-allowed';
+                        getTicketsBtn.querySelector('span').textContent = 'PLEASE WAIT...';
+                    };
+                    updateTimerUI();
+                    pauseTimerInterval = setInterval(updateTimerUI, 1000);
+                } else {
+                    priceEl.textContent = `₹${info.slabData.price}`;
+                    const rem = info.remaining;
+                    seatsEl.innerHTML = rem <= 10
+                        ? `<strong style="color:#f97316">${rem} seat${rem===1?'':'s'} left!</strong>`
+                        : `<strong>${rem}</strong> seats remaining`;
+                    soldOutBanner.style.display = 'none';
+                    ticketWrap.style.display = 'block';
+                    mainCta.style.display = 'flex';
+
+                    getTicketsBtn.disabled = false;
+                    getTicketsBtn.style.opacity = '1';
+                    getTicketsBtn.style.cursor = 'pointer';
+                    getTicketsBtn.querySelector('span').textContent = 'GET YOUR TICKET';
+                }
+            } catch(e) {
+                seatsEl.innerHTML = 'Checking…';
+                console.warn('[TEDx] Status load error:', e.message);
+            }
+        }
+
+        loadTicketStatus();
+        // Visibility-aware polling: pause when tab is hidden, 60s intervals (was 30s)
+        // Saves ~75% of polling reads vs the old 30s always-on interval
+        let _pollTimer;
+        function _startPoll() { clearInterval(_pollTimer); _pollTimer = setInterval(loadTicketStatus, 60000); }
+        function _stopPoll() { clearInterval(_pollTimer); }
+        if (!window.TEDx._isBot) {
+            _startPoll();
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) _stopPoll();
+                else { loadTicketStatus(); _startPoll(); }
+            });
+        }
+
+        /* ── Modal logic ── */
+        const modalOverlay = document.getElementById('registration-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const navBookBtn = document.getElementById('nav-book');
+        const mobileBookBtn = document.getElementById('mobile-book');
+
+        function openModal() {
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // prevent scrolling behind modal
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function tryOpenModal() {
+            // Only open registration modal if the button is enabled (registrations are open)
+            if (getTicketsBtn.disabled) return;
+            openModal();
+        }
+
+        getTicketsBtn.addEventListener('click', tryOpenModal);
+        ticket.addEventListener('click', tryOpenModal);
+        navBookBtn.addEventListener('click', (e) => { e.preventDefault(); tryOpenModal(); });
+        mobileBookBtn.addEventListener('click', (e) => { e.preventDefault(); tryOpenModal(); document.getElementById('mobile-menu').classList.remove('open'); });
+        closeModalBtn.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        /* ── Form Validation ── */
+        function validateField(id, errId, test) {
+            const el = document.getElementById(id);
+            const err = document.getElementById(errId);
+            const ok = test(el.value);
+            el.classList.toggle('error', !ok);
+            err.classList.toggle('show', !ok);
+            return ok;
+        }
+
+        function validateAll() {
+            let ok = true;
+            ok = validateField('f-name', 'err-name', v => v.trim().length >= 2) && ok;
+            ok = validateField('f-email', 'err-email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())) && ok;
+            ok = validateField('f-phone', 'err-phone', v => /^[6-9]\d{9}$/.test(v.trim())) && ok;
+            return ok;
+        }
+
+        ['f-name','f-email','f-phone'].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.addEventListener('blur', () => validateAll());
+            el.addEventListener('input', () => { el.classList.remove('error'); });
+        });
+
+        /* ── Form Submit ── */
+        const btnContinue = document.getElementById('btn-continue');
+        let isDisclaimerAccepted = false;
+        
+        const disclaimerModal = document.getElementById('disclaimer-modal');
+        const closeDisclaimerBtn = document.getElementById('close-disclaimer');
+        const acceptDisclaimerBtn = document.getElementById('btn-accept-disclaimer');
+
+        function closeDisclaimer() {
+            disclaimerModal.classList.remove('active');
+        }
+
+        closeDisclaimerBtn.addEventListener('click', closeDisclaimer);
+        disclaimerModal.addEventListener('click', (e) => {
+            if (e.target === disclaimerModal) closeDisclaimer();
+        });
+
+        acceptDisclaimerBtn.addEventListener('click', () => {
+            isDisclaimerAccepted = true;
+            closeDisclaimer();
+            document.getElementById('reg-form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+        });
+
+        document.getElementById('reg-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!validateAll()) { showToast('Please fix the errors above.', 'error'); return; }
+
+            if (!isDisclaimerAccepted) {
+                disclaimerModal.classList.add('active');
+                return;
+            }
+
+            // UI: loading state
+            btnContinue.disabled = true;
+            document.getElementById('btn-text').textContent = 'Reserving your seat…';
+            document.getElementById('btn-spinner').style.display = 'block';
+            document.getElementById('btn-arrow').style.display = 'none';
+
+            const userData = {
+                name:    document.getElementById('f-name').value,
+                email:   document.getElementById('f-email').value,
+                phone:   document.getElementById('f-phone').value
+            };
+
+            try {
+                // Check duplicate
+                const dupCheck = await window.TEDx.checkDuplicate(userData.email, userData.phone);
+                if (dupCheck.duplicate) {
+                    const msg = dupCheck.field === 'email'
+                        ? 'This email address is already registered. Please use a different email.'
+                        : 'This phone number is already registered. Please use a different number.';
+                    showToast(msg, 'error', 6000);
+                    resetBtn(); return;
+                }
+
+                // Create reservation
+                const reservation = await window.TEDx.createReservation(userData);
+
+                // Store in sessionStorage for payment page
+                sessionStorage.setItem('tedx_reservation', JSON.stringify({
+                    reservationId: reservation.reservationId,
+                    slabId:        reservation.slabId,
+                    slabName:      reservation.slabName,
+                    amount:        reservation.amount,
+                    expiresAt:     reservation.expiresAt,
+                    name:          reservation.name,
+                    email:         reservation.email
+                }));
+
+                // Redirect to payment page
+                window.location.href = 'payment.html';
+
+            } catch (err) {
+                console.error('[TEDx] Reservation error:', err);
+                if (err.message === 'SOLD_OUT') {
+                    showToast('Sorry! All tickets were just sold out. Please check back later.', 'error', 7000);
+                    closeModal();
+                    loadTicketStatus();
+                } else if (err.message === 'PAUSED_TEMPORARILY') {
+                    showToast('A ticket slab just filled up. Please wait a few minutes for the next slab to open.', 'info', 7000);
+                    closeModal();
+                    loadTicketStatus();
+                } else {
+                    console.error('[TEDx] Full error details:', err.message, err.code, err);
+                    showToast('Error: ' + (err.code || err.message || 'Unknown error') + '. Please try again.', 'error', 8000);
+                }
+                resetBtn();
+            }
+        });
+
+        function resetBtn() {
+            btnContinue.disabled = false;
+            document.getElementById('btn-text').textContent = 'Continue to Payment';
+            document.getElementById('btn-spinner').style.display = 'none';
+            document.getElementById('btn-arrow').style.display = '';
+        }
+    </script>
+</body>
+
+</html>
