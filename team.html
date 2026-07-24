@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Meet the team behind TEDx Sreyas Institute — the organizers, volunteers, and passionate minds making it happen." />
+    <title>Team | TEDx Sreyas Institute</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-dark: #ffffff;
+            --ted-red: #E62B1E;
+            --border-light: rgba(255, 255, 255, 0.1);
+            --card-bg: #0d0d0d;
+            --card-border: rgba(255, 255, 255, 0.07);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        ::selection {
+            background: var(--ted-red);
+            color: #fff;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.04;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAP///8DxwTMAAAABXRSTlMAB0u/P8AAAA1SURBVDjLvZQxEQAACAMyk7y/ywyOggf3A5Q0gMymZ2bTM7Pp2f+y6ZnZ9MxsBsgMMDPIbB67GAnS5oFSAAAAAElFTkSuQmCC');
+        }
+
+
+
+        /* ── HERO ── */
+        .team-hero {
+            position: relative;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 100px;
+            overflow: hidden;
+        }
+
+
+
+        .hero-tag {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.45em;
+            text-transform: uppercase;
+            color: var(--text-dark);
+            opacity: 0.5;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 800;
+            line-height: 1;
+            margin: 0 0 0.2em;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            color: var(--text-dark);
+        }
+
+        .hero-title em {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            text-transform: none;
+            color: var(--ted-red);
+            display: block;
+            margin-top: 8px;
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.4);
+            max-width: 480px;
+            line-height: 1.7;
+            margin: 1.5rem auto 0;
+            font-weight: 400;
+        }
+
+        .word {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+            padding-bottom: 20px;
+            padding-right: 15px;
+            margin-bottom: -20px;
+            margin-right: -15px;
+        }
+
+        .char {
+            display: inline-block;
+            transform: translateY(110%);
+        }
+
+
+        /* ── TEAM NAV TABS ── */
+        .team-tabs-wrapper {
+            position: static;
+            padding: 64px 20px 52px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Pill-style nav bar — matches the reference navbar image */
+        .team-tabs {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.055);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 18px;
+            padding: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            max-width: 100%;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .team-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* No ink bar needed in pill style */
+        .tab-ink {
+            display: none;
+        }
+
+        .team-tab {
+            position: relative;
+            background: transparent;
+            border: none;
+            border-radius: 11px;
+            padding: 12px 26px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.42);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.20em;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            transition:
+                color 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1;
+            line-height: 1;
+            transform: scale(1);
+        }
+
+        /* Hide number labels in pill style */
+        .team-tab .tab-num {
+            display: none;
+        }
+
+        .team-tab:hover {
+            color: rgba(255, 255, 255, 0.82);
+            background: rgba(255, 255, 255, 0.07);
+            transform: scale(1.02);
+        }
+
+        .team-tab.active {
+            background: var(--ted-red);
+            color: #ffffff;
+            font-weight: 800;
+            letter-spacing: 0.20em;
+            transform: scale(1.05);
+            box-shadow:
+                0 0 0 1px rgba(230, 43, 30, 0.5),
+                0 4px 20px rgba(230, 43, 30, 0.55),
+                0 0 40px rgba(230, 43, 30, 0.20);
+        }
+
+        /* ── Web Dev Special Tab Effect ── */
+        .team-tab[data-team="webdev"] {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .team-tab[data-team="webdev"]::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(230, 43, 30, 0.5), transparent);
+            transition: left 0s;
+        }
+
+        .team-tab[data-team="webdev"]:hover::after {
+            left: 150%;
+            transition: left 0.6s ease-in-out;
+        }
+
+        .team-tab[data-team="webdev"].active {
+            background: #111;
+            color: #E62B1E;
+            border: 1px solid #E62B1E;
+            box-shadow: 0 0 15px rgba(230, 43, 30, 0.6) inset, 0 0 20px rgba(230, 43, 30, 0.4);
+            text-shadow: 0 0 8px rgba(230, 43, 30, 0.8);
+        }
+
+        .team-tab[data-team="webdev"].active::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(230, 43, 30, 0.3), transparent);
+            animation: webdevScan 2s linear infinite;
+        }
+
+        @keyframes webdevScan {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(200%);
+            }
+        }
+
+        /* ── MAIN CONTENT ── */
+        .teams-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 4vw 120px;
+        }
+
+        /* ── TEAM SECTION ── */
+        .team-section {
+            display: none;
+            animation: fadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .team-section.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(36px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── SECTION HEADER ── */
+        .section-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding-bottom: 32px;
+            margin-bottom: 60px;
+            border-bottom: none;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .section-number {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--ted-red);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .section-title em {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.85em;
+        }
+
+        .section-desc {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.35);
+            max-width: 300px;
+            line-height: 1.65;
+            text-align: right;
+        }
+
+        /* ── UNIFIED MEMBER GRID ── */
+        .members-unified-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 90px 56px;
+            margin: 40px 0;
+            /* extra vertical gap to accommodate floating squares overflow */
+            padding: 30px 0;
+        }
+
+        /* ══ MEMBER CARD — Box Glow Style ══ */
+        .member-card {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3/4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.5s;
+            z-index: 1;
+        }
+
+        /* Skewed solid glow layer */
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 25%;
+            width: 50%;
+            height: 100%;
+            background: var(--grad);
+            border-radius: 8px;
+            transform: skewX(15deg);
+            transition: 0.5s;
+        }
+
+        /* Skewed blur glow layer */
+        .member-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 25%;
+            width: 50%;
+            height: 100%;
+            background: var(--grad);
+            border-radius: 8px;
+            transform: skewX(15deg);
+            transition: 0.5s;
+            filter: blur(30px);
+        }
+
+        .member-card:hover::before,
+        .member-card:hover::after {
+            transform: skewX(0deg) scaleX(1.3);
+        }
+
+        /* ── Social card (top-left badge) ── */
+        .card-glow-elements {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .social-card {
+            pointer-events: all;
+            position: absolute;
+            top: -22px;
+            left: 14px;
+            width: fit-content;
+            height: fit-content;
+            background: rgba(20, 20, 20, 0.75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8.5px 10px;
+            gap: 8.5px;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 10;
+        }
+
+        /* Hide for the first 3 core cards (principal, vice-chairman, faculty) */
+        #core-grid .member-card:nth-child(-n+3) .social-card {
+            display: none;
+        }
+
+        .social-card a {
+            width: 31px;
+            height: 31px;
+            background-color: rgba(117, 117, 117, 0);
+            display: flex;
+            align-items: center;
+            border-radius: 7px;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.15, 0.83, 0.66, 1);
+            position: relative;
+            text-decoration: none;
+        }
+
+        .social-card a:hover {
+            transform: scale(1.2);
+            border-radius: 9px;
+        }
+
+        .social-card a:nth-child(1):hover {
+            background-color: #d62976;
+        }
+
+        .social-card a:nth-child(2):hover {
+            background-color: #0072b1;
+        }
+
+        .social-card a.github-link:hover {
+            background-color: #333;
+        }
+
+        .social-card a:active {
+            transform: scale(1.1);
+            transition-duration: 0.3s;
+        }
+
+        .social-card a .socialSvg:first-child {
+            display: flex;
+            scale: 1.2;
+            position: absolute;
+            width: 13px;
+            opacity: 1;
+            transform: translateY(0px);
+            transition: all 0.4s cubic-bezier(0.15, 0.83, 0.66, 1);
+            fill: rgba(255, 255, 255, 0.85);
+        }
+
+        .social-card a:hover .socialSvg:first-child {
+            transform: translateY(-29px);
+            opacity: 0;
+        }
+
+        .social-card a .socialSvg:last-child {
+            display: flex;
+            position: absolute;
+            width: 13px;
+            transform: translateY(15px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.15, 0.83, 0.66, 1);
+            fill: #fff;
+        }
+
+        .social-card a:hover .socialSvg:last-child {
+            opacity: 1;
+            transform: translateY(0px);
+        }
+
+        /* ── Name badge (bottom-right rectangle) ── */
+        .card-name-badge {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 11px 20px;
+            border-radius: 14px;
+            background: rgba(20, 20, 20, 0.75);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+            z-index: 10;
+            min-width: 220px;
+            max-width: 90%;
+            white-space: nowrap;
+            overflow: visible;
+        }
+
+        .badge-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.90);
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .badge-role {
+            font-size: 0.77rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(230, 43, 30, 0.90);
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* ── Full-photo content panel ── */
+        .member-content {
+            position: relative;
+            width: 88%;
+            height: 90%;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            z-index: 1;
+            overflow: hidden;
+            transition: 0.5s;
+            /* subtle inner border */
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07), 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Photo layer — scales independently on hover */
+        .member-content::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: inherit;
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            border-radius: 8px;
+            transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: scale(1);
+            z-index: 0;
+        }
+
+        .member-card:hover .member-content::before {
+            transform: scale(1.07);
+        }
+
+        /* Dark gradient overlay at bottom so badge reads cleanly */
+        .member-content::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0) 50%,
+                    rgba(0, 0, 0, 0.55) 100%);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        /* ── Avatar circle ── */
+        .member-avatar-wrap {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.10);
+            border: 2px solid rgba(255, 255, 255, 0.20);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            transition: transform 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+            flex-shrink: 0;
+        }
+
+        .member-card:hover .member-avatar-wrap {
+            transform: scale(1.08);
+            border-color: rgba(255, 255, 255, 0.40);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.10);
+        }
+
+        /* Photo variant */
+        .member-avatar-wrap.has-photo {
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            border-color: rgba(255, 255, 255, 0.30);
+        }
+
+        .avatar-initials {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.80);
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        /* ── Info ── */
+        .member-info {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .member-name {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.25;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        /* Decorative divider */
+        .member-divider {
+            width: 28px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.20);
+            margin: 8px auto;
+            transition: width 0.4s ease, background 0.4s ease;
+        }
+
+        .member-card:hover .member-divider {
+            width: 46px;
+            background: rgba(255, 255, 255, 0.45);
+        }
+
+        .member-role {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.20em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.65);
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+
+            /* Hero adjustments */
+            .team-hero {
+                padding-top: 90px;
+                min-height: 35vh;
+            }
+
+            .hero-title {
+                font-size: clamp(2.8rem, 12vw, 4rem);
+            }
+
+            .hero-subtitle {
+                font-size: 0.88rem;
+                padding: 0 20px;
+            }
+
+            /* Tab bar: make it full-width and scrollable */
+            .team-tabs-wrapper {
+                padding: 40px 16px 36px;
+                justify-content: flex-start;
+            }
+
+            .team-tabs {
+                width: 100%;
+                overflow-x: auto;
+                border-radius: 14px;
+            }
+
+            .team-tab {
+                padding: 10px 16px;
+                font-size: 0.63rem;
+                letter-spacing: 0.14em;
+                flex-shrink: 0;
+            }
+
+            /* Section desc not needed on mobile */
+            .section-desc {
+                display: none;
+            }
+
+            /* 2-column grid on all mobile sizes */
+            .members-unified-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 64px 16px;
+                padding: 16px 0;
+            }
+
+            /* Shrink name badge to prevent overflow in 2-col layout */
+            .card-name-badge {
+                min-width: 0;
+                width: 95%;
+                padding: 8px 10px;
+                border-radius: 10px;
+            }
+
+            .badge-name {
+                font-size: 0.78rem;
+                white-space: normal;
+                text-align: center;
+                line-height: 1.3;
+            }
+
+            .badge-role {
+                font-size: 0.62rem;
+                letter-spacing: 0.08em;
+            }
+
+            /* Social card — slightly smaller on mobile */
+            .social-card {
+                padding: 6px 8px;
+                gap: 6px;
+                border-radius: 9px;
+            }
+
+            .social-card a {
+                width: 26px;
+                height: 26px;
+            }
+
+            /* Container padding */
+            .teams-container {
+                padding: 8px 16px 80px;
+            }
+        }
+
+        /* ── Web Dev Constant Subtle Effect ── */
+        @keyframes webdevSubtleGlitch {
+
+            0%,
+            100% {
+                text-shadow: 0 0 2px rgba(230, 43, 30, 0.2);
+            }
+
+            33% {
+                text-shadow: 0 0 6px rgba(230, 43, 30, 0.6), -1px 0 0 rgba(0, 255, 255, 0.3);
+            }
+
+            66% {
+                text-shadow: 0 0 3px rgba(230, 43, 30, 0.4), 1px 0 0 rgba(230, 43, 30, 0.5);
+            }
+        }
+
+        .team-tab[data-team="webdev"] {
+            animation: webdevSubtleGlitch 3s infinite;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="noise-overlay"></div>
+    <canvas id="stars"></canvas>
+
+    <!-- ══ NAVBAR ══ -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="navbar-inner">
+
+            <a href="index.html" class="nav-logo" aria-label="TEDx Sreyas Institute Home">
+                <img src="assets/images/tedx-logo.png" alt="TEDx Sreyas Institute" class="nav-logo-img" />
+            </a>
+
+            <div class="nav-center">
+                <div class="nav-links-container">
+                    <ul class="nav-links" role="list">
+                        <div class="nav-active-bg" aria-hidden="true"></div>
+                        <li><a href="index.html" class="active" id="nav-home">Home</a></li>
+                        <li><a href="speakers.html" id="nav-speakers">Speakers</a></li>
+                        <li><a href="schedule.html" id="nav-schedule">Schedule</a></li>
+                        <li><a href="team.html" id="nav-team">Team</a></li>
+                        <li><a href="gallery.html" id="nav-gallery">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="nav-divider"></div>
+                <a href="booking.html" class="nav-cta" id="nav-book">
+                    <span class="cta-shine"></span>
+                    <span class="cta-border"></span>
+                    <span>
+                        Book Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <div class="nav-hamburger-inner">
+                    <span></span><span></span><span></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="nav-mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile Navigation">
+        <a href="index.html">Home</a>
+        <a href="speakers.html">Speakers</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="team.html">Team</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html" style="color:var(--ted-red); font-weight:700;">Book Now</a>
+    </div>
+
+    <!-- ══ HERO ══ -->
+    <section class="team-hero">
+        <span class="hero-tag">The People Behind the Stage</span>
+        <h1 class="hero-title">
+            <span class="word"><span class="char">O</span><span class="char">u</span><span class="char">r</span></span>
+            <br>
+            <em><span class="word">
+                    <span class="char">T</span><span class="char">e</span><span class="char">a</span><span
+                        class="char">m</span><span class="char">.</span>
+                </span></em>
+        </h1>
+        <p class="hero-subtitle">Passionate minds, dedicated individuals — turning one idea into an evening that changes
+            how you see the world.</p>
+    </section>
+
+
+    <!-- ══ TEAM TABS ══ -->
+    <div class="team-tabs-wrapper">
+        <div class="team-tabs" role="tablist">
+            <div class="tab-ink" id="tabInk"></div>
+            <button class="team-tab active" data-team="core" role="tab" aria-selected="true">
+                <span class="tab-num">01</span>Core
+            </button>
+            <button class="team-tab" data-team="webdev" role="tab">
+                <span class="tab-num">02</span>Web Dev
+            </button>
+            <button class="team-tab" data-team="production" role="tab">
+                <span class="tab-num">03</span>Production
+            </button>
+            <button class="team-tab" data-team="marketing" role="tab">
+                <span class="tab-num">04</span>Marketing
+            </button>
+            <button class="team-tab" data-team="hospitality" role="tab">
+                <span class="tab-num">05</span>Hospitality
+            </button>
+        </div>
+    </div>
+
+    <!-- ══ TEAMS ══ -->
+    <main class="teams-container">
+
+        <!-- ── CORE ── -->
+        <section class="team-section active" id="team-core" role="tabpanel">
+            <div class="members-unified-grid" id="core-grid"></div>
+        </section>
+
+        <!-- ── WEB DEV ── -->
+        <section class="team-section" id="team-webdev" role="tabpanel">
+            <div class="members-unified-grid" id="webdev-grid"></div>
+        </section>
+
+        <!-- ── PRODUCTION ── -->
+        <section class="team-section" id="team-production" role="tabpanel">
+            <div class="members-unified-grid" id="production-grid"></div>
+        </section>
+
+        <!-- ── MARKETING ── -->
+        <section class="team-section" id="team-marketing" role="tabpanel">
+            <div class="members-unified-grid" id="marketing-grid"></div>
+        </section>
+
+        <!-- ── HOSPITALITY ── -->
+        <section class="team-section" id="team-hospitality" role="tabpanel">
+            <div class="members-unified-grid" id="hospitality-grid"></div>
+        </section>
+
+
+
+    </main>
+
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // ── Team Data ──
+            const teams = {
+                core: [
+                    { name: "Sri Anantula Hriday Reddy", role: "Vice Chairman", initials: "AH", photo: "assets/images/core-team/vice-chairman-core.jpg", instagram: "", linkedin: "" },
+                    { name: "Dr. C. Udaya Kiran", role: "Principal", initials: "UK", photo: "assets/images/core-team/principalcore.png", instagram: "", linkedin: "" },
+                    { name: "Mr. Md. Naseeruddin", role: "Faculty Coordinator", initials: "N", photo: "assets/images/core-team/naseer-core.png", instagram: "", linkedin: "" },
+                    { name: "Mr. G. Siddhanth", role: "Faculty Coordinator", initials: "S", photo: "assets/images/core-team/Siddhanth-core.png", instagram: "https://www.instagram.com/siddhanth_amazon/", linkedin: "https://www.linkedin.com/in/siddhanth-g-19a55125b/" },
+                    { name: "G. Siddhu Karan", role: "Organizer", initials: "SK", photo: "assets/images/core-team/sidhu-karan.jpg", instagram: "https://www.instagram.com/siddhu.__gaddam/", linkedin: "https://www.linkedin.com/in/siddhu-karan-279221379/" },
+                    { name: "K. V. V. S. S. Vardhini", role: "Co-Organizer", initials: "KV", photo: "assets/images/core-team/vardhini.jpg", instagram: "https://www.instagram.com/iam_kvvvarddhini", linkedin: "https://www.linkedin.com/in/vardhini-konijeti-33a211291/" },
+                    { name: "M. Akash Rao", role: "Curator", initials: "MA", photo: "assets/images/core-team/akash-rao-core.jpg", instagram: "https://www.instagram.com/akash_mallareddy", linkedin: "https://www.linkedin.com/in/akash-rao-mallareddy/" },
+                    { name: "N. Sri Sritha Reddy", role: "Curator", initials: "NS", photo: "assets/images/core-team/sri-sritha-reddy.jpg", instagram: "https://www.instagram.com/srisritha__n", linkedin: "https://www.linkedin.com/in/srisritha-reddy-neravetla-94ab60290/" },
+                    { name: "V. Sai Ram", role: "Executive Producer", initials: "SR", photo: "assets/images/core-team/sai-ram-core.png", instagram: "https://www.instagram.com/sairamnayak_pawar", linkedin: "https://www.linkedin.com/in/sai-ram-nayak-174b2726b/" },
+                    { name: "Vishnu Sai Paineni", role: "Executive Producer", initials: "VS", photo: "assets/images/core-team/vishnu-sai-core.jpg", instagram: "https://www.instagram.com/vishnupaineni_", linkedin: "https://www.linkedin.com/in/vishnu-sai-paineni-268257291/" },
+                ],
+                hospitality: [
+                    { name: "Thakur Prachi Singh", role: "Lead", initials: "PS", photo: "assets/images/hospitality/prachi.png", instagram: "https://www.instagram.com/prachithakur0102?igsh=MmI1YTNrYXI5dWwx", linkedin: "https://www.linkedin.com/in/thakur-prachi?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" },
+                    { name: "R. Nischal", role: "Co-Lead", initials: "N", photo: "assets/images/hospitality/nischal.png", instagram: "https://www.instagram.com/neel_nischal?igsh=ZXU5ZHQwdGtvdmZs", linkedin: "https://www.linkedin.com/in/nischal-ramapragada-473a23328?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" },
+                    { name: "K. Chandra Hasini", role: "Member", initials: "H", photo: "assets/images/hospitality/hasini.png", instagram: "https://www.instagram.com/_hasinii_02/?hl=en", linkedin: "https://www.linkedin.com/in/chandra-hasini-kandikonda-184a25328" },
+                    { name: "K. Charan Kumar", role: "Member", initials: "CK", photo: "assets/images/hospitality/charan.png", instagram: "https://www.instagram.com/charankumar359?igsh=eGQyaWRrcGFxNzE5", linkedin: "https://www.linkedin.com/in/karangula-charan-kumar-89771a352?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" },
+                    { name: "T. Sri Laxmi", role: "Member", initials: "SL", photo: "assets/images/hospitality/laxmi.png", instagram: "https://www.instagram.com/_sri_.lxmi?igsh=MWJ4OTF1YWYwaWxvMQ%3D%3D&utm_source=qr", linkedin: "https://www.linkedin.com/in/srilaxmi-thadakamalla-764267353?utm_source=share_via&utm_content=profile&utm_medium=member_ios" },
+                    { name: "G. Meghana Sree", role: "Member", initials: "M", photo: "assets/images/hospitality/meghana.png", instagram: "https://www.instagram.com/hazeandpetal?igsh=Ynd1MzgyZW1iMXFl", linkedin: "https://www.linkedin.com/in/gonnabatkula-meghana-114ab93a0?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
+                    { name: "Rachuri Devansh", role: "Member", initials: "D", photo: "assets/images/hospitality/devaansh.png", instagram: "https://www.instagram.com/_.devansh18._?igsh=MXdwY2hrYnR1b3gzZw==", linkedin: "https://www.linkedin.com/in/rachuri-devansh-9047b4278?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
+                ],
+                production: [
+                    { name: "Thakur Aman Singh", role: "Lead", initials: "AS", photo: "assets/images/production/aman.png", instagram: "https://www.instagram.com/aman_.ts?igsh=YzFkeXFibGhxYmwy", linkedin: "https://www.linkedin.com/in/aman-singh-4a7ab2375/?skipRedirect=true" },
+                    { name: "D. Chandrakanth", role: "Co-Lead", initials: "DC", photo: "assets/images/production/chandrakanth.png", instagram: "https://www.instagram.com/chandrakanth__06?igsh=MXNsZmM0YXpxNzFqNg%3D%3D&utm_source=qr", linkedin: "https://www.linkedin.com/in/chandra-kanth-6aa959306?utm_source=share_via&utm_content=profile&utm_medium=member_ios" },
+                    { name: "P. Karthik", role: "Member", initials: "K", photo: "assets/images/production/karthik.png", instagram: " https://www.instagram.com/karthik5_?igsh=M2w2bzFkdjU4ZGhh", linkedin: "https://www.linkedin.com/in/karthik-peddireddy-a554a2328?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
+                    { name: "Korudu Pranavi Shree", role: "Member", initials: "P", photo: "assets/images/production/pranavi.png", instagram: "https://www.instagram.com/aviiwiee?igsh=MW44ZnNqcnJmY3MwaQ%3D%3D&utm_source=qr", linkedin: "https://www.linkedin.com/in/pranavi-shree-korudu-a204a4352?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
+                    { name: "Sheetal Kodati", role: "Member", initials: "S", photo: "assets/images/production/sheetal.png", instagram: "https://www.instagram.com/sheetal_0720?igsh=bXA5dGhwMDF0NmM3", linkedin: "https://www.linkedin.com/in/sheetal-kodati-2a0950323?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
+                    { name: "V. Neerav Kumar", role: "Member", initials: "N", photo: "assets/images/production/neerav.png", instagram: "https://www.instagram.com/____neerav.kumar___?igsh=MXFkaTRpZ3MzOTdnZw==", linkedin: "https://www.linkedin.com/in/neerav-kumar-varadarajulu-366a373b0?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" },
+                ],
+                marketing: [
+                    { name: "Syeda Reshmi", role: "Lead", initials: "SR", photo: "assets/images/marketing/reeshmi.png", instagram: "https://www.instagram.com/syeda.reshmi?igsh=MWllOWhtanJlcDFsNQ==", linkedin: "https://www.linkedin.com/in/syeda-reshmi-99a3a63bb?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" },
+                    { name: "G. Srinitha", role: "Co-Lead", initials: "GS", photo: "assets/images/marketing/srinitha.jpeg", instagram: "https://www.instagram.com/srinitha0___?igsh=MnY0bnA2eWFndXFm&utm_source=qr", linkedin: "https://www.linkedin.com/in/srinitha-g-944259330?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" },
+                    { name: "B. Nikitha Goud", role: "Member", initials: "N", photo: "assets/images/marketing/nikitha.png", instagram: "https://www.instagram.com/nikitha.aa__?igsh=dzlhd3Q5dGE3bnZ5&utm_source=qr", linkedin: "https://www.linkedin.com/in/nikitha-bhavani-543621328?utm_source=share_via&utm_content=profile&utm_medium=member_ios" },
+                    { name: "K.B. Phaneendra Varma", role: "Member", initials: "P", photo: "assets/images/marketing/fanindra.jpeg", instagram: "https://www.instagram.com/theycallme_varma_?igsh=dDJ6ZGg0bW5zYW5j", linkedin: "https://www.linkedin.com/in/k-b-phaneendra-varma-56a54a328?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
+                    { name: "Goli Yashwasin", role: "Member", initials: "Y", photo: "assets/images/marketing/yashaswin.png", instagram: "https://www.instagram.com/__yash_0722?igsh=MXJxbW93cTZpcWdyMA==", linkedin: "https://www.linkedin.com/in/g-yashwasin-556793320?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
+                ],
+                webdev: [
+                    { name: "S. Rohan Kumar", role: "Lead", initials: "RK", photo: "assets/images/webdev/rohan.png", instagram: "https://www.instagram.com/rohan_kxmar/", linkedin: "https://www.linkedin.com/in/rohan-kumar-samala/", github: "https://github.com/RohanKumaSamala" },
+                    { name: "S. Shree Pranav", role: "Co-Lead", initials: "P", photo: "assets/images/webdev/pranav.jpeg", instagram: " https://www.instagram.com/shree_pranav_?igsh=dDM0ODhsYW1sem93", linkedin: "https://www.linkedin.com/in/shree-pranav-5a43b9298?utm_source=share_via&utm_content=profile&utm_medium=member_android", github: "https://github.com/Shree-Pranav-git" },
+                    { name: "Sruthi Kakarla", role: "Member", initials: "S", photo: "assets/images/webdev/sruthi.png", instagram: "https://www.instagram.com/sruthikakarla_?igsh=MXBvZG0yMnNqamlwOQ==", linkedin: "https://www.linkedin.com/in/sruthi-kakarla-380b2235b?utm_source=share_via&utm_content=profile&utm_medium=member_android", github: "https://github.com/Sruthikakarla03" },
+                    { name: "Deepshika Dharni", role: "Member", initials: "D", photo: "assets/images/webdev/deepshika.png", instagram: "https://www.instagram.com/deepshika._.777?utm_source=qr&igsh=ejF1cHBqYzBlMjdp", linkedin: "https://www.linkedin.com/in/deepshika-dharni-aa83473a8?utm_source=share_via&utm_content=profile&utm_medium=member_android", github: "https://github.com/DeepshikaDharni" },
+                ]
+            };
+
+            // ── Gradient palette per team ──
+            const gradients = {
+                core: 'linear-gradient(315deg, #E62B1E, #8B0000)',
+                hospitality: 'linear-gradient(315deg, #E62B1E, #8B0000)',
+                production: 'linear-gradient(315deg, #E62B1E, #8B0000)',
+                marketing: 'linear-gradient(315deg, #E62B1E, #8B0000)',
+                webdev: 'linear-gradient(315deg, #E62B1E, #8B0000)',
+            };
+
+            // ── Build a card ──
+            function buildCard(member, teamKey) {
+                const card = document.createElement('div');
+                card.className = 'member-card';
+                card.style.setProperty('--grad', gradients[teamKey]);
+
+                let matrixHTML = '';
+                if (teamKey === 'webdev') {
+                    matrixHTML = `<canvas class="card-matrix-canvas" style="display: none; position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); z-index: -1; pointer-events: none; opacity: 0.85; border-radius: 12px; -webkit-mask-image: radial-gradient(closest-side, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%); mask-image: radial-gradient(closest-side, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);"></canvas>`;
+                }
+
+                card.innerHTML = `
+            ${matrixHTML}
+            <span class="card-glow-elements">
+                <div class="social-card">
+                    <a href="${member.instagram || '#'}" title="Instagram" target="_blank">
+                        <svg class="socialSvg" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg>
+                        <svg class="socialSvg" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg>
+                    </a>
+                    <a href="${member.linkedin || '#'}" title="LinkedIn" target="_blank">
+                        <svg class="socialSvg" viewBox="0 0 448 512"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+                        <svg class="socialSvg" viewBox="0 0 448 512"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+                    </a>
+                    ${member.github !== undefined ? `
+                    <a href="${member.github || '#'}" title="GitHub" target="_blank" class="github-link">
+                        <svg class="socialSvg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                        <svg class="socialSvg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                    </a>` : ''}
+                </div>
+                <span class="card-name-badge">
+                    <span class="badge-name">${member.name}</span>
+                    <span class="badge-role">${member.role}</span>
+                </span>
+            </span>
+            <div class="member-content" ${member.photo ? `style="background-image:url('${member.photo}')"` : ''}></div>
+        `;
+                return card;
+            }
+
+            // ── Populate all teams ──
+            Object.entries(teams).forEach(([key, members]) => {
+                const gridEl = document.getElementById(`${key}-grid`);
+                members.forEach(m => gridEl.appendChild(buildCard(m, key)));
+            });
+
+            // ── Tab switching ──
+            const tabs = document.querySelectorAll('.team-tab');
+            const sections = document.querySelectorAll('.team-section');
+            const ink = document.getElementById('tabInk');
+
+            function moveInk(tab) {
+                if (!ink) return;
+                ink.style.left = tab.offsetLeft + 'px';
+                ink.style.width = tab.offsetWidth + 'px';
+            }
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.dataset.team;
+
+                    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+                    sections.forEach(s => s.classList.remove('active'));
+
+                    tab.classList.add('active');
+                    tab.setAttribute('aria-selected', 'true');
+                    moveInk(tab);
+
+                    const targetSection = document.getElementById(`team-${target}`);
+                    targetSection.classList.add('active');
+
+                    // Toggle Matrix Rain ONLY for Web Dev team
+                    if (typeof toggleMatrix === 'function') {
+                        toggleMatrix(target === 'webdev');
+                    }
+
+                    // Animate cards in newly shown section
+                    if (typeof gsap !== 'undefined') {
+                        gsap.fromTo(targetSection.querySelectorAll('.member-card'),
+                            { y: 30, opacity: 0 },
+                            { y: 0, opacity: 1, duration: 0.6, stagger: 0.04, ease: 'power3.out' }
+                        );
+                    }
+
+                    // Smooth scroll to section on mobile
+                    if (window.innerWidth < 768) {
+                        setTimeout(() => {
+                            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 50);
+                    }
+                });
+            });
+
+            // Position ink on initial load
+            setTimeout(() => {
+                const activeTab = document.querySelector('.team-tab.active');
+                if (activeTab) moveInk(activeTab);
+            }, 60);
+
+            // ── GSAP entrance animations ──
+            if (typeof gsap !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+
+                gsap.from('.hero-tag', { y: 20, opacity: 0, duration: 1, delay: 0.1, ease: 'power3.out' });
+                gsap.to('.char', { y: 0, duration: 1.2, stagger: 0.04, delay: 0.25, ease: 'expo.out' });
+                gsap.from('.hero-subtitle', { y: 20, opacity: 0, duration: 1, delay: 0.9, ease: 'power3.out' });
+                gsap.from('.team-divider-line', { scaleY: 0, duration: 1, delay: 1, ease: 'power3.out', transformOrigin: 'top' });
+                gsap.from('.team-tabs-wrapper', { y: -10, opacity: 0, duration: 0.8, delay: 1.1, ease: 'power3.out' });
+
+                // Initial card entrance
+                gsap.fromTo('#team-core .member-card',
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0, opacity: 1, duration: 0.7, stagger: 0.05, delay: 1.2, ease: 'power3.out'
+                    }
+                );
+
+                // Section header scroll reveal for non-active sections
+                sections.forEach(section => {
+                    gsap.from(section.querySelector('.section-header'), {
+                        scrollTrigger: { trigger: section, start: 'top 80%' },
+                        y: 30, opacity: 0, duration: 0.8, ease: 'power3.out'
+                    });
+                });
+
+            }
+
+            // ── Matrix Rain logic for individual cards ──
+            let matrixInstances = [];
+            let matrixInterval;
+            const fontSize = 14;
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+<>{}[]'.split('');
+
+            function initMatrix() {
+                const canvases = document.querySelectorAll('.card-matrix-canvas');
+                matrixInstances = Array.from(canvases).map(canvas => {
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = canvas.offsetWidth || 300;
+                    canvas.height = canvas.offsetHeight || 400;
+                    const columns = Math.ceil(canvas.width / fontSize);
+                    const drops = [];
+                    for (let i = 0; i < columns; i++) drops[i] = Math.random() * -50;
+                    return { canvas, ctx, drops, columns };
+                });
+            }
+            window.addEventListener('resize', () => {
+                if (matrixInterval) initMatrix();
+            });
+
+            function drawMatrix() {
+                matrixInstances.forEach(inst => {
+                    if (!inst.ctx) return;
+                    inst.ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
+                    inst.ctx.fillRect(0, 0, inst.canvas.width, inst.canvas.height);
+
+                    inst.ctx.fillStyle = '#E62B1E';
+                    inst.ctx.font = fontSize + 'px monospace';
+
+                    for (let i = 0; i < inst.drops.length; i++) {
+                        const text = chars[Math.floor(Math.random() * chars.length)];
+                        const y = inst.drops[i] * fontSize;
+                        inst.ctx.fillText(text, i * fontSize, y);
+
+                        if (y > inst.canvas.height && Math.random() > 0.95) {
+                            inst.drops[i] = 0;
+                        }
+                        inst.drops[i]++;
+                    }
+                });
+            }
+
+            function toggleMatrix(show) {
+                if (show) {
+                    if (matrixInstances.length === 0) initMatrix();
+                    matrixInstances.forEach(inst => inst.canvas.style.display = 'block');
+                    if (!matrixInterval) {
+                        matrixInterval = setInterval(drawMatrix, 35);
+                    }
+                } else {
+                    matrixInstances.forEach(inst => inst.canvas.style.display = 'none');
+                    if (matrixInterval) {
+                        clearInterval(matrixInterval);
+                        matrixInterval = null;
+                        matrixInstances.forEach(inst => {
+                            if (inst.ctx) inst.ctx.clearRect(0, 0, inst.canvas.width, inst.canvas.height);
+                        });
+                    }
+                }
+            }
+
+            // Initial check in case webdev is naturally active
+            const initActiveTab = document.querySelector('.team-tab.active');
+            if (initActiveTab && initActiveTab.dataset.team === 'webdev') {
+                toggleMatrix(true);
+            }
+
+        });
+    </script>
+    <!-- FOOTER -->
+    <style>
+        .sfs {
+            position: relative;
+            z-index: 1;
+            background: #080808;
+            overflow: hidden;
+        }
+
+        .sfs::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(230, 43, 30, 0) 15%, rgba(230, 43, 30, .7) 40%, #E62B1E 50%, rgba(230, 43, 30, .7) 60%, rgba(230, 43, 30, 0) 85%, transparent 100%);
+            box-shadow: 0 0 22px rgba(230, 43, 30, .35);
+        }
+
+        .sfs-watermark {
+            position: absolute;
+            right: -2vw;
+            bottom: -8%;
+            pointer-events: none;
+            user-select: none;
+            opacity: 0.06;
+            font-family: 'Inter', 'Arial Black', sans-serif;
+            font-size: clamp(7rem, 20vw, 18rem);
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            white-space: nowrap;
+        }
+
+        .sfs-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 64px 5vw 0;
+            display: flex;
+            gap: 72px;
+            align-items: flex-start;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sfs-brand {
+            flex: 0 0 280px;
+        }
+
+        .sfs-logo {
+            margin-bottom: 20px;
+        }
+
+        .sfs-logo-img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .sfs-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.93rem;
+            color: rgba(255, 255, 255, 0.32);
+            line-height: 1.75;
+            margin-bottom: 24px;
+        }
+
+        .sfs-socials {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+
+        .sfs-social-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background .25s, border-color .25s, transform .22s;
+        }
+
+        .sfs-social-btn:hover {
+            background: rgba(230, 43, 30, .12);
+            border-color: rgba(230, 43, 30, .35);
+            transform: translateY(-3px);
+        }
+
+        .sfs-social-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: rgba(255, 255, 255, 0.45);
+            transition: fill .25s;
+        }
+
+        .sfs-social-btn:hover svg {
+            fill: #E62B1E;
+        }
+
+        .sfs-copy {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.18);
+            margin-bottom: 5px;
+        }
+
+        .sfs-disclaimer {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.74rem;
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sfs-cols {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+        }
+
+        .sfs-col-h {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.22);
+            margin-bottom: 16px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .sfs-col-h::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 18px;
+            height: 1px;
+            background: rgba(230, 43, 30, 0.55);
+        }
+
+        .sfs-col a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.93rem;
+            color: rgba(255, 255, 255, 0.42);
+            text-decoration: none;
+            margin-bottom: 11px;
+            transition: color .2s, gap .2s;
+        }
+
+        .sfs-col a::before {
+            content: '';
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #E62B1E;
+            opacity: 0;
+            transition: opacity .2s;
+            flex-shrink: 0;
+        }
+
+        .sfs-col a:hover {
+            color: #fff;
+            gap: 9px;
+        }
+
+        .sfs-col a:hover::before {
+            opacity: 1;
+        }
+
+        .sfs-bottom {
+            position: relative;
+            z-index: 2;
+            margin-top: 48px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 5vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sfs-bottom-left {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.18);
+        }
+
+        .sfs-bottom-right {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .sfs-bottom-right span {
+            color: #E62B1E;
+        }
+
+        @media(max-width:920px) {
+            .sfs-inner {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .sfs-brand {
+                flex: none;
+                width: 100%;
+            }
+
+            .sfs-bottom {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+
+        @media(max-width:600px) {
+            .sfs-cols {
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+        }
+    </style>
+    <footer class="sfs" aria-label="Site Footer">
+        <div class="sfs-watermark" aria-hidden="true">TEDx</div>
+        <div class="sfs-inner">
+            <div class="sfs-brand">
+                <div class="sfs-logo">
+                    <img src="assets/images/tedx-logo.png" alt="TEDx Sreyas Institute" class="sfs-logo-img" />
+                </div>
+                <p class="sfs-desc">Ideas Worth Spreading — An independently organized TEDx event at Sreyas Institute of
+                    Engineering &amp; Technology, Hyderabad.</p>
+                <div class="sfs-socials">
+                    <a href="https://www.instagram.com/tedxsreyas_institute/" target="_blank" rel="noopener"
+                        class="sfs-social-btn" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.youtube.com/results?search_query=TEDx+Sreyas+Institute" target="_blank"
+                        rel="noopener" class="sfs-social-btn" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                    </a>
+                    <a href="https://x.com/TEDxSreyas" target="_blank" rel="noopener" class="sfs-social-btn"
+                        aria-label="X (Twitter)">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </a>
+                </div>
+                <p class="sfs-copy">All rights reserved &copy; 2026 TEDxSreyas.</p>
+                <p class="sfs-disclaimer">This independent TEDx event is operated under license from TED.</p>
+            </div>
+            <div class="sfs-cols">
+                <div class="sfs-col"><span class="sfs-col-h">Event</span><a href="about.html">About</a><a
+                        href="speakers.html">Speakers</a><a href="team.html">Team</a><a
+                        href="schedule.html">Schedule</a><a href="gallery.html">Gallery</a></div>
+                <div class="sfs-col"><span class="sfs-col-h">Socials</span><a
+                        href="https://www.instagram.com/tedxsreyas_institute/" target="_blank"
+                        rel="noopener">Instagram</a><a
+                        href="https://www.youtube.com/results?search_query=TEDx+Sreyas+Institute" target="_blank"
+                        rel="noopener">YouTube</a><a href="https://x.com/TEDxSreyas" target="_blank" rel="noopener">X
+                        (Twitter)</a></div>
+                <div class="sfs-col"><span class="sfs-col-h">Legal</span><a href="privacy.html">Privacy Policy</a><a
+                        href="terms.html">Terms of Service</a></div>
+                <div class="sfs-col"><span class="sfs-col-h">Get Involved</span><a href="booking.html">Register</a>
+                </div>
+            </div>
+        </div>
+        <div class="sfs-bottom">
+            <div class="sfs-bottom-left">All rights reserved &copy; 2026 TEDxSreyas &nbsp;&middot;&nbsp; Hyderabad,
+                India</div>
+
+        </div>
+    </footer>
+    <script src="page-transition.js"></script>
+</body>
+
+</html>
+
+</html>
